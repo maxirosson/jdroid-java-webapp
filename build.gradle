@@ -1,10 +1,18 @@
+Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
+
 allprojects {
 
 	ext.VERSION_MAJOR = 0
 	ext.VERSION_MINOR = 9
 	ext.VERSION_PATCH = 6
+	ext.VERSION_CLASSIFIER = isSnapshot ? "SNAPSHOT" : null
 
-	ext.jdroidVersion = '0.9.6-SNAPSHOT'
+	project.version = "${ext.VERSION_MAJOR}.${ext.VERSION_MINOR}.${ext.VERSION_PATCH}"
+	if (ext.VERSION_CLASSIFIER != null && !ext.VERSION_CLASSIFIER.isEmpty()) {
+		project.version = project.version + "-" + ext.VERSION_CLASSIFIER
+	}
+
+	ext.jdroidVersion = project.version
 
 	buildscript {
 		repositories {
@@ -34,5 +42,22 @@ allprojects {
 				url localMavenRepo
 			}
 		}
+	}
+}
+
+public def getProp(String propertyName) {
+	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
+}
+
+public Boolean getBooleanProp(String propertyName, Boolean defaultValue) {
+	def value = getProp(propertyName)
+	if (value == null) {
+		return defaultValue
+	} else if (value == 'true') {
+		return true
+	} else if (value == 'false') {
+		return false
+	} else {
+		throw new GradleException('Invalid Boolean value: ' + value)
 	}
 }
