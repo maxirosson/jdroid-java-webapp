@@ -1,0 +1,38 @@
+allprojects {
+
+	ext.VERSION_MAJOR = 0
+	ext.VERSION_MINOR = 9
+	ext.VERSION_PATCH = 6
+
+	ext.jdroidVersion = '0.9.6-SNAPSHOT'
+
+	buildscript {
+		repositories {
+			mavenCentral()
+			jcenter()
+			maven {
+				url "https://oss.sonatype.org/content/repositories/snapshots/"
+			}
+			String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+			if (localMavenRepo != null) {
+				maven {
+					url localMavenRepo
+				}
+			}
+		}
+	}
+
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+		if (localMavenRepo != null) {
+			maven {
+				url localMavenRepo
+			}
+		}
+	}
+}

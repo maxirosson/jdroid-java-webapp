@@ -1,0 +1,72 @@
+ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
+ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-java-webapp'
+
+apply plugin: 'com.jdroid.component.builder'
+apply plugin: 'com.jdroid.java.library'
+
+description = 'Jdroid dependency project for Java Web apps'
+
+def springVersion = '3.2.4.RELEASE'
+
+buildscript {
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
+		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
+	}
+}
+
+dependencies {
+
+	// Push for Android
+	compile "com.googlecode.json-simple:json-simple:1.1"
+
+	// Logging
+	compile "log4j:log4j:1.2.16"
+	compile "org.slf4j:slf4j-log4j12:1.6.3"
+
+	// Spring
+	compile "org.springframework:spring-core:" + springVersion
+	compile "org.springframework:spring-web:" + springVersion
+	compile "org.springframework:spring-webmvc:" + springVersion
+	compile "org.springframework:spring-orm:" + springVersion
+	compile "org.springframework:spring-context-support:" + springVersion
+
+	// Jackson
+	compile "com.fasterxml.jackson.core:jackson-core:2.2.3"
+	compile "com.fasterxml.jackson.core:jackson-databind:2.2.3"
+	compile "com.fasterxml.jackson.core:jackson-annotations:2.2.3"
+
+	// Facebook
+	compile "com.restfb:restfb:1.6.12"
+
+	// Twitter
+	// http://twitter4j.org/en/index.html#download
+	compile "org.twitter4j:twitter4j-core:4.0.3"
+
+	// Apache Commons
+	compile "commons-collections:commons-collections:3.2.2"
+	compile "commons-beanutils:commons-beanutils:1.8.3"
+
+	// Guava
+	compile "com.google.guava:guava:18.0"
+
+	// Open CSV
+	compile "net.sf.opencsv:opencsv:2.3"
+
+	// Servlet API
+	compile "javax.servlet:servlet-api:2.5"
+
+	compile "org.json:json:20131018"
+
+	// Jdroid dependencies
+	compile 'com.jdroidframework:jdroid-java:'  + jdroidVersion
+
+	// Testing
+	testCompile "org.testng:testng:6.8.21"
+	testCompile "org.mockito:mockito-all:1.10.19"
+}
+
+test {
+	useTestNG {
+	}
+}
