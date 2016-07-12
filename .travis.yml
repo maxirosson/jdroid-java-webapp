@@ -5,6 +5,12 @@ sudo: false
 jdk:
   - oraclejdk8
 
+before_install:
+  - gem install rhc
+
+before_script:
+  - echo -e "Host staging-jdroid.rhcloud.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
 script:
   - ./gradlew check uploadArchives -PLOCAL_UPLOAD=false --stacktrace
   - cd $HOME/.cache
@@ -14,5 +20,3 @@ script:
   - git commit -m 'Deploy from Travis'
   - git push
 
-before_install:
-  - gem install rhc
