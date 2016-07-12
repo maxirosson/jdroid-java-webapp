@@ -5,12 +5,11 @@ sudo: false
 jdk:
   - oraclejdk8
 
-deploy:
-  provider: openshift
-  user: $OPENSHIFT_USER
-  password: $OPENSHIFT_PASSWORD
-  domain: jdroid
-  app:
-      master: staging
-
-script: ./gradlew check uploadArchives -PLOCAL_UPLOAD=false --stacktrace
+script:
+  - ./gradlew check uploadArchives -PLOCAL_UPLOAD=false --stacktrace
+  - cd $HOME/.cache
+  - rhc git-clone -l $OPENSHIFT_USER -p $OPENSHIFT_PASSWORD -n jdroid -a staging
+  - cp $TRAVIS_BUILD_DIR/sample/build/libs/ROOT.war $HOME/.cache/staging/webapps
+  - git add .
+  - git commit -m 'Deploy from Travis'
+  - git push
