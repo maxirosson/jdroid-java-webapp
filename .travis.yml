@@ -13,3 +13,6 @@ script:
   - git add .
   - git commit -m 'Deploy from Travis'
   - git push
+
+before_install:
+  - gem install rhc
