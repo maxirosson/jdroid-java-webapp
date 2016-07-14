@@ -7,6 +7,18 @@
 |Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-java-webapp.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid-java-webapp)|
 |Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-java-webapp.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid-java-webapp)|
 
+## Features
+* Http Filters
+ * Authentication filter
+ * API version filter
+* [Spring MVC integration](http://projects.spring.io/spring-framework/)
+* [Restfb Facebook integration](http://restfb.com/)
+* [Twitter 4j integration](http://twitter4j.org/)
+* Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
+* Pagination and filtering support
+* [Log4j logging support](http://logging.apache.org/log4j/1.2/)
+* Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
+
 ## Donations
 Help us to continue with this project:
 
