@@ -1,6 +1,11 @@
+ext.VERSION_MAJOR = 0
+ext.VERSION_MINOR = 9
+ext.VERSION_PATCH = 6
+
 ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-java-webapp'
 
+apply plugin: 'com.jdroid.root'
 apply plugin: 'com.jdroid.component.builder'
 
 description = 'Jdroid dependency project for Java Web apps'
@@ -21,24 +26,11 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.9.7-SNAPSHOT'
 	}
 }
 
-Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
-
 allprojects {
-
-	ext.VERSION_MAJOR = 0
-	ext.VERSION_MINOR = 9
-	ext.VERSION_PATCH = 6
-	ext.VERSION_CLASSIFIER = isSnapshot ? "SNAPSHOT" : null
-
-	project.version = "${ext.VERSION_MAJOR}.${ext.VERSION_MINOR}.${ext.VERSION_PATCH}"
-	if (ext.VERSION_CLASSIFIER != null && !ext.VERSION_CLASSIFIER.isEmpty()) {
-		project.version = project.version + "-" + ext.VERSION_CLASSIFIER
-	}
-
-	ext.jdroidVersion = project.version
 
 	buildscript {
 		repositories {
