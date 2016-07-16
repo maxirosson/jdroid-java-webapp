@@ -1,17 +1,10 @@
-ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
-ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-java-webapp'
-
-apply plugin: 'com.jdroid.component.builder'
 apply plugin: 'com.jdroid.java.library'
-
-description = 'Jdroid dependency project for Java Web apps'
 
 def springVersion = '3.2.4.RELEASE'
 
 buildscript {
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
-		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
 	}
 }
 
