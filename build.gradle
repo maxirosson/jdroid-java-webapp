@@ -8,7 +8,8 @@ ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-java-webapp'
 apply plugin: 'com.jdroid.root'
 apply plugin: 'com.jdroid.component.builder'
 
-description = 'Jdroid dependency project for Java Web apps'
+ext.PROJECT_NAME = 'Jdroid Java Web App'
+description = 'Jdroid library for Java Web apps'
 
 buildscript {
 	repositories {
