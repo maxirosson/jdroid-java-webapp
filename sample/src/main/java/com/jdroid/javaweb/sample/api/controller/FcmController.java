@@ -4,7 +4,7 @@ import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.api.AbstractController;
-import com.jdroid.javaweb.google.gcm.GcmMessage;
+import com.jdroid.javaweb.firebase.fcm.FcmMessage;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceParser;
 import com.jdroid.javaweb.push.DeviceRepository;
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/gcm")
-public class GcmController extends AbstractController {
+@RequestMapping("/fcm")
+public class FcmController extends AbstractController {
 	
 	@Autowired
 	private PushService pushService;
@@ -40,7 +40,7 @@ public class GcmController extends AbstractController {
 					 @RequestParam(required = false) Integer timeToLive, @RequestParam(required = false) String timestampEnabled,
 					 @RequestParam(required = false) String params) {
 
-		GcmMessage pushMessage = new GcmMessage(messageKeyExtraName, messageKey);
+		FcmMessage pushMessage = new FcmMessage(messageKeyExtraName, messageKey);
 		pushMessage.setGoogleServerApiKey(googleServerApiKey);
 		if (StringUtils.isNotEmpty(registrationToken)) {
 			pushMessage.setTo(registrationToken);

@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -15,9 +15,9 @@ import com.jdroid.javaweb.push.PushResponse;
 
 import org.slf4j.Logger;
 
-public class GcmSender implements PushMessageSender {
+public class FcmSender implements PushMessageSender {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(GcmSender.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(FcmSender.class);
 
 	// Initial delay before first retry
 	private static final int BACKOFF_INITIAL_DELAY = 1000;
@@ -25,11 +25,11 @@ public class GcmSender implements PushMessageSender {
 	// Maximum delay before a retry.
 	protected static final int MAX_BACKOFF_DELAY = 1024000;
 	
-	private final static PushMessageSender INSTANCE = new GcmSender();
+	private final static PushMessageSender INSTANCE = new FcmSender();
 
-	private GcmApiService gcmApiService = new GcmApiService();
+	private FcmApiService fcmApiService = new FcmApiService();
 	
-	private GcmSender() {
+	private FcmSender() {
 	}
 	
 	public static PushMessageSender get() {
@@ -43,7 +43,7 @@ public class GcmSender implements PushMessageSender {
 
 	private PushResponse send(PushMessage pushMessage, int retries) {
 
-		GcmMessage gcmMessage = (GcmMessage)pushMessage;
+		FcmMessage fcmMessage = (FcmMessage)pushMessage;
 
 		int attempt = 0;
 		PushResponse pushResponse = null;
@@ -54,7 +54,7 @@ public class GcmSender implements PushMessageSender {
 
 			LOGGER.debug("Attempt #" + attempt + " to send message " + pushMessage);
 			try {
-				pushResponse = sendNoRetry(gcmMessage);
+				pushResponse = sendNoRetry(fcmMessage);
 				tryAgain = (pushResponse == null || !pushResponse.getRegistrationTokensToRetry().isEmpty()) && attempt <= retries;
 			} catch (ConnectionException e) {
 				LOGGER.error("ConnectionException when sending a push", e);
@@ -63,7 +63,7 @@ public class GcmSender implements PushMessageSender {
 
 			if (tryAgain) {
 				if (pushResponse != null && !pushResponse.getRegistrationTokensToRetry().isEmpty()) {
-					gcmMessage.setRegistrationIds(pushResponse.getRegistrationTokensToRetry());
+					fcmMessage.setRegistrationIds(pushResponse.getRegistrationTokensToRetry());
 				}
 				int sleepTime = backoff / 2 + RandomUtils.getInt(backoff);
 				LOGGER.debug("Next attempt on " + sleepTime / 1000 + " seconds");
@@ -80,47 +80,47 @@ public class GcmSender implements PushMessageSender {
 	}
 	
 
-	private PushResponse sendNoRetry(GcmMessage gcmMessage) {
+	private PushResponse sendNoRetry(FcmMessage fcmMessage) {
 
-		String googleServerApiKey = StringUtils.isNotBlank(gcmMessage.getGoogleServerApiKey()) ? gcmMessage.getGoogleServerApiKey() : Application.get().getAppContext().getGoogleServerApiKey();
-		GcmResponse gcmResponse = gcmApiService.sendMessage(gcmMessage, googleServerApiKey);
+		String googleServerApiKey = StringUtils.isNotBlank(fcmMessage.getGoogleServerApiKey()) ? fcmMessage.getGoogleServerApiKey() : Application.get().getAppContext().getGoogleServerApiKey();
+		FcmResponse fcmResponse = fcmApiService.sendMessage(fcmMessage, googleServerApiKey);
 
 		PushResponse pushResponse = new PushResponse(DeviceType.ANDROID);
-		if (!gcmResponse.isOk()) {
-			for (int i = 0; i < gcmResponse.getResults().size(); i++) {
-				GcmResult each = gcmResponse.getResults().get(i);
+		if (!fcmResponse.isOk()) {
+			for (int i = 0; i < fcmResponse.getResults().size(); i++) {
+				FcmResult each = fcmResponse.getResults().get(i);
 				if (each.getMessageId() != null) {
 					if (each.getRegistrationId() != null) {
 						// Replace the original ID with the new value (canonical ID) in your server database.
 						// Note that the original ID is not part of the result, so you need to obtain it from the list of registration_ids passed in
 						// the request (using the same index).
-						String registrationIdToReplace = gcmMessage.getRegistrationIds().get(i);
+						String registrationIdToReplace = fcmMessage.getRegistrationIds().get(i);
 						pushResponse.addRegistrationTokenToReplace(registrationIdToReplace, each.getRegistrationId());
 						LOGGER.info("Registration id [" + registrationIdToReplace + "] to be replaced by " + each.getRegistrationId());
 					}
 				} else {
-					LOGGER.error("Error [" + each.getError() + "] when sending GCM message/s");
+					LOGGER.error("Error [" + each.getError() + "] when sending FCM message/s");
 					if ("Unavailable".equals(each.getError())) {
 						// The server couldn't process the request in time. Retry the same request, but you must:
-						// 	Honor the Retry-After header if it is included in the response from the GCM Connection Server.
+						// 	Honor the Retry-After header if it is included in the response from the FCM Connection Server.
 						// 	Implement exponential back-off in your retry mechanism. (e.g. if you waited one second before the first retry,
 						// 	wait at least two second before the next one, then 4 seconds and so on). If you're sending multiple messages,
 						// 	delay each one independently by an additional random amount to avoid issuing a new request for all messages at the same time.
 						// Senders that cause problems risk being blacklisted.
-						if (gcmMessage.getTo() != null) {
+						if (fcmMessage.getTo() != null) {
 							return null;
 						} else {
-							pushResponse.addRegistrationTokenToRetry(gcmMessage.getRegistrationIds().get(i));
+							pushResponse.addRegistrationTokenToRetry(fcmMessage.getRegistrationIds().get(i));
 							return pushResponse;
 						}
 					} else if ("NotRegistered".equals(each.getError())) {
 						// you should remove the registration ID from your server database because the application was uninstalled from the device,
 						// or the client app isn't configured to receive messages.
 						String registrationIdToRemove = null;
-						if (gcmMessage.getTo() != null) {
-							registrationIdToRemove = gcmMessage.getTo();
+						if (fcmMessage.getTo() != null) {
+							registrationIdToRemove = fcmMessage.getTo();
 						} else {
-							registrationIdToRemove = gcmMessage.getRegistrationIds().get(i);
+							registrationIdToRemove = fcmMessage.getRegistrationIds().get(i);
 						}
 						LOGGER.info("Registration id [" + registrationIdToRemove + "] to be removed");
 						pushResponse.addRegistrationTokenToRemove(registrationIdToRemove);
@@ -129,11 +129,11 @@ public class GcmSender implements PushMessageSender {
 			}
 		} else {
 			StringBuilder builder = new StringBuilder();
-			builder.append("Gcm message sent successfully. ");
-			builder.append(gcmMessage.toString());
-			if (!Lists.isNullOrEmpty(gcmResponse.getResults())) {
+			builder.append("Fcm message sent successfully. ");
+			builder.append(fcmMessage.toString());
+			if (!Lists.isNullOrEmpty(fcmResponse.getResults())) {
 				builder.append(". Message id: ");
-				builder.append(gcmResponse.getResults().get(0).getMessageId());
+				builder.append(fcmResponse.getResults().get(0).getMessageId());
 			}
 			LOGGER.info(builder.toString());
 		}

@@ -1,13 +1,13 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
-public enum GcmMessagePriority {
+public enum FcmMessagePriority {
 
 	NORMAL("normal"),
 	HIGH("high");
 
 	private String parameter;
 
-	GcmMessagePriority(String parameter) {
+	FcmMessagePriority(String parameter) {
 		this.parameter = parameter;
 	}
 
@@ -15,8 +15,8 @@ public enum GcmMessagePriority {
 		return parameter;
 	}
 
-	public static GcmMessagePriority findByParameter(String parameter) {
-		for (GcmMessagePriority each : values()) {
+	public static FcmMessagePriority findByParameter(String parameter) {
+		for (FcmMessagePriority each : values()) {
 			if (each.getParameter().equals(parameter)) {
 				return each;
 			}

@@ -1,8 +1,8 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
 import java.util.List;
 
-public class GcmResponse {
+public class FcmResponse {
 
 	// Required. Number of messages that were processed without an error.
 	private Integer success;
@@ -18,7 +18,7 @@ public class GcmResponse {
 
 	// List representing the status of the messages processed. The objects are listed in the same order
 	// as the request (i.e., for each registration ID in the request, its result is listed in the same index in the response).
-	private List<GcmResult> results;
+	private List<FcmResult> results;
 
 	public Boolean isOk() {
 		if (failure != null && failure == 0 && canonicalIds != null && canonicalIds == 0) {
@@ -27,7 +27,7 @@ public class GcmResponse {
 		return false;
 	}
 
-	public List<GcmResult> getResults() {
+	public List<FcmResult> getResults() {
 		return results;
 	}
 
@@ -63,7 +63,7 @@ public class GcmResponse {
 		this.multicastId = multicastId;
 	}
 
-	public void setResults(List<GcmResult> results) {
+	public void setResults(List<FcmResult> results) {
 		this.results = results;
 	}
 }

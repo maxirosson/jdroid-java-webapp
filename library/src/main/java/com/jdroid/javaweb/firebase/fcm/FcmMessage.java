@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
@@ -9,7 +9,7 @@ import com.jdroid.javaweb.push.PushMessage;
 import java.util.List;
 import java.util.Map;
 
-public class GcmMessage implements PushMessage {
+public class FcmMessage implements PushMessage {
 
 	private String googleServerApiKey;
 
@@ -27,21 +27,21 @@ public class GcmMessage implements PushMessage {
 	// This is intended to avoid sending too many of the same messages when the device comes back online or becomes active (see delay_while_idle).
 	// Note that there is no guarantee of the order in which messages get sent.
 	// Note: A maximum of 4 different collapse keys is allowed at any given time.
-	// This means a GCM connection server can simultaneously store 4 different send-to-sync messages per client app.
-	// If you exceed this number, there is no guarantee which 4 collapse keys the GCM connection server will keep.
+	// This means a FCM connection server can simultaneously store 4 different send-to-sync messages per client app.
+	// If you exceed this number, there is no guarantee which 4 collapse keys the FCM connection server will keep.
 	private String collapseKey;
 
 	// Sets the priority of the message. Valid values are "normal" and "high." On iOS, these correspond to APNs priority 5 and 10.
 	// By default, messages are sent with normal priority. Normal priority optimizes the client app's battery consumption,
 	// and should be used unless immediate delivery is required. For messages with normal priority, the app may receive the message with unspecified delay.
 	// When a message is sent with high priority, it is sent immediately, and the app can wake a sleeping device and open a network connection to your server.
-	private GcmMessagePriority priority = GcmMessagePriority.NORMAL;
+	private FcmMessagePriority priority = FcmMessagePriority.NORMAL;
 
 	// Optional. When this parameter is set to true, it indicates that the message should not be sent until
 	// the device becomes active. The default value is false.
 	private Boolean delayWhileIdle = false;
 
-	// Optional. This parameter specifies how long (in seconds) the message should be kept in GCM storage if the device is offline.
+	// Optional. This parameter specifies how long (in seconds) the message should be kept in FCM storage if the device is offline.
 	// The maximum time to live supported is 4 weeks. The default value is 4 weeks.
 	private Integer timeToLive;
 
@@ -49,22 +49,22 @@ public class GcmMessage implements PushMessage {
 	// For example, with data:{"score":"3x1"}:
 	// - On Android, this would result in an intent extra named score with the string value 3x1.
 	// - On iOS, if the message is sent via APNS, it represents the custom data fields.
-	//   If it is sent via GCM connection server, it would be represented as key value dictionary in
+	//   If it is sent via FCM connection server, it would be represented as key value dictionary in
 	//   AppDelegate application:didReceiveRemoteNotification:.
 	// The key should not be a reserved word ("from" or any word starting with "google" or "gcm").
 	// Values in string types are recommended. You have to convert values in objects or other non-string
 	// data types (e.g., integers or booleans) to string.
 	private Map<String, String> data = Maps.newHashMap();
 
-	public GcmMessage() {
+	public FcmMessage() {
 		// Do nothing
 	}
 
-	public GcmMessage(String messageKey) {
+	public FcmMessage(String messageKey) {
 		this("messageKey", messageKey);
 	}
 
-	public GcmMessage(String messageKeyExtraName, String messageKey) {
+	public FcmMessage(String messageKeyExtraName, String messageKey) {
 		addParameter(messageKeyExtraName, messageKey);
 	}
 
@@ -137,16 +137,16 @@ public class GcmMessage implements PushMessage {
 		this.collapseKey = collapseKey;
 	}
 
-	public GcmMessagePriority getPriority() {
+	public FcmMessagePriority getPriority() {
 		return priority;
 	}
 
-	public void setPriority(GcmMessagePriority priority) {
+	public void setPriority(FcmMessagePriority priority) {
 		this.priority = priority;
 	}
 
 	public void markAsHighPriority() {
-		this.priority = GcmMessagePriority.HIGH;
+		this.priority = FcmMessagePriority.HIGH;
 	}
 
 	public Boolean isDelayWhileIdle() {
@@ -175,7 +175,7 @@ public class GcmMessage implements PushMessage {
 
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("GcmMessage{");
+		final StringBuffer sb = new StringBuffer("FcmMessage{");
 		sb.append("googleServerApiKey='").append(googleServerApiKey).append('\'');
 		sb.append(", to='").append(to).append('\'');
 		sb.append(", registrationIds=").append(registrationIds);

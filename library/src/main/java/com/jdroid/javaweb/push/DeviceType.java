@@ -1,9 +1,9 @@
 package com.jdroid.javaweb.push;
 
-import com.jdroid.javaweb.google.gcm.GcmSender;
+import com.jdroid.javaweb.firebase.fcm.FcmSender;
 
 public enum DeviceType {
-	ANDROID("android", GcmSender.get()),
+	ANDROID("android", FcmSender.get()),
 	IOS("iOS", null);
 
 	private String userAgent;

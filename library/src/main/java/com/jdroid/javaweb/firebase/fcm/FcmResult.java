@@ -1,6 +1,6 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
-public class GcmResult {
+public class FcmResult {
 
 	// String specifying a unique ID for each successfully processed message.
 	private String messageId;

@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.BasicHttpResponseValidator;
@@ -13,24 +13,24 @@ import com.jdroid.javaweb.api.ServerApiService;
 
 import java.util.List;
 
-public class GcmApiService extends ServerApiService {
+public class FcmApiService extends ServerApiService {
 
 	static {
-		MarshallerProvider.get().addMarshaller(GcmMessage.class, new GcmMessageMarshaller());
+		MarshallerProvider.get().addMarshaller(FcmMessage.class, new FcmMessageMarshaller());
 	}
 
-	public GcmResponse sendMessage(GcmMessage gcmMessage, String googleServerApiKey) {
+	public FcmResponse sendMessage(FcmMessage fcmMessage, String googleServerApiKey) {
 		BodyEnclosingHttpService httpService = newPostService("send");
 		httpService.addHeader(HttpService.CONTENT_TYPE_HEADER, MimeType.JSON);
 		httpService.addHeader("Authorization", "key=" + googleServerApiKey);
 		httpService.setSsl(true);
-		marshall(httpService, gcmMessage);
-		return httpService.execute(new GcmResponseParser());
+		marshall(httpService, fcmMessage);
+		return httpService.execute(new FcmResponseParser());
 	}
 
 	@Override
 	protected Server getServer() {
-		return new DefaultServer("gcm", "gcm-http.googleapis.com/gcm", true);
+		return new DefaultServer("fcm", "fcm-http.googleapis.com/fcm", true);
 	}
 
 	@Override

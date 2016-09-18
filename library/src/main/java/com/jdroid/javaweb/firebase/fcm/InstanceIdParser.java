@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.google.gcm;
+package com.jdroid.javaweb.firebase.fcm;
 
 import com.jdroid.java.http.parser.json.JsonParser;
 import com.jdroid.java.json.JSONObject;
