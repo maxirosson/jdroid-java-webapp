@@ -1,6 +1,6 @@
 ext.VERSION_MAJOR = 0
-ext.VERSION_MINOR = 9
-ext.VERSION_PATCH = 7
+ext.VERSION_MINOR = 10
+ext.VERSION_PATCH = 0
 
 ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-java-webapp'
@@ -27,7 +27,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.9.7-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.11.0-SNAPSHOT'
 	}
 }
 

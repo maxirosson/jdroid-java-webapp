@@ -5,5 +5,5 @@ sudo: false
 jdk:
   - oraclejdk8
 
-script: ./gradlew check uploadArchives -PLOCAL_UPLOAD=false --stacktrace
+script: ./gradlew clean check uploadArchives -PLOCAL_UPLOAD=false --stacktrace
 

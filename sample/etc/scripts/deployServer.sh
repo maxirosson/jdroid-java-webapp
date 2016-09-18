@@ -46,6 +46,7 @@ fi
 cd $PROJECT_HOME
 git add -A
 git stash
+git pull
 git co $BRANCH
 git pull
 
