@@ -15,10 +15,6 @@ public class FcmMessageParser extends JsonParser<JSONObject> {
 		if (priority != null) {
 			fcmMessage.setPriority(priority);
 		}
-		Boolean delayWhileIdle = json.optBoolean(FcmMessageMarshaller.DELAY_WHILE_IDLE);
-		if (delayWhileIdle != null) {
-			fcmMessage.setDelayWhileIdle(delayWhileIdle);
-		}
 		fcmMessage.setTimeToLive(json.optInt(FcmMessageMarshaller.TIME_TO_LIVE));
 		JSONObject data = json.getJSONObject(FcmMessageMarshaller.DATA);
 		for (Object each : data.keySet()) {

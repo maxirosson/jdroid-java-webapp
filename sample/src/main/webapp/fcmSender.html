@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>GCM Push Sender</title>
+<title>FCM Sender</title>
 <script type="text/javascript">
 	function send() {
 		
 		var separator = "|";
 
-		var url = "api/gcm/send?";
+		var url = "api/fcm/send?";
 
 		url += "googleServerApiKey=" + document.getElementById("googleServerApiKey").value;
 		url += "&registrationToken=" + document.getElementById("registrationToken").value;
@@ -16,7 +16,6 @@
 		url += "&messageKey=" + document.getElementById("messageKey").value;
 		url += "&collapseKey=" + document.getElementById("collapseKey").value;
 		url += "&highPriority=" + document.getElementById("highPriority").value;
-		url += "&delayWhileIdle=" + document.getElementById("delayWhileIdle").value;
 		url += "&timeToLive=" + document.getElementById("timeToLive").value;
 		url += "&timestampEnabled=" + document.getElementById("timestampEnabled").value;
 
@@ -90,7 +89,7 @@
 </script>
 </head>
 <body>
-	<h1>GCM Push Sender</h1>
+	<h1>FCM Sender</h1>
 	Google Server Api Key
 	<input id="googleServerApiKey" type="text" />
 	<br />Registration Token
@@ -103,8 +102,6 @@
 	<input id="collapseKey" type="text" />
 	<br /> High Priority
 	<input id="highPriority" type="text" value="false" />
-	<br /> Delay while idle
-	<input id="delayWhileIdle" type="text" value="false" />
 	<br /> Time to live
 	<input id="timeToLive" type="text" />
 	<br /> Include timestamp on payload

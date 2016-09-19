@@ -36,7 +36,7 @@ public class FcmController extends AbstractController {
 	public void send(@RequestParam(required = false) String googleServerApiKey, @RequestParam(required = false) String registrationToken,
 					 @RequestParam String messageKeyExtraName,
 					 @RequestParam String messageKey, @RequestParam(required = false) String collapseKey,
-					 @RequestParam(required = false) String highPriority, @RequestParam(required = false) String delayWhileIdle,
+					 @RequestParam(required = false) String highPriority,
 					 @RequestParam(required = false) Integer timeToLive, @RequestParam(required = false) String timestampEnabled,
 					 @RequestParam(required = false) String params) {
 
@@ -57,7 +57,6 @@ public class FcmController extends AbstractController {
 		if (highPriority != null && highPriority.equalsIgnoreCase("true")) {
 			pushMessage.markAsHighPriority();
 		}
-		pushMessage.setDelayWhileIdle(delayWhileIdle != null && delayWhileIdle.equalsIgnoreCase("true"));
 		pushMessage.setTimeToLive(timeToLive);
 		if (timestampEnabled != null && timestampEnabled.equalsIgnoreCase("true")) {
 			pushMessage.addParameter("timestamp", DateUtils.nowMillis());

@@ -99,8 +99,8 @@ public class FcmSender implements PushMessageSender {
 						LOGGER.info("Registration id [" + registrationIdToReplace + "] to be replaced by " + each.getRegistrationId());
 					}
 				} else {
-					LOGGER.error("Error [" + each.getError() + "] when sending FCM message/s");
 					if ("Unavailable".equals(each.getError())) {
+						LOGGER.info("Error [" + each.getError() + "] when sending FCM message/s");
 						// The server couldn't process the request in time. Retry the same request, but you must:
 						// 	Honor the Retry-After header if it is included in the response from the FCM Connection Server.
 						// 	Implement exponential back-off in your retry mechanism. (e.g. if you waited one second before the first retry,
@@ -114,16 +114,15 @@ public class FcmSender implements PushMessageSender {
 							return pushResponse;
 						}
 					} else if ("NotRegistered".equals(each.getError())) {
-						// you should remove the registration ID from your server database because the application was uninstalled from the device,
+						LOGGER.info("Error [" + each.getError() + "] when sending FCM message/s");
+						// Remove the registration ID from the server database because the application was uninstalled from the device,
 						// or the client app isn't configured to receive messages.
-						String registrationIdToRemove = null;
-						if (fcmMessage.getTo() != null) {
-							registrationIdToRemove = fcmMessage.getTo();
-						} else {
-							registrationIdToRemove = fcmMessage.getRegistrationIds().get(i);
-						}
-						LOGGER.info("Registration id [" + registrationIdToRemove + "] to be removed");
-						pushResponse.addRegistrationTokenToRemove(registrationIdToRemove);
+						removeRegistrationId(fcmMessage, pushResponse, i);
+					} else {
+						// there is something wrong in the registration token passed in the request; it is probably a non-recoverable error
+						// that will require removing the registration from the server database
+						LOGGER.error("Error [" + each.getError() + "] when sending FCM message/s");
+						removeRegistrationId(fcmMessage, pushResponse, i);
 					}
 				}
 			}
@@ -138,5 +137,18 @@ public class FcmSender implements PushMessageSender {
 			LOGGER.info(builder.toString());
 		}
 		return pushResponse;
+	}
+
+	private void removeRegistrationId(FcmMessage fcmMessage, PushResponse pushResponse, int index) {
+		// you should remove the registration ID from your server database because the application was uninstalled from the device,
+		// or the client app isn't configured to receive messages.
+		String registrationIdToRemove = null;
+		if (fcmMessage.getTo() != null) {
+			registrationIdToRemove = fcmMessage.getTo();
+		} else {
+			registrationIdToRemove = fcmMessage.getRegistrationIds().get(index);
+		}
+		LOGGER.info("Registration id [" + registrationIdToRemove + "] to be removed");
+		pushResponse.addRegistrationTokenToRemove(registrationIdToRemove);
 	}
 }

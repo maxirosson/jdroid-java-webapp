@@ -21,10 +21,7 @@ public class FcmResponse {
 	private List<FcmResult> results;
 
 	public Boolean isOk() {
-		if (failure != null && failure == 0 && canonicalIds != null && canonicalIds == 0) {
-			return true;
-		}
-		return false;
+		return failure != null && failure == 0 && canonicalIds != null && canonicalIds == 0;
 	}
 
 	public List<FcmResult> getResults() {

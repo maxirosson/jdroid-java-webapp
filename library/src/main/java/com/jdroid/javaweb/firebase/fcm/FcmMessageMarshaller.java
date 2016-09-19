@@ -12,7 +12,6 @@ public class FcmMessageMarshaller implements Marshaller<FcmMessage, JsonMap> {
 	public static final String REGISTRATION_IDS = "registration_ids";
 	public static final String TO = "to";
 	public static final String PRIORITY = "priority";
-	public static final String DELAY_WHILE_IDLE = "delay_while_idle";
 	public static final String TIME_TO_LIVE = "time_to_live";
 	public static final String DATA = "data";
 
@@ -23,7 +22,6 @@ public class FcmMessageMarshaller implements Marshaller<FcmMessage, JsonMap> {
 		jsonMap.put(REGISTRATION_IDS, fcmMessage.getRegistrationIds());
 		jsonMap.put(COLLAPSE_KEY, fcmMessage.getCollapseKey());
 		jsonMap.put(PRIORITY, fcmMessage.getPriority().getParameter());
-		jsonMap.put(DELAY_WHILE_IDLE, fcmMessage.isDelayWhileIdle());
 		jsonMap.put(TIME_TO_LIVE, fcmMessage.getTimeToLive());
 		jsonMap.put(DATA, fcmMessage.getParameters());
 		return jsonMap;

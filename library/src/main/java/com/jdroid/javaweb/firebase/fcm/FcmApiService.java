@@ -30,7 +30,7 @@ public class FcmApiService extends ServerApiService {
 
 	@Override
 	protected Server getServer() {
-		return new DefaultServer("fcm", "fcm-http.googleapis.com/fcm", true);
+		return new DefaultServer("fcm", "fcm.googleapis.com/fcm", true);
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class FcmMessage implements PushMessage {
 
 	// Optional. This parameter identifies a group of messages (e.g., with collapse_key: "Updates Available") that can be collapsed,
 	// so that only the last message gets sent when delivery can be resumed.
-	// This is intended to avoid sending too many of the same messages when the device comes back online or becomes active (see delay_while_idle).
+	// This is intended to avoid sending too many of the same messages when the device comes back online or becomes active.
 	// Note that there is no guarantee of the order in which messages get sent.
 	// Note: A maximum of 4 different collapse keys is allowed at any given time.
 	// This means a FCM connection server can simultaneously store 4 different send-to-sync messages per client app.
@@ -36,10 +36,6 @@ public class FcmMessage implements PushMessage {
 	// and should be used unless immediate delivery is required. For messages with normal priority, the app may receive the message with unspecified delay.
 	// When a message is sent with high priority, it is sent immediately, and the app can wake a sleeping device and open a network connection to your server.
 	private FcmMessagePriority priority = FcmMessagePriority.NORMAL;
-
-	// Optional. When this parameter is set to true, it indicates that the message should not be sent until
-	// the device becomes active. The default value is false.
-	private Boolean delayWhileIdle = false;
 
 	// Optional. This parameter specifies how long (in seconds) the message should be kept in FCM storage if the device is offline.
 	// The maximum time to live supported is 4 weeks. The default value is 4 weeks.
@@ -149,14 +145,6 @@ public class FcmMessage implements PushMessage {
 		this.priority = FcmMessagePriority.HIGH;
 	}
 
-	public Boolean isDelayWhileIdle() {
-		return delayWhileIdle;
-	}
-
-	public void setDelayWhileIdle(Boolean delayWhileIdle) {
-		this.delayWhileIdle = delayWhileIdle;
-	}
-
 	public Integer getTimeToLive() {
 		return timeToLive;
 	}
@@ -181,7 +169,6 @@ public class FcmMessage implements PushMessage {
 		sb.append(", registrationIds=").append(registrationIds);
 		sb.append(", collapseKey='").append(collapseKey).append('\'');
 		sb.append(", priority=").append(priority);
-		sb.append(", delayWhileIdle=").append(delayWhileIdle);
 		sb.append(", timeToLive=").append(timeToLive);
 		sb.append(", data=").append(data);
 		sb.append('}');
