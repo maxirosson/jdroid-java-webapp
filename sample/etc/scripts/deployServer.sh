@@ -30,10 +30,7 @@ OPENSHIFT_HOME=$BUILD_DIRECTORY/openshift/$PROJECT_NAME/remote/$TARGET_APP/webap
 
 if [ ! -d "$SOURCE_DIRECTORY" ]
 then
-	# Clean the directories
 	mkdir -p $SOURCE_DIRECTORY
-
-	# Checkout the project
 	cd $SOURCE_DIRECTORY
 	echo Cloning git@github.com:maxirosson/$PROJECT_NAME.git
 	git clone git@github.com:maxirosson/$PROJECT_NAME.git $PROJECT_NAME
