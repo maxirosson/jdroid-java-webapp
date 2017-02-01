@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.rollbar;
 
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 import org.apache.log4j.helpers.LogLog;
 import org.json.JSONArray;

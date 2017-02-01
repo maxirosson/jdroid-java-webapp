@@ -2,24 +2,13 @@ package com.jdroid.javaweb.context;
 
 import com.jdroid.java.context.GitContext;
 
-public class ServerGitContext implements GitContext {
-
-	private String sha;
-	private String branch;
+public class ServerGitContext extends AbstractAppContext implements GitContext {
 
 	public String getSha() {
-		return sha;
+		return getBuildConfigValue("GIT_BRANCH");
 	}
 
 	public String getBranch() {
-		return branch;
-	}
-
-	public void setSha(String sha) {
-		this.sha = sha;
-	}
-
-	public void setBranch(String branch) {
-		this.branch = branch;
+		return getBuildConfigValue("GIT_SHA");
 	}
 }

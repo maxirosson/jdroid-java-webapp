@@ -3,7 +3,7 @@ package com.jdroid.javaweb.api;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.StringUtils;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 import java.util.Map;
 

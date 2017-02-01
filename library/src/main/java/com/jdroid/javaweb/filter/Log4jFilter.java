@@ -3,7 +3,7 @@ package com.jdroid.javaweb.filter;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 import org.apache.log4j.MDC;
 import org.slf4j.Logger;

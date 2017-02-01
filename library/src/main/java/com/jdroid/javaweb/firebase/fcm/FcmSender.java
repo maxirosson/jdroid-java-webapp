@@ -7,7 +7,7 @@ import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushMessage;
 import com.jdroid.javaweb.push.PushMessageSender;

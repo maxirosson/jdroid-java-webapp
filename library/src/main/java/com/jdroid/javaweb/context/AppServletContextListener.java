@@ -2,9 +2,9 @@ package com.jdroid.javaweb.context;
 
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.exception.DefaultExceptionHandler;
-import com.jdroid.javaweb.rollbar.RollBarLoggerFactory;
 
 import org.apache.log4j.helpers.LogLog;
+import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.Log4jConfigurer;
@@ -21,14 +21,14 @@ public class AppServletContextListener implements ServletContextListener {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(AppServletContextListener.class);
 	
-	/**
-	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
-	 */
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 
 		LoggerUtils.setEnabled(true);
-		LoggerUtils.setDefaultLoggerFactory(new RollBarLoggerFactory());
+		ILoggerFactory loggerFactory = createLoggerFactory();
+		if (loggerFactory != null) {
+			LoggerUtils.setDefaultLoggerFactory(loggerFactory);
+		}
 
 		Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
 
@@ -46,12 +46,13 @@ public class AppServletContextListener implements ServletContextListener {
 		}
 	}
 	
-	/**
-	 * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
-	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		LOGGER.info("Shutdown Logging.");
 		Log4jConfigurer.shutdownLogging();
+	}
+
+	protected ILoggerFactory createLoggerFactory() {
+		return null;
 	}
 }

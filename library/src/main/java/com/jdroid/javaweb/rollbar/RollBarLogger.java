@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.rollbar;
 
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -339,14 +339,14 @@ public class RollBarLogger implements Logger {
 	}
 
 	private void log(final Level level, final String message, final Throwable throwable) {
-		if (Application.get().getAppContext().isRollBarEnabled()) {
+		if (RollBarAppModule.get().getRollBarContext().isRollBarEnabled()) {
 			executor.execute(new Runnable() {
 
 				@Override
 				public void run() {
 					try {
 						RollBarNotifyBuilder builder = new RollBarNotifyBuilder();
-						builder.setAccessToken(Application.get().getAppContext().getRollBarAccessToken());
+						builder.setAccessToken(RollBarAppModule.get().getRollBarContext().getRollBarAccessToken());
 						builder.setEnvironment(Application.get().getAppContext().getAppName() + "-" + Application.get().getAppContext().getBuildType());
 						builder.setLevel(level);
 						builder.setMessage(message);

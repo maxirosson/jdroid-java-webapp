@@ -3,7 +3,7 @@ package com.jdroid.javaweb.api;
 import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.http.mock.JsonMockHttpService;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 public abstract class ServerApiService extends AbstractApiService {
 	

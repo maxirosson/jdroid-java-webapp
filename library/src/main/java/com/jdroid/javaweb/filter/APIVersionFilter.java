@@ -2,7 +2,7 @@ package com.jdroid.javaweb.filter;
 
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.ApiExceptionHandler;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 
 import org.slf4j.Logger;

@@ -1,9 +1,10 @@
 package com.jdroid.javaweb.api;
 
 import com.google.common.collect.Maps;
-import com.jdroid.java.http.MimeType;
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.java.http.MimeType;
+import com.jdroid.javaweb.application.AppModule;
+import com.jdroid.javaweb.application.Application;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,12 +43,15 @@ public class AdminController extends AbstractController {
 		infoMap.put("Twitter Oauth Access Token", Application.get().getAppContext().getTwitterOAuthAccessToken());
 		infoMap.put("Twitter Oauth Access Token Secret", Application.get().getAppContext().getTwitterOAuthAccessTokenSecret());
 
-		// RollBar
-		infoMap.put("RollBar Enabled", Application.get().getAppContext().isRollBarEnabled());
-		infoMap.put("RollBar Access Token", Application.get().getAppContext().getRollBarAccessToken());
-
 		// Google
 		infoMap.put("Google Server API Key", Application.get().getAppContext().getGoogleServerApiKey());
+
+		for (AppModule appModule : Application.get().getAppModules()) {
+			Map<String, String> params = appModule.createAppInfoParameters();
+			if (params != null) {
+				infoMap.putAll(params);
+			}
+		}
 
 		infoMap.putAll(getCustomInfoMap());
 

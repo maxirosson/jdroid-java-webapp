@@ -1,11 +1,20 @@
-package com.jdroid.javaweb.context;
+package com.jdroid.javaweb.application;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Entity;
+import com.jdroid.javaweb.context.AbstractSecurityContext;
+import com.jdroid.javaweb.context.AppContext;
+import com.jdroid.javaweb.context.SecurityContextHolder;
+import com.jdroid.javaweb.context.ServerGitContext;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -15,10 +24,6 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 	
 	private static Application<?> INSTANCE;
 	
-	public Application() {
-		INSTANCE = this;
-	}
-	
 	public static Application<?> get() {
 		return INSTANCE;
 	}
@@ -27,9 +32,47 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 	private GitContext gitContext;
 	private SecurityContextHolder<T> securityContextHolder;
 	private ApplicationContext springApplicationContext;
-	
+
+	private Map<String, AppModule> appModulesMap = Maps.newLinkedHashMap();
+
+	public Application() {
+		INSTANCE = this;
+
+		appContext = createAppContext();
+		gitContext = createGitContext();
+
+		initAppModule(appModulesMap);
+		for (AppModule each : appModulesMap.values()) {
+			each.onCreateApplication();
+		}
+	}
+
+	protected void initAppModule(Map<String, AppModule> appModulesMap) {
+		// Do nothing
+	}
+
+	public AppModule getAppModule(String appModuleName) {
+		return appModulesMap.get(appModuleName);
+	}
+
+	public List<AppModule> getAppModules() {
+		return Lists.newArrayList(appModulesMap.values());
+	}
+
+	protected AppContext createAppContext() {
+		return new AppContext();
+	}
+
+	protected GitContext createGitContext() {
+		return new ServerGitContext();
+	}
+
 	public AppContext getAppContext() {
 		return appContext;
+	}
+
+	public Class<?> getBuildConfigClass() {
+		return null;
 	}
 	
 	/**
@@ -47,9 +90,6 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		return springApplicationContext.getBean(beanName);
 	}
 	
-	/**
-	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(ApplicationContext)
-	 */
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.springApplicationContext = applicationContext;
@@ -62,18 +102,7 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		this.securityContextHolder = securityContextHolder;
 	}
 	
-	/**
-	 * @param appContext the appContext to set
-	 */
-	public void setAppContext(AppContext appContext) {
-		this.appContext = appContext;
-	}
-
 	public GitContext getGitContext() {
 		return gitContext;
-	}
-
-	public void setGitContext(GitContext gitContext) {
-		this.gitContext = gitContext;
 	}
 }

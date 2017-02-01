@@ -3,7 +3,7 @@ package com.jdroid.javaweb.push;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,7 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.ApiExceptionHandler;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
 

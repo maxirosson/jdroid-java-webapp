@@ -2,7 +2,7 @@ package com.jdroid.javaweb.twitter;
 
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.context.Application;
+import com.jdroid.javaweb.application.Application;
 
 import org.slf4j.Logger;
 

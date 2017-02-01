@@ -44,7 +44,7 @@
 	<!--</filter-mapping>-->
 
 	<listener>
-		<listener-class>com.jdroid.javaweb.context.AppServletContextListener</listener-class>
+		<listener-class>com.jdroid.javaweb.sample.context.ServerAppServletContextListener</listener-class>
 	</listener>
 
 	<listener>

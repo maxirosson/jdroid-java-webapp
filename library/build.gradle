@@ -4,7 +4,7 @@ def springVersion = '3.2.4.RELEASE'
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.13.0'
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + JDROID_PLUGIN_VERSION
 	}
 }
 
