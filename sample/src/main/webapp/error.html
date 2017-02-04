@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FCM Sender</title>
+<script type="text/javascript">
+	function send() {
+
+		var url = "api/error/log?";
+
+		url += "message=" + document.getElementById("message").value;
+		url += "&errorLevel=" + document.getElementById("errorLevel").checked;
+		url += "&newThread=" + document.getElementById("newThread").checked;
+		url += "&exception=" + document.getElementById("exception").checked;
+
+		var i = document.createElement("img");
+		i.src = url;
+	}
+</script>
+</head>
+<body>
+	<h1>Error Logger</h1>
+
+	Message
+	<input id="message" type="text" value="Sample message"/>
+
+	<br /> Error Level
+	<input id="errorLevel" type="checkbox" />
+
+	<br /> New Thread
+	<input id="newThread" type="checkbox" />
+
+	<br /> Exception
+	<input id="exception" type="checkbox" />
+
+	<br />
+	<br />
+	<input type="button" value="Send" onclick="javascript:send();" />
+
+</body>
+</html>

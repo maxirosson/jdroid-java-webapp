@@ -14,6 +14,7 @@
 * [Spring MVC integration](http://projects.spring.io/spring-framework/)
 * [Restfb Facebook integration](http://restfb.com/)
 * [Twitter 4j integration](http://twitter4j.org/)
+* [Sentry integration](http://sentry.io)
 * Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
 * Pagination and filtering support
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)

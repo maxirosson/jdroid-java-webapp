@@ -199,10 +199,7 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 				}
 			}
 			
-			if (logger.isWarnEnabled()) {
-				logger.warn("Could not find HttpMessageConverter that supports return type [" + error.getClass()
-						+ "] and " + acceptedMediaTypes);
-			}
+			LOGGER.warn("Could not find HttpMessageConverter that supports return type [" + error.getClass() + "] and " + acceptedMediaTypes);
 			return new ModelAndView();
 			
 		} else {

@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.java.library'
 
-def springVersion = '3.2.4.RELEASE'
+def springVersion = '3.2.18.RELEASE'
 
 buildscript {
 	dependencies {
@@ -13,28 +13,30 @@ dependencies {
 	// Push for Android
 	compile "com.googlecode.json-simple:json-simple:1.1"
 
+	// Sentry
+	compile 'com.getsentry.raven:raven:7.8.1'
+
 	// Logging
-	compile "log4j:log4j:1.2.16"
-	compile "org.slf4j:slf4j-log4j12:1.6.3"
+	compile "log4j:log4j:1.2.17"
+	compile "org.slf4j:slf4j-log4j12:1.7.7"
 
 	// Spring
 	compile "org.springframework:spring-core:" + springVersion
 	compile "org.springframework:spring-web:" + springVersion
 	compile "org.springframework:spring-webmvc:" + springVersion
-	compile "org.springframework:spring-orm:" + springVersion
 	compile "org.springframework:spring-context-support:" + springVersion
 
 	// Jackson
-	compile "com.fasterxml.jackson.core:jackson-core:2.2.3"
-	compile "com.fasterxml.jackson.core:jackson-databind:2.2.3"
-	compile "com.fasterxml.jackson.core:jackson-annotations:2.2.3"
+	compile "com.fasterxml.jackson.core:jackson-core:2.7.3"
+	compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
+	compile "com.fasterxml.jackson.core:jackson-annotations:2.7.3"
 
 	// Facebook
 	compile "com.restfb:restfb:1.6.12"
 
 	// Twitter
 	// http://twitter4j.org/en/index.html#download
-	compile "org.twitter4j:twitter4j-core:4.0.3"
+	compile "org.twitter4j:twitter4j-core:4.0.4"
 
 	// Apache Commons
 	compile "commons-collections:commons-collections:3.2.2"

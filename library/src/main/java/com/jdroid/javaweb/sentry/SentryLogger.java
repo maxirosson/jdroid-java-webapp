@@ -1,5 +1,11 @@
-package com.jdroid.javaweb.rollbar;
+package com.jdroid.javaweb.sentry;
 
+import com.getsentry.raven.Raven;
+import com.getsentry.raven.RavenFactory;
+import com.getsentry.raven.event.Event;
+import com.getsentry.raven.event.EventBuilder;
+import com.getsentry.raven.event.interfaces.ExceptionInterface;
+import com.getsentry.raven.event.interfaces.MessageInterface;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.javaweb.application.Application;
 
@@ -9,19 +15,15 @@ import org.slf4j.Marker;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class RollBarLogger implements Logger {
-
-	private static final RollBarApiService service = new RollBarApiService();
+public class SentryLogger implements Logger {
 
 	private Logger wrappedLogger;
 
 	private Executor executor = Executors.newFixedThreadPool(1, new LowPriorityThreadFactory());
 
-	public enum Level {
-		DEBUG, INFO, WARNING, ERROR, CRITICAL
-	}
+	private Raven raven;
 
-	public RollBarLogger(Logger wrappedLogger) {
+	public SentryLogger(Logger wrappedLogger) {
 		this.wrappedLogger = wrappedLogger;
 	}
 
@@ -218,28 +220,31 @@ public class RollBarLogger implements Logger {
 	@Override
 	public void warn(String msg) {
 		wrappedLogger.warn(msg);
-		log(Level.WARNING, msg, null);
+		log(Event.Level.WARNING, msg, null);
 	}
 
 	@Override
 	public void warn(String format, Object arg) {
 		wrappedLogger.warn(format, arg);
+		log(Event.Level.WARNING, format, null);
 	}
 
 	@Override
 	public void warn(String format, Object[] argArray) {
 		wrappedLogger.warn(format, argArray);
+		log(Event.Level.WARNING, format, null);
 	}
 
 	@Override
 	public void warn(String format, Object arg1, Object arg2) {
 		wrappedLogger.warn(format, arg1, arg2);
+		log(Event.Level.WARNING, format, null);
 	}
 
 	@Override
 	public void warn(String msg, Throwable t) {
 		wrappedLogger.warn(msg, t);
-		log(Level.WARNING, msg, t);
+		log(Event.Level.WARNING, msg, t);
 	}
 
 	@Override
@@ -250,28 +255,31 @@ public class RollBarLogger implements Logger {
 	@Override
 	public void warn(Marker marker, String msg) {
 		wrappedLogger.warn(marker, msg);
-		log(Level.WARNING, msg, null);
+		log(Event.Level.WARNING, msg, null);
 	}
 
 	@Override
 	public void warn(Marker marker, String format, Object arg) {
 		wrappedLogger.warn(marker, format, arg);
+		log(Event.Level.WARNING, format, null);
 	}
 
 	@Override
 	public void warn(Marker marker, String format, Object arg1, Object arg2) {
 		wrappedLogger.warn(marker, format, arg1, arg2);
+		log(Event.Level.WARNING, format, null);
 	}
 
 	@Override
 	public void warn(Marker marker, String format, Object[] argArray) {
 		wrappedLogger.warn(marker, format, argArray);
+		log(Event.Level.WARNING, format, null);
 	}
 
 	@Override
 	public void warn(Marker marker, String msg, Throwable t) {
 		wrappedLogger.warn(marker, msg, t);
-		log(Level.WARNING, msg, t);
+		log(Event.Level.WARNING, msg, t);
 	}
 
 	@Override
@@ -282,28 +290,31 @@ public class RollBarLogger implements Logger {
 	@Override
 	public void error(String msg) {
 		wrappedLogger.error(msg);
-		log(Level.ERROR, msg, null);
+		log(Event.Level.ERROR, msg, null);
 	}
 
 	@Override
 	public void error(String format, Object arg) {
 		wrappedLogger.error(format, arg);
+		log(Event.Level.ERROR, format, null);
 	}
 
 	@Override
 	public void error(String format, Object arg1, Object arg2) {
 		wrappedLogger.error(format, arg1, arg2);
+		log(Event.Level.ERROR, format, null);
 	}
 
 	@Override
 	public void error(String format, Object[] argArray) {
 		wrappedLogger.error(format, argArray);
+		log(Event.Level.ERROR, format, null);
 	}
 
 	@Override
 	public void error(String msg, Throwable t) {
 		wrappedLogger.error(msg, t);
-		log(Level.ERROR, msg, t);
+		log(Event.Level.ERROR, msg, t);
 	}
 
 	@Override
@@ -314,48 +325,62 @@ public class RollBarLogger implements Logger {
 	@Override
 	public void error(Marker marker, String msg) {
 		wrappedLogger.error(marker, msg);
-		log(Level.ERROR, msg, null);
+		log(Event.Level.ERROR, msg, null);
 	}
 
 	@Override
 	public void error(Marker marker, String format, Object arg) {
 		wrappedLogger.error(marker, format, arg);
+		log(Event.Level.ERROR, format, null);
 	}
 
 	@Override
 	public void error(Marker marker, String format, Object arg1, Object arg2) {
 		wrappedLogger.error(marker, format, arg1, arg2);
+		log(Event.Level.ERROR, format, null);
 	}
 
 	@Override
 	public void error(Marker marker, String format, Object[] argArray) {
 		wrappedLogger.error(marker, format, argArray);
+		log(Event.Level.ERROR, format, null);
 	}
 
 	@Override
 	public void error(Marker marker, String msg, Throwable t) {
 		wrappedLogger.error(marker, msg, t);
-		log(Level.ERROR, msg, t);
+		log(Event.Level.ERROR, msg, t);
 	}
 
-	private void log(final Level level, final String message, final Throwable throwable) {
-		if (RollBarAppModule.get().getRollBarContext().isRollBarEnabled()) {
+	private void log(final Event.Level level, final String message, final Throwable throwable) {
+		if (SentryAppModule.get().getSentryContext().isSentryEnabled()) {
 			executor.execute(new Runnable() {
 
 				@Override
 				public void run() {
 					try {
-						RollBarNotifyBuilder builder = new RollBarNotifyBuilder();
-						builder.setAccessToken(RollBarAppModule.get().getRollBarContext().getRollBarAccessToken());
-						builder.setEnvironment(Application.get().getAppContext().getAppName() + "-" + Application.get().getAppContext().getBuildType());
-						builder.setLevel(level);
-						builder.setMessage(message);
-						builder.setThrowable(throwable);
-						String payload = builder.build();
-						service.sendItem(payload);
-						// TODO Implement retry logic here
+
+						if (raven == null) {
+							raven = RavenFactory.ravenInstance(SentryAppModule.get().getSentryContext().getSentryDsn());
+						}
+
+						EventBuilder eventBuilder = new EventBuilder();
+						eventBuilder.withLevel(level);
+						eventBuilder.withEnvironment(Application.get().getAppContext().getBuildType());
+						eventBuilder.withRelease(Application.get().getAppContext().getAppVersion());
+						eventBuilder.withServerName(Application.get().getAppContext().getAppName());
+						eventBuilder.withLogger(getName());
+						eventBuilder.withPlatform(EventBuilder.DEFAULT_PLATFORM);
+						if (throwable != null) {
+							eventBuilder.withMessage(throwable.getMessage());
+							eventBuilder.withSentryInterface(new ExceptionInterface(throwable));
+						} else {
+							eventBuilder.withMessage(message);
+							eventBuilder.withSentryInterface(new MessageInterface(message));
+						}
+						raven.sendEvent(eventBuilder.build());
 					} catch (Throwable e) {
-						wrappedLogger.error("There was an error notifying the error no RollBar.", e);
+						wrappedLogger.error("There was an error notifying the error to Sentry.", e);
 					}
 				}
 

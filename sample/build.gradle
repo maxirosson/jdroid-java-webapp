@@ -63,8 +63,8 @@ project.afterEvaluate {
 			jdroid.setBuildConfigString(out, 'FIREBASE_URL')
 			jdroid.setBuildConfigString(out, 'FIREBASE_AUTH_TOKEN')
 
-			jdroid.setBuildConfigBoolean(out, 'ROLLBAR_ENABLED', false)
-			jdroid.setBuildConfigString(out, 'ROLLBAR_ACCESS_TOKEN')
+			jdroid.setBuildConfigBoolean(out, 'SENTRY_ENABLED', false)
+			jdroid.setBuildConfigString(out, 'SENTRY_DSN')
 			out.writeLine("}")
 		}
 	}

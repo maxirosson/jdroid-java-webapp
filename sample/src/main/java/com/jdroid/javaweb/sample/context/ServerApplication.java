@@ -4,7 +4,7 @@ import com.jdroid.java.domain.Entity;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.context.AppContext;
-import com.jdroid.javaweb.rollbar.RollBarAppModule;
+import com.jdroid.javaweb.sentry.SentryAppModule;
 
 import java.util.Map;
 
@@ -31,6 +31,6 @@ public class ServerApplication extends Application<Entity> {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(RollBarAppModule.MODULE_NAME, new RollBarAppModule());
+		appModulesMap.put(SentryAppModule.MODULE_NAME, new SentryAppModule());
 	}
 }
