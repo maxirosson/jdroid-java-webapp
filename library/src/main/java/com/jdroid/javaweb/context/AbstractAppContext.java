@@ -4,7 +4,7 @@ public abstract class AbstractAppContext {
 
 	@SuppressWarnings("unchecked")
 	public <T> T getBuildConfigValue(String property) {
-		return BuildConfigUtils.getBuildConfigValue(property);
+		return getBuildConfigValue(property, null);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -57,14 +57,11 @@ public class AdminController extends AbstractController {
 
 		StringBuilder builder = new StringBuilder();
 		for (Entry<String, Object> entry : infoMap.entrySet()) {
-			if (entry.getValue() != null) {
-				builder.append("\n");
-				builder.append(entry.getKey());
-				builder.append(": ");
-				builder.append(entry.getValue());
-			}
+			builder.append("\n");
+			builder.append(entry.getKey());
+			builder.append(": ");
+			builder.append(entry.getValue());
 		}
-
 
 		return builder.toString();
 	}

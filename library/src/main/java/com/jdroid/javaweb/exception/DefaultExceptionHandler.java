@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.exception;
 
+import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -14,7 +15,13 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler {
 
 	@Override
 	public void uncaughtException(Thread thread, Throwable throwable) {
-		LOGGER.error("Uncaught Exception", throwable);
+
+		if (throwable instanceof ConnectionException) {
+			LOGGER.warn("Connection error", throwable);
+		} else {
+			LOGGER.error("Uncaught Exception", throwable);
+		}
+		
 		wrappedExceptionHandler.uncaughtException(thread, throwable);
 	}
 }

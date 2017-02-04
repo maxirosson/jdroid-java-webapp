@@ -60,7 +60,6 @@ project.afterEvaluate {
 			jdroid.setBuildConfigString(out, 'TWITTER_OAUTH_ACCESS_TOKEN_SECRET')
 			jdroid.setBuildConfigBoolean(out, 'TWITTER_ENABLED', false)
 
-
 			jdroid.setBuildConfigString(out, 'FIREBASE_URL')
 			jdroid.setBuildConfigString(out, 'FIREBASE_AUTH_TOKEN')
 
