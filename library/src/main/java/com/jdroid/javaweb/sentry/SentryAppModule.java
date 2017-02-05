@@ -1,5 +1,7 @@
 package com.jdroid.javaweb.sentry;
 
+import com.getsentry.raven.Raven;
+import com.getsentry.raven.RavenFactory;
 import com.google.common.collect.Maps;
 import com.jdroid.javaweb.application.AbstractAppModule;
 import com.jdroid.javaweb.application.Application;
@@ -15,6 +17,7 @@ public class SentryAppModule extends AbstractAppModule {
 	}
 
 	private SentryContext sentryContext;
+	private Raven raven;
 
 	public SentryAppModule() {
 		sentryContext = new SentryContext();
@@ -30,5 +33,19 @@ public class SentryAppModule extends AbstractAppModule {
 		parameters.put("Sentry Enabled", SentryAppModule.get().getSentryContext().isSentryEnabled().toString());
 		parameters.put("Sentry DSN", SentryAppModule.get().getSentryContext().getSentryDsn());
 		return parameters;
+	}
+
+	public Raven getRaven() {
+		if (raven == null) {
+			raven = RavenFactory.ravenInstance(SentryAppModule.get().getSentryContext().getSentryDsn());
+		}
+		return raven;
+	}
+
+	@Override
+	public void onContextDestroyed() {
+		if (raven != null) {
+			getRaven().closeConnection();
+		}
 	}
 }

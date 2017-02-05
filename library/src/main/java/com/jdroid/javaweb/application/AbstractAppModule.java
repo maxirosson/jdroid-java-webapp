@@ -13,4 +13,9 @@ public class AbstractAppModule implements AppModule {
 	public void onCreateApplication() {
 		// Do Nothing
 	}
+
+	@Override
+	public void onContextDestroyed() {
+		// Do Nothing
+	}
 }

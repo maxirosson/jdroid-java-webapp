@@ -59,6 +59,12 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		return Lists.newArrayList(appModulesMap.values());
 	}
 
+	public void onContextDestroyed() {
+		for (AppModule each : appModulesMap.values()) {
+			each.onContextDestroyed();
+		}
+	}
+
 	protected AppContext createAppContext() {
 		return new AppContext();
 	}

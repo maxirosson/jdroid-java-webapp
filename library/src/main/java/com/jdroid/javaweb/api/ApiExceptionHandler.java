@@ -244,7 +244,7 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 	}
 	
 	private ApiError handleBadRequest(Exception exception) {
-		LOGGER.warn(exception.getMessage());
+		LOGGER.warn(exception.getMessage(), exception);
 		return new ApiError(HttpStatus.BAD_REQUEST, CommonErrorCode.BAD_REQUEST.getStatusCode(), exception.getMessage());
 	}
 	

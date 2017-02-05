@@ -1,6 +1,7 @@
 package com.jdroid.javaweb.context;
 
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.exception.DefaultExceptionHandler;
 
 import org.apache.log4j.helpers.LogLog;
@@ -50,6 +51,8 @@ public class AppServletContextListener implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent arg0) {
 		LOGGER.info("Shutdown Logging.");
 		Log4jConfigurer.shutdownLogging();
+
+		Application.get().onContextDestroyed();
 	}
 
 	protected ILoggerFactory createLoggerFactory() {

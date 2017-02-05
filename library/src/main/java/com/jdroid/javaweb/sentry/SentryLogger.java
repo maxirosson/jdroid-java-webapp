@@ -1,7 +1,5 @@
 package com.jdroid.javaweb.sentry;
 
-import com.getsentry.raven.Raven;
-import com.getsentry.raven.RavenFactory;
 import com.getsentry.raven.event.Event;
 import com.getsentry.raven.event.EventBuilder;
 import com.getsentry.raven.event.interfaces.ExceptionInterface;
@@ -20,8 +18,6 @@ public class SentryLogger implements Logger {
 	private Logger wrappedLogger;
 
 	private Executor executor = Executors.newFixedThreadPool(1, new LowPriorityThreadFactory());
-
-	private Raven raven;
 
 	public SentryLogger(Logger wrappedLogger) {
 		this.wrappedLogger = wrappedLogger;
@@ -359,11 +355,6 @@ public class SentryLogger implements Logger {
 				@Override
 				public void run() {
 					try {
-
-						if (raven == null) {
-							raven = RavenFactory.ravenInstance(SentryAppModule.get().getSentryContext().getSentryDsn());
-						}
-
 						EventBuilder eventBuilder = new EventBuilder();
 						eventBuilder.withLevel(level);
 						eventBuilder.withEnvironment(Application.get().getAppContext().getBuildType());
@@ -378,7 +369,7 @@ public class SentryLogger implements Logger {
 							eventBuilder.withMessage(message);
 							eventBuilder.withSentryInterface(new MessageInterface(message));
 						}
-						raven.sendEvent(eventBuilder.build());
+						SentryAppModule.get().getRaven().sendEvent(eventBuilder.build());
 					} catch (Throwable e) {
 						wrappedLogger.error("There was an error notifying the error to Sentry.", e);
 					}

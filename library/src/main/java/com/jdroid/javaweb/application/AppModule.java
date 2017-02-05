@@ -7,4 +7,6 @@ public interface AppModule {
 	public Map<String, String> createAppInfoParameters();
 
 	public void onCreateApplication();
+
+	public void onContextDestroyed();
 }
