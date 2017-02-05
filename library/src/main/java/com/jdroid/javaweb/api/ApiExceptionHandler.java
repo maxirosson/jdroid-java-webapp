@@ -216,13 +216,13 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 		LOGGER.warn("No mapping found for HTTP request with [URI '" + badRequestException.getUri() + "', method '"
 				+ badRequestException.getRequestMethod() + "', parameters "
 				+ StylerUtils.style(badRequestException.getUriParameters()) + "] in DispatcherServlet with name '"
-				+ badRequestException.getServletName() + "'");
+				+ badRequestException.getServletName() + "'", badRequestException);
 		return new ApiError(HttpStatus.BAD_REQUEST, badRequestException.getErrorCode().getStatusCode(),
 				badRequestException.getMessage());
 	}
 	
 	protected ApiError handleException(TypeMismatchException typeMismatchException) {
-		LOGGER.warn(typeMismatchException.getMessage());
+		LOGGER.warn(typeMismatchException.getMessage(), typeMismatchException);
 		return new ApiError(HttpStatus.BAD_REQUEST, CommonErrorCode.BAD_REQUEST.getStatusCode(),
 				typeMismatchException.getMessage());
 	}
