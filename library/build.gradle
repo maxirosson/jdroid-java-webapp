@@ -2,13 +2,21 @@ apply plugin: 'com.jdroid.java.library'
 
 def springVersion = '3.2.18.RELEASE'
 
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + JDROID_PLUGIN_VERSION
+		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + JDROID_PLUGIN_VERSION
 	}
 }
 
 dependencies {
+
+	// Jdroid dependencies
+	compile ('com.jdroidframework:jdroid-java:0.13.0-SNAPSHOT') { changing = true; }
 
 	// Push for Android
 	compile "com.googlecode.json-simple:json-simple:1.1"
@@ -52,9 +60,6 @@ dependencies {
 	compile "javax.servlet:servlet-api:2.5"
 
 	compile "org.json:json:20131018"
-
-	// Jdroid dependencies
-	compile 'com.jdroidframework:jdroid-java:0.12.0'
 
 	// Testing
 	testCompile "org.testng:testng:6.8.21"

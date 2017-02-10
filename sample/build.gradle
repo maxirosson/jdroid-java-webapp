@@ -9,7 +9,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + JDROID_PLUGIN_VERSION
+		classpath 'com.jdroidframework:jdroid-gradle-java-webapp-plugin:' + JDROID_PLUGIN_VERSION
 	}
 }
 
@@ -18,8 +18,8 @@ dependencies {
 	//compile 'com.jdroidframework:jdroid-java-webaapp:' + jdroidVersion
 	compile project(':library')
 
-	compile 'com.jdroidframework:jdroid-java-http-okhttp:0.9.6'
-	compile 'com.jdroidframework:jdroid-java-firebase-database:0.9.6'
+	compile 'com.jdroidframework:jdroid-java-http-okhttp:0.12.0'
+	compile 'com.jdroidframework:jdroid-java-firebase-database:0.12.0'
 
 	compile 'com.firebase:firebase-token-generator:2.0.0'
 

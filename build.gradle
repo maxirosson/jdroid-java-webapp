@@ -29,7 +29,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.14.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.14.0-SNAPSHOT'
 	}
 }
 
@@ -52,14 +52,14 @@ allprojects {
 
 	repositories {
 		jcenter()
-		maven {
-			url "https://oss.sonatype.org/content/repositories/snapshots/"
-		}
 		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
 		if (localMavenRepo != null) {
 			maven {
 				url localMavenRepo
 			}
+		}
+		maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots/"
 		}
 	}
 }
