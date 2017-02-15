@@ -3,6 +3,7 @@ package com.jdroid.javaweb.sample.context;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.context.BuildConfigUtils;
 import com.jdroid.javaweb.sentry.SentryAppModule;
 
 import java.util.Map;
@@ -24,11 +25,11 @@ public class ServerApplication extends Application<Entity> {
 	}
 
 	public String getFirebaseUrl() {
-		return BuildConfig.FIREBASE_URL;
+		return BuildConfigUtils.getBuildConfigValue("FIREBASE_URL");
 	}
 
 	public String getFirebaseAuthToken() {
-		return BuildConfig.FIREBASE_AUTH_TOKEN;
+		return BuildConfigUtils.getBuildConfigValue("FIREBASE_AUTH_TOKEN");
 	}
 
 }
