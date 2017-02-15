@@ -2,7 +2,8 @@ package com.jdroid.javaweb.twitter;
 
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.slf4j.Logger;
 
@@ -27,16 +28,16 @@ public class TwitterConnector {
 	public TwitterConnector() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true);
-		cb.setOAuthConsumerKey(Application.get().getAppContext().getTwitterOAuthConsumerKey());
-		cb.setOAuthConsumerSecret(Application.get().getAppContext().getTwitterOAuthConsumerSecret());
-		cb.setOAuthAccessToken(Application.get().getAppContext().getTwitterOAuthAccessToken());
-		cb.setOAuthAccessTokenSecret(Application.get().getAppContext().getTwitterOAuthAccessTokenSecret());
+		cb.setOAuthConsumerKey(ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_KEY));
+		cb.setOAuthConsumerSecret(ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_SECRET));
+		cb.setOAuthAccessToken(ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN));
+		cb.setOAuthAccessTokenSecret(ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN_SECRET));
 		twitterFactory = new TwitterFactory(cb.build());
 	}
 	
 	public void tweetSafe(String text) {
 		try {
-			if (Application.get().getAppContext().isTwitterEnabled()) {
+			if (ConfigHelper.getBooleanValue(CoreConfigParameter.TWITTER_ENABLED)) {
 				Status status = twitterFactory.getInstance().updateStatus(text);
 				LOGGER.info("Successfully updated the status to [" + status.getText() + "].");
 			} else {

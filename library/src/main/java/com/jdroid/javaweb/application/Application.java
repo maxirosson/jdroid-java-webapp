@@ -2,12 +2,9 @@ package com.jdroid.javaweb.application;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
-import com.jdroid.javaweb.context.AppContext;
 import com.jdroid.javaweb.context.SecurityContextHolder;
-import com.jdroid.javaweb.context.ServerGitContext;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -28,8 +25,6 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		return INSTANCE;
 	}
 	
-	private AppContext appContext;
-	private GitContext gitContext;
 	private SecurityContextHolder<T> securityContextHolder;
 	private ApplicationContext springApplicationContext;
 
@@ -37,9 +32,6 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 
 	public Application() {
 		INSTANCE = this;
-
-		appContext = createAppContext();
-		gitContext = createGitContext();
 
 		initAppModule(appModulesMap);
 		for (AppModule each : appModulesMap.values()) {
@@ -65,18 +57,6 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		}
 	}
 
-	protected AppContext createAppContext() {
-		return new AppContext();
-	}
-
-	protected GitContext createGitContext() {
-		return new ServerGitContext();
-	}
-
-	public AppContext getAppContext() {
-		return appContext;
-	}
-
 	public Class<?> getBuildConfigClass() {
 		return null;
 	}
@@ -88,12 +68,8 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		return securityContextHolder != null ? securityContextHolder.getContext() : null;
 	}
 	
-	/**
-	 * @param beanName The bean name
-	 * @return The spring bean with the bean name
-	 */
-	public Object getBean(String beanName) {
-		return springApplicationContext.getBean(beanName);
+	public ApplicationContext getSpringApplicationContext() {
+		return springApplicationContext;
 	}
 	
 	@Override
@@ -106,9 +82,5 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 	 */
 	public void setSecurityContextHolder(SecurityContextHolder<T> securityContextHolder) {
 		this.securityContextHolder = securityContextHolder;
-	}
-	
-	public GitContext getGitContext() {
-		return gitContext;
 	}
 }

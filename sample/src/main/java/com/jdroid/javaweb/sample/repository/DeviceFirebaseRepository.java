@@ -1,8 +1,8 @@
 package com.jdroid.javaweb.sample.repository;
 
-import com.jdroid.java.firebase.FirebaseRepository;
-import com.jdroid.java.firebase.auth.CustomTokenFirebaseAuthenticationStrategy;
-import com.jdroid.java.firebase.auth.FirebaseAuthenticationStrategy;
+import com.jdroid.java.firebase.database.FirebaseRepository;
+import com.jdroid.java.firebase.database.auth.CustomTokenFirebaseAuthenticationStrategy;
+import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceRepository;
@@ -20,14 +20,14 @@ public class DeviceFirebaseRepository extends FirebaseRepository<Device> impleme
 		return new CustomTokenFirebaseAuthenticationStrategy() {
 			@Override
 			protected String getAuthToken() {
-				return ServerApplication.get().getAppContext().getFirebaseAuthToken();
+				return ServerApplication.get().getFirebaseAuthToken();
 			}
 		};
 	}
 
 	@Override
 	protected String getFirebaseUrl() {
-		return ServerApplication.get().getAppContext().getFirebaseUrl();
+		return ServerApplication.get().getFirebaseUrl();
 	}
 
 	@Override

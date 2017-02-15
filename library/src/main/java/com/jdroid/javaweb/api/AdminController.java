@@ -5,6 +5,8 @@ import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,14 +24,14 @@ public class AdminController extends AbstractController {
 	public String getAppInfo() {
 
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
-		infoMap.put("App Name", Application.get().getAppContext().getAppName());
-		infoMap.put("App Version", Application.get().getAppContext().getAppVersion());
-		infoMap.put("Build Type", Application.get().getAppContext().getBuildType());
-		infoMap.put("Build Time", Application.get().getAppContext().getBuildTime());
-		infoMap.put("Git Branch", Application.get().getGitContext().getBranch());
-		infoMap.put("Git Sha", Application.get().getGitContext().getSha());
-		infoMap.put("Http Mock Enabled", Application.get().getAppContext().isHttpMockEnabled());
-		infoMap.put("Http Mock Sleep Duration", Application.get().getAppContext().getHttpMockSleepDuration());
+		infoMap.put("App Name", ConfigHelper.getStringValue(CoreConfigParameter.APP_NAME));
+		infoMap.put("App Version", ConfigHelper.getStringValue(CoreConfigParameter.APP_VERSION));
+		infoMap.put("Build Type", ConfigHelper.getStringValue(CoreConfigParameter.BUILD_TYPE));
+		infoMap.put("Build Time", ConfigHelper.getStringValue(CoreConfigParameter.BUILD_TIME));
+		infoMap.put("Git Branch", ConfigHelper.getStringValue(CoreConfigParameter.GIT_BRANCH));
+		infoMap.put("Git Sha", ConfigHelper.getStringValue(CoreConfigParameter.GIT_SHA));
+		infoMap.put("Http Mock Enabled", ConfigHelper.getBooleanValue(CoreConfigParameter.HTTP_MOCK_ENABLED));
+		infoMap.put("Http Mock Sleep Duration", ConfigHelper.getIntegerValue(CoreConfigParameter.HTTP_MOCK_SLEEP_DURATION));
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 
@@ -37,14 +39,14 @@ public class AdminController extends AbstractController {
 		infoMap.put("Current Time", DateUtils.now());
 
 		// Twitter
-		infoMap.put("Twitter Enabled", Application.get().getAppContext().isTwitterEnabled());
-		infoMap.put("Twitter Oauth Consumer Key", Application.get().getAppContext().getTwitterOAuthConsumerKey());
-		infoMap.put("Twitter Oauth Consumer Secret", Application.get().getAppContext().getTwitterOAuthConsumerSecret());
-		infoMap.put("Twitter Oauth Access Token", Application.get().getAppContext().getTwitterOAuthAccessToken());
-		infoMap.put("Twitter Oauth Access Token Secret", Application.get().getAppContext().getTwitterOAuthAccessTokenSecret());
+		infoMap.put("Twitter Enabled", ConfigHelper.getBooleanValue(CoreConfigParameter.TWITTER_ENABLED));
+		infoMap.put("Twitter Oauth Consumer Key", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_KEY));
+		infoMap.put("Twitter Oauth Consumer Secret", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_SECRET));
+		infoMap.put("Twitter Oauth Access Token", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN));
+		infoMap.put("Twitter Oauth Access Token Secret", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN_SECRET));
 
 		// Google
-		infoMap.put("Google Server API Key", Application.get().getAppContext().getGoogleServerApiKey());
+		infoMap.put("Google Server API Key", ConfigHelper.getStringValue(CoreConfigParameter.GOOGLE_SERVER_API_KEY));
 
 		for (AppModule appModule : Application.get().getAppModules()) {
 			Map<String, String> params = appModule.createAppInfoParameters();
@@ -68,5 +70,10 @@ public class AdminController extends AbstractController {
 
 	protected Map<String, Object> getCustomInfoMap() {
 		return Maps.newHashMap();
+	}
+
+	@RequestMapping(value = "/config/reload", method = RequestMethod.GET)
+	public void reloadConfig() {
+		ConfigHelper.reloadConfig();
 	}
 }

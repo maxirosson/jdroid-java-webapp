@@ -3,7 +3,8 @@ package com.jdroid.javaweb.push;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class PushServiceImpl implements PushService {
 	protected Boolean isDeviceUpdateRequired(Device oldDevice, Device newDevice) {
 		newDevice.setLastActiveTimestamp(oldDevice.getLastActiveTimestamp());
 		newDevice.setId(oldDevice.getId());
-		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getAppContext().getDeviceUpdateRequiredDuration();
+		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > ConfigHelper.getIntegerValue(CoreConfigParameter.DEVICE_UPDATE_REQUIRED_DURATION);
 	}
 
 	@Override

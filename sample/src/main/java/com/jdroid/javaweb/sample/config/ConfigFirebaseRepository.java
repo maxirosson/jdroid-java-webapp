@@ -1,11 +1,11 @@
-package com.jdroid.javaweb.sample.firebase;
+package com.jdroid.javaweb.sample.config;
 
-import com.jdroid.java.firebase.database.FirebaseRepository;
+import com.jdroid.java.firebase.database.PairFirebaseRepository;
 import com.jdroid.java.firebase.database.auth.CustomTokenFirebaseAuthenticationStrategy;
 import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.javaweb.sample.context.ServerApplication;
 
-public class SampleFirebaseRepository extends FirebaseRepository<SampleFirebaseEntity> {
+public class ConfigFirebaseRepository extends PairFirebaseRepository {
 
 	@Override
 	protected FirebaseAuthenticationStrategy createFirebaseAuthenticationStrategy() {
@@ -24,11 +24,6 @@ public class SampleFirebaseRepository extends FirebaseRepository<SampleFirebaseE
 
 	@Override
 	protected String getPath() {
-		return "samples";
-	}
-
-	@Override
-	protected Class<SampleFirebaseEntity> getEntityClass() {
-		return SampleFirebaseEntity.class;
+		return "config";
 	}
 }

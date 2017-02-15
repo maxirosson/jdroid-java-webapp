@@ -3,13 +3,14 @@ package com.jdroid.javaweb.api;
 import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.http.mock.JsonMockHttpService;
-import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.CoreConfigParameter;
 
 public abstract class ServerApiService extends AbstractApiService {
 	
 	@Override
 	protected Boolean isHttpMockEnabled() {
-		return Application.get().getAppContext().isHttpMockEnabled();
+		return ConfigHelper.getBooleanValue(CoreConfigParameter.HTTP_MOCK_ENABLED);
 	}
 	
 	@Override
@@ -18,7 +19,7 @@ public abstract class ServerApiService extends AbstractApiService {
 			
 			@Override
 			protected Integer getHttpMockSleepDuration(Object... urlSegments) {
-				return Application.get().getAppContext().getHttpMockSleepDuration();
+				return ConfigHelper.getIntegerValue(CoreConfigParameter.HTTP_MOCK_SLEEP_DURATION);
 			}
 		};
 	}

@@ -1,10 +1,10 @@
 package com.jdroid.javaweb.utils;
 
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.StringUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,17 +44,11 @@ public class CSVUtils {
 			return INSTANCE;
 		}
 		
-		/**
-		 * @see com.jdroid.javaweb.utils.CSVUtils.ValueConverter#fromString(java.lang.String)
-		 */
 		@Override
 		public String fromString(String value) {
 			return value;
 		}
 		
-		/**
-		 * @see com.jdroid.javaweb.utils.CSVUtils.ValueConverter#toArray(java.util.Collection)
-		 */
 		@Override
 		public String[] toArray(Collection<String> values) {
 			return values.toArray(new String[] {});
@@ -69,17 +63,11 @@ public class CSVUtils {
 			return INSTANCE;
 		}
 		
-		/**
-		 * @see com.jdroid.javaweb.utils.CSVUtils.ValueConverter#fromString(java.lang.String)
-		 */
 		@Override
 		public Long fromString(String value) {
-			return NumberUtils.getLong(value);
+			return TypeUtils.getLong(value);
 		}
 		
-		/**
-		 * @see com.jdroid.javaweb.utils.CSVUtils.ValueConverter#toArray(java.util.Collection)
-		 */
 		@Override
 		public String[] toArray(Collection<Long> values) {
 			List<String> stringsValues = Lists.newArrayList();

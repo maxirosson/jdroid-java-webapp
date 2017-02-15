@@ -18,4 +18,8 @@ public class BuildConfigUtils {
 	public static Boolean getBuildConfigBoolean(String property, Boolean defaultValue) {
 		return (Boolean)getBuildConfigValue(property, defaultValue);
 	}
+
+	public static Integer getBuildConfigInteger(String property, Integer defaultValue) {
+		return (Integer)getBuildConfigValue(property, defaultValue);
+	}
 }

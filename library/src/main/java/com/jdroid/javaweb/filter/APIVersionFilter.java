@@ -2,7 +2,8 @@ package com.jdroid.javaweb.filter;
 
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.ApiExceptionHandler;
-import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.CoreConfigParameter;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class APIVersionFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		Long minApiVersion = Long.parseLong(Application.get().getAppContext().getMinApiVersion().replace(".", ""));
+		Long minApiVersion = Long.parseLong(ConfigHelper.getStringValue(CoreConfigParameter.MIN_API_VERSION).replace(".", ""));
 		String header = request.getHeader(API_VERSION_HEADER);
 		Long clientApiVersion = header != null ? Long.parseLong(header.replace(".", "")) : null;
 		if (clientApiVersion == null) {

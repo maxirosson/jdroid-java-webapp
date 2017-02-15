@@ -1,7 +1,8 @@
 package com.jdroid.javaweb.filter;
 
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.application.Application;
+import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.slf4j.Logger;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,10 +20,6 @@ public class AdminSecurityFilter extends OncePerRequestFilter {
 	
 	public static final String TOKEN_PARAMETER = "token";
 	
-	/**
-	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
-	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -40,6 +37,6 @@ public class AdminSecurityFilter extends OncePerRequestFilter {
 	}
 	
 	protected String getAdminToken() {
-		return Application.get().getAppContext().getAdminToken();
+		return ConfigHelper.getStringValue(CoreConfigParameter.ADMIN_TOKEN);
 	}
 }
