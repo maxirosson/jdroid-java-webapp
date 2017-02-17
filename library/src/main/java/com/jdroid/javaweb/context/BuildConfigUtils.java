@@ -15,6 +15,10 @@ public class BuildConfigUtils {
 		return (T)ReflectionUtils.getStaticFieldValue(Application.get().getBuildConfigClass(), property, defaultValue);
 	}
 
+	public static String getBuildConfigBoolean(String property, String defaultValue) {
+		return (String)getBuildConfigValue(property, defaultValue);
+	}
+
 	public static Boolean getBuildConfigBoolean(String property, Boolean defaultValue) {
 		return (Boolean)getBuildConfigValue(property, defaultValue);
 	}

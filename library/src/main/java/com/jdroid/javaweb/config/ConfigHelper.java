@@ -12,19 +12,24 @@ public class ConfigHelper {
 
 	private static Repository<Pair> configRepository;
 
+	private static Pair getPairFromRepository(ConfigParameter configParameter) {
+		Pair pair = configRepository.get(configParameter.getKey());
+		return pair != null && pair.getValue() != null ? pair : null;
+	}
+
 	public static String getStringValue(ConfigParameter configParameter) {
 		initConfigRepository();
-		Pair pair = configRepository.get(configParameter.getKey());
+		Pair pair = getPairFromRepository(configParameter);
 		if (pair != null) {
 			return pair.getValue();
 		} else {
-			return BuildConfigUtils.getBuildConfigValue(configParameter.getKey(), configParameter.getDefaultValue());
+			return BuildConfigUtils.getBuildConfigBoolean(configParameter.getKey(), (String)configParameter.getDefaultValue());
 		}
 	}
 
 	public static Boolean getBooleanValue(ConfigParameter configParameter) {
 		initConfigRepository();
-		Pair pair = configRepository.get(configParameter.getKey());
+		Pair pair = getPairFromRepository(configParameter);
 		if (pair != null) {
 			return TypeUtils.getBoolean(pair.getValue());
 		} else {
@@ -34,7 +39,7 @@ public class ConfigHelper {
 
 	public static Integer getIntegerValue(ConfigParameter configParameter) {
 		initConfigRepository();
-		Pair pair = configRepository.get(configParameter.getKey());
+		Pair pair = getPairFromRepository(configParameter);
 		if (pair != null) {
 			return TypeUtils.getInteger(pair.getValue());
 		} else {
