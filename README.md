@@ -19,6 +19,23 @@
 * Pagination and filtering support
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
+* A set of useful shell scripts to
+ * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
+ * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
+ 
+## Setup
+
+Add the following lines to your `build.gradle`:
+
+    repositories {
+      jcenter()
+    }
+
+    dependencies {
+      compile 'com.jdroidframework:jdroid-java-webapp-core:X.Y.Z'
+    }
+
+Replace the X.Y.Z by the [latest version](https://github.com/maxirosson/jdroid-java-webapp/releases/latest)
 
 ## Donations
 Help us to continue with this project:
