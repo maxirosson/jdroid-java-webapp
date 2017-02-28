@@ -26,4 +26,8 @@ public class BuildConfigUtils {
 	public static Integer getBuildConfigInteger(String property, Integer defaultValue) {
 		return (Integer)getBuildConfigValue(property, defaultValue);
 	}
+
+	public static Long getBuildConfigLong(String property, Long defaultValue) {
+		return (Long)getBuildConfigValue(property, defaultValue);
+	}
 }

@@ -47,6 +47,16 @@ public class ConfigHelper {
 		}
 	}
 
+	public static Long getLongValue(ConfigParameter configParameter) {
+		initConfigRepository();
+		Pair pair = getPairFromRepository(configParameter);
+		if (pair != null) {
+			return TypeUtils.getLong(pair.getValue());
+		} else {
+			return BuildConfigUtils.getBuildConfigLong(configParameter.getKey(), (Long)configParameter.getDefaultValue());
+		}
+	}
+
 	public static void reloadConfig() {
 		if (configRepository == null) {
 			initConfigRepository();

@@ -55,7 +55,7 @@ public class PushServiceImpl implements PushService {
 	protected Boolean isDeviceUpdateRequired(Device oldDevice, Device newDevice) {
 		newDevice.setLastActiveTimestamp(oldDevice.getLastActiveTimestamp());
 		newDevice.setId(oldDevice.getId());
-		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > ConfigHelper.getIntegerValue(CoreConfigParameter.DEVICE_UPDATE_REQUIRED_DURATION);
+		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > ConfigHelper.getLongValue(CoreConfigParameter.DEVICE_UPDATE_REQUIRED_DURATION);
 	}
 
 	@Override
