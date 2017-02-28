@@ -9,17 +9,32 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-java-webapp-plugin:' + JDROID_PLUGIN_VERSION
+		classpath 'com.jdroidframework:jdroid-gradle-java-webapp-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
 	}
 }
 
 dependencies {
 
-	//compile 'com.jdroidframework:jdroid-java-webaapp:' + jdroidVersion
-	compile project(':library')
+	//compile 'com.jdroidframework:jdroid-java-webaapp-core:' + jdroidVersion
+	compile project(':jdroid-java-webapp-core')
 
-	compile 'com.jdroidframework:jdroid-java-http-okhttp:0.12.0'
-	compile 'com.jdroidframework:jdroid-java-firebase-database:0.13.0-SNAPSHOT'
+	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+		compile(project(':jdroid-java-firebase-database')) {
+			exclude module: 'jdroid-java-core'
+		}
+	} else {
+		compile('com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
+			exclude module: 'jdroid-java-core'
+		}
+	}
+
+	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-http-okhttp")
+	} else {
+		compile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+			exclude module: 'jdroid-java-core'
+		}
+	}
 
 	compile 'com.firebase:firebase-token-generator:2.0.0'
 

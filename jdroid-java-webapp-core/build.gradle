@@ -1,6 +1,10 @@
 apply plugin: 'com.jdroid.java.library'
 
-def springVersion = '3.2.18.RELEASE'
+ext.ARTIFACT_ID = 'jdroid-java-webapp-core'
+ext.PROJECT_NAME = 'Jdroid Java Web App'
+description = 'Jdroid library for Java Web apps'
+
+ext.SPRING_VERSION = '3.2.18.RELEASE'
 
 configurations.all {
 	// check for updates every build
@@ -9,14 +13,27 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + JDROID_PLUGIN_VERSION
+		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
 	}
 }
 
 dependencies {
 
 	// Jdroid dependencies
-	compile ('com.jdroidframework:jdroid-java:0.13.0-SNAPSHOT') { changing = true; }
+
+	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-core")
+	} else {
+		compile 'com.jdroidframework:jdroid-java-core:' + JDROID_JAVA_VERSION
+	}
+
+	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-http-core")
+	} else {
+		compile ('com.jdroidframework:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
+			exclude module: 'jdroid-java-core'
+		}
+	}
 
 	// Push for Android
 	compile "com.googlecode.json-simple:json-simple:1.1"
@@ -29,10 +46,10 @@ dependencies {
 	compile "org.slf4j:slf4j-log4j12:1.7.7"
 
 	// Spring
-	compile "org.springframework:spring-core:" + springVersion
-	compile "org.springframework:spring-web:" + springVersion
-	compile "org.springframework:spring-webmvc:" + springVersion
-	compile "org.springframework:spring-context-support:" + springVersion
+	compile "org.springframework:spring-core:" + SPRING_VERSION
+	compile "org.springframework:spring-web:" + SPRING_VERSION
+	compile "org.springframework:spring-webmvc:" + SPRING_VERSION
+	compile "org.springframework:spring-context-support:" + SPRING_VERSION
 
 	// Jackson
 	compile "com.fasterxml.jackson.core:jackson-core:2.7.3"

@@ -1,2 +1,2 @@
-include ':library'
-include ':sample'
+include ':jdroid-java-webapp-core'
+include ':jdroid-java-webapp-sample'
