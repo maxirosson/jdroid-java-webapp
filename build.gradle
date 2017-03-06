@@ -61,20 +61,3 @@ allprojects {
 		}
 	}
 }
-
-public def getProp(String propertyName) {
-	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
-}
-
-public Boolean getBooleanProp(String propertyName, Boolean defaultValue) {
-	def value = getProp(propertyName)
-	if (value == null) {
-		return defaultValue
-	} else if (value == 'true') {
-		return true
-	} else if (value == 'false') {
-		return false
-	} else {
-		throw new GradleException('Invalid Boolean value: ' + value)
-	}
-}

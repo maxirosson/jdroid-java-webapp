@@ -1,6 +1,5 @@
 apply plugin: 'com.jdroid.java.library'
 
-ext.ARTIFACT_ID = 'jdroid-java-webapp-core'
 ext.PROJECT_NAME = 'Jdroid Java Web App'
 description = 'Jdroid library for Java Web apps'
 
