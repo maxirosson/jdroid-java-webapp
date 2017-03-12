@@ -8,6 +8,11 @@ import com.jdroid.java.utils.TypeUtils;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.context.BuildConfigUtils;
 
+import java.util.List;
+
+import static com.jdroid.java.utils.StringUtils.splitToListWithCommaSeparator;
+import static com.jdroid.javaweb.context.BuildConfigUtils.getBuildConfigString;
+
 public class ConfigHelper {
 
 	private static Repository<Pair> configRepository;
@@ -23,8 +28,20 @@ public class ConfigHelper {
 		if (pair != null) {
 			return pair.getValue();
 		} else {
-			return BuildConfigUtils.getBuildConfigBoolean(configParameter.getKey(), (String)configParameter.getDefaultValue());
+			return getBuildConfigString(configParameter.getKey(), (String)configParameter.getDefaultValue());
 		}
+	}
+	
+	public static List<String> getStringListValue(ConfigParameter configParameter) {
+		initConfigRepository();
+		Pair pair = getPairFromRepository(configParameter);
+		String value = null;
+		if (pair != null) {
+			value = pair.getValue();
+		} else {
+			value = BuildConfigUtils.getBuildConfigString(configParameter.getKey(), (String)configParameter.getDefaultValue());
+		}
+		return splitToListWithCommaSeparator(value);
 	}
 
 	public static Boolean getBooleanValue(ConfigParameter configParameter) {

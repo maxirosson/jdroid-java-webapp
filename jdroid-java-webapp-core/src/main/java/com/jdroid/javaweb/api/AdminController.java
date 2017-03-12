@@ -6,10 +6,12 @@ import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.config.ConfigParameter;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.nio.charset.Charset;
@@ -75,5 +77,21 @@ public class AdminController extends AbstractController {
 	@RequestMapping(value = "/config/reload", method = RequestMethod.GET)
 	public void reloadConfig() {
 		ConfigHelper.reloadConfig();
+	}
+	
+	@RequestMapping(value = "/config/database/get", method = RequestMethod.GET, produces = MimeType.TEXT)
+	@ResponseBody
+	public String getConfig(@RequestParam(required = true) final String key) {
+		return ConfigHelper.getStringValue(new ConfigParameter() {
+			@Override
+			public String getKey() {
+				return key;
+			}
+			
+			@Override
+			public Object getDefaultValue() {
+				return null;
+			}
+		});
 	}
 }

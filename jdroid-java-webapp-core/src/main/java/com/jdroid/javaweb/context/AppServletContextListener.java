@@ -20,18 +20,17 @@ import javax.servlet.ServletContextListener;
  */
 public class AppServletContextListener implements ServletContextListener {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(AppServletContextListener.class);
+	private static Logger LOGGER;
 	
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-
+		
+		// Algo se ejecuta antes
 		LoggerUtils.setEnabled(true);
 		ILoggerFactory loggerFactory = createLoggerFactory();
 		if (loggerFactory != null) {
 			LoggerUtils.setDefaultLoggerFactory(loggerFactory);
 		}
-
-		Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
 
 		try {
 			// If the file log4j.deployment.xml is present in the classpath, it is used
@@ -41,10 +40,13 @@ public class AppServletContextListener implements ServletContextListener {
 				log4jPath = "classpath:log4j.deployment.xml";
 			}
 			Log4jConfigurer.initLogging(log4jPath);
+			LOGGER = LoggerUtils.getLogger(AppServletContextListener.class);
 			LOGGER.info("Starting Logging.");
 		} catch (FileNotFoundException ex) {
 			LogLog.error(ex.getMessage());
 		}
+		
+		Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
 	}
 	
 	@Override
