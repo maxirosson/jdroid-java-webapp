@@ -1,5 +1,22 @@
 # Change Log
 
+## [v0.10.0](https://github.com/maxirosson/jdroid-java-webapp/tree/v0.10.0) (2017-03-16)
+[Full Changelog](https://github.com/maxirosson/jdroid-java-webapp/compare/v0.9.6...v0.10.0)
+
+**Implemented enhancements:**
+
+- Remote config support [\#15](https://github.com/maxirosson/jdroid-java-webapp/issues/15)
+- Sentry integration [\#8](https://github.com/maxirosson/jdroid-java-webapp/issues/8)
+- Migration from GCM to FCM [\#6](https://github.com/maxirosson/jdroid-java-webapp/issues/6)
+
+**Closed issues:**
+
+- Rename from jdroid-java-web to jdroid-java-web-core [\#14](https://github.com/maxirosson/jdroid-java-webapp/issues/14)
+- Upgrade log4j to v1.2.17 [\#12](https://github.com/maxirosson/jdroid-java-webapp/issues/12)
+- Upgrade Jackson to v2.7.3 [\#11](https://github.com/maxirosson/jdroid-java-webapp/issues/11)
+- Upgrade 	twitter4j to v4.0.4 [\#10](https://github.com/maxirosson/jdroid-java-webapp/issues/10)
+- Upgrade Spring to v3.2.18 [\#9](https://github.com/maxirosson/jdroid-java-webapp/issues/9)
+
 ## [v0.9.6](https://github.com/maxirosson/jdroid-java-webapp/tree/v0.9.6) (2016-07-16)
 **Implemented enhancements:**
 
