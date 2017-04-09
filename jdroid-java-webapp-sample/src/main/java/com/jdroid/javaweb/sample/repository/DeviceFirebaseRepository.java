@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.sample.repository;
 
-import com.jdroid.java.firebase.database.FirebaseRepository;
+import com.jdroid.java.firebase.database.FirebaseDatabaseRepository;
 import com.jdroid.java.firebase.database.auth.CustomTokenFirebaseAuthenticationStrategy;
 import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.java.utils.LoggerUtils;
@@ -11,7 +11,7 @@ import com.jdroid.javaweb.sample.context.ServerApplication;
 
 import org.slf4j.Logger;
 
-public class DeviceFirebaseRepository extends FirebaseRepository<Device> implements DeviceRepository {
+public class DeviceFirebaseRepository extends FirebaseDatabaseRepository<Device> implements DeviceRepository {
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(DeviceFirebaseRepository.class);
 

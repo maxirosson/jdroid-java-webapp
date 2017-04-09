@@ -20,11 +20,8 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 
 public class AdminController extends AbstractController {
-
-	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.TEXT)
-	@ResponseBody
-	public String getAppInfo() {
-
+	
+	private Map<String, Object> getInfoMap() {
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
 		infoMap.put("App Name", ConfigHelper.getStringValue(CoreConfigParameter.APP_NAME));
 		infoMap.put("App Version", ConfigHelper.getStringValue(CoreConfigParameter.APP_VERSION));
@@ -36,38 +33,55 @@ public class AdminController extends AbstractController {
 		infoMap.put("Http Mock Sleep Duration", ConfigHelper.getIntegerValue(CoreConfigParameter.HTTP_MOCK_SLEEP_DURATION));
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
-
+		
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
 		infoMap.put("Current Time", DateUtils.now());
-
+		
 		// Twitter
 		infoMap.put("Twitter Enabled", ConfigHelper.getBooleanValue(CoreConfigParameter.TWITTER_ENABLED));
 		infoMap.put("Twitter Oauth Consumer Key", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_KEY));
 		infoMap.put("Twitter Oauth Consumer Secret", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_SECRET));
 		infoMap.put("Twitter Oauth Access Token", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN));
 		infoMap.put("Twitter Oauth Access Token Secret", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN_SECRET));
-
+		
 		// Google
 		infoMap.put("Google Server API Key", ConfigHelper.getStringValue(CoreConfigParameter.GOOGLE_SERVER_API_KEY));
-
+		
 		for (AppModule appModule : Application.get().getAppModules()) {
 			Map<String, String> params = appModule.createAppInfoParameters();
 			if (params != null) {
 				infoMap.putAll(params);
 			}
 		}
-
+		
 		infoMap.putAll(getCustomInfoMap());
+		
+		return infoMap;
+	}
 
+	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.HTML)
+	@ResponseBody
+	public String getAppInfoAsText() {
 		StringBuilder builder = new StringBuilder();
-		for (Entry<String, Object> entry : infoMap.entrySet()) {
+		builder.append("<html>");
+		builder.append("<body>");
+		for (Entry<String, Object> entry : getInfoMap().entrySet()) {
+			builder.append("<div>");
 			builder.append("\n");
 			builder.append(entry.getKey());
 			builder.append(": ");
 			builder.append(entry.getValue());
+			builder.append("</div>");
 		}
-
+		builder.append("</body>");
+		builder.append("</html>");
 		return builder.toString();
+	}
+	
+	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
+	@ResponseBody
+	public String getAppInfoAsJson() {
+		return marshall(getInfoMap());
 	}
 
 	protected Map<String, Object> getCustomInfoMap() {

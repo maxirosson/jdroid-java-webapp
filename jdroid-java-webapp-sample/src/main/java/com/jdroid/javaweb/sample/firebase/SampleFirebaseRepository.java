@@ -1,11 +1,11 @@
 package com.jdroid.javaweb.sample.firebase;
 
-import com.jdroid.java.firebase.database.FirebaseRepository;
+import com.jdroid.java.firebase.database.FirebaseDatabaseRepository;
 import com.jdroid.java.firebase.database.auth.CustomTokenFirebaseAuthenticationStrategy;
 import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.javaweb.sample.context.ServerApplication;
 
-public class SampleFirebaseRepository extends FirebaseRepository<SampleFirebaseEntity> {
+public class SampleFirebaseRepository extends FirebaseDatabaseRepository<SampleFirebaseEntity> {
 
 	@Override
 	protected FirebaseAuthenticationStrategy createFirebaseAuthenticationStrategy() {
