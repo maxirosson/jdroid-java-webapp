@@ -8,7 +8,6 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:spring/applicationcontext.xml,
-			classpath:spring/applicationcontext-marshaller.xml,
 			classpath:spring/applicationcontext-repository.xml
 		</param-value>
 	</context-param>

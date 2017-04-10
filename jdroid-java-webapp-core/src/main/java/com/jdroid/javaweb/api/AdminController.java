@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.api;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TimeZone;
@@ -91,6 +93,20 @@ public class AdminController extends AbstractController {
 	@RequestMapping(value = "/config/reload", method = RequestMethod.GET)
 	public void reloadConfig() {
 		ConfigHelper.reloadConfig();
+	}
+	
+	@RequestMapping(value = "/config", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
+	@ResponseBody
+	public String getConfigParametersValues() {
+		List<ConfigParameterInfo> configParameterInfos = Lists.newArrayList();
+		for (ConfigParameter configParameter : getConfigParameters()) {
+			configParameterInfos.add(new ConfigParameterInfo(configParameter.getKey(), ConfigHelper.getObjectValue(configParameter), configParameter.getDefaultValue()));
+		}
+		return marshall(configParameterInfos);
+	}
+	
+	protected List<ConfigParameter> getConfigParameters() {
+		return Lists.<ConfigParameter>newArrayList(CoreConfigParameter.values());
 	}
 	
 	@RequestMapping(value = "/config/database/get", method = RequestMethod.GET, produces = MimeType.TEXT)

@@ -4,22 +4,30 @@ import com.jdroid.java.repository.CacheWrapperRepository;
 import com.jdroid.java.repository.Pair;
 import com.jdroid.java.repository.PairRepository;
 import com.jdroid.java.repository.Repository;
+import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.TypeUtils;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.context.BuildConfigUtils;
 
 import java.util.List;
 
-import static com.jdroid.java.utils.StringUtils.splitToListWithCommaSeparator;
-import static com.jdroid.javaweb.context.BuildConfigUtils.getBuildConfigString;
-
 public class ConfigHelper {
-
+	
 	private static Repository<Pair> configRepository;
 
 	private static Pair getPairFromRepository(ConfigParameter configParameter) {
 		Pair pair = configRepository.get(configParameter.getKey());
 		return pair != null && pair.getValue() != null ? pair : null;
+	}
+	
+	public static Object getObjectValue(ConfigParameter configParameter) {
+		initConfigRepository();
+		Pair pair = getPairFromRepository(configParameter);
+		if (pair != null) {
+			return pair.getValue();
+		} else {
+			return BuildConfigUtils.getBuildConfigValue(configParameter.getKey(), configParameter.getDefaultValue());
+		}
 	}
 
 	public static String getStringValue(ConfigParameter configParameter) {
@@ -28,7 +36,7 @@ public class ConfigHelper {
 		if (pair != null) {
 			return pair.getValue();
 		} else {
-			return getBuildConfigString(configParameter.getKey(), (String)configParameter.getDefaultValue());
+			return BuildConfigUtils.getBuildConfigString(configParameter.getKey(), configParameter.getDefaultValue() != null ? configParameter.getDefaultValue().toString() : null);
 		}
 	}
 	
@@ -41,7 +49,7 @@ public class ConfigHelper {
 		} else {
 			value = BuildConfigUtils.getBuildConfigString(configParameter.getKey(), (String)configParameter.getDefaultValue());
 		}
-		return splitToListWithCommaSeparator(value);
+		return StringUtils.splitToListWithCommaSeparator(value);
 	}
 
 	public static Boolean getBooleanValue(ConfigParameter configParameter) {

@@ -1,9 +1,12 @@
 package com.jdroid.javaweb.sample.context;
 
 import com.jdroid.java.domain.Entity;
+import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.context.BuildConfigUtils;
+import com.jdroid.javaweb.sample.api.controller.SampleResponse;
+import com.jdroid.javaweb.sample.api.controller.SampleResponseMarshaller;
 import com.jdroid.javaweb.sentry.SentryAppModule;
 
 import java.util.Map;
@@ -12,6 +15,11 @@ public class ServerApplication extends Application<Entity> {
 	
 	public static ServerApplication get() {
 		return (ServerApplication)Application.get();
+	}
+	
+	@Override
+	protected void onCreateApplication() {
+		MarshallerProvider.get().addMarshaller(SampleResponse.class, new SampleResponseMarshaller());
 	}
 	
 	@Override
