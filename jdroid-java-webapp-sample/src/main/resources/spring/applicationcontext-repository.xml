@@ -4,6 +4,6 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<bean id="deviceRepository" class="com.jdroid.javaweb.sample.repository.DeviceFirebaseRepository" />
-	<bean class="com.jdroid.javaweb.sample.config.ConfigFirebaseRepository" />
+	<bean id="configRepository" class="com.jdroid.javaweb.sample.config.ConfigFirebaseRepository" />
 
 </beans>

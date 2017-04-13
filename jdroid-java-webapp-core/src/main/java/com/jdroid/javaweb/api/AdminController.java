@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
+import com.jdroid.java.repository.Pair;
+import com.jdroid.java.repository.PairRepository;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.ConfigHelper;
@@ -21,7 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TimeZone;
 
-public class AdminController extends AbstractController {
+public abstract class AdminController extends AbstractController {
 	
 	private Map<String, Object> getInfoMap() {
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
@@ -104,6 +106,17 @@ public class AdminController extends AbstractController {
 		}
 		return marshall(configParameterInfos);
 	}
+	
+	@RequestMapping(value = "/config/save", method = RequestMethod.GET)
+	public void addConfigParameter(@RequestParam(required = true) String key, @RequestParam String value) {
+		if (value != null) {
+			getConfigRepository().add(new Pair(key, value));
+		} else {
+			getConfigRepository().remove(key);
+		}
+	}
+	
+	protected abstract PairRepository getConfigRepository();
 	
 	protected List<ConfigParameter> getConfigParameters() {
 		return Lists.<ConfigParameter>newArrayList(CoreConfigParameter.values());
