@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.repository.Pair;
-import com.jdroid.java.repository.PairRepository;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.ConfigHelper;
@@ -108,15 +106,9 @@ public abstract class AdminController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/config/save", method = RequestMethod.GET)
-	public void addConfigParameter(@RequestParam(required = true) String key, @RequestParam String value) {
-		if (value != null) {
-			getConfigRepository().add(new Pair(key, value));
-		} else {
-			getConfigRepository().remove(key);
-		}
+	public void saveConfigParameter(@RequestParam(required = true) String key, @RequestParam String value) {
+		ConfigHelper.saveConfigParameter(key, value);
 	}
-	
-	protected abstract PairRepository getConfigRepository();
 	
 	protected List<ConfigParameter> getConfigParameters() {
 		return Lists.<ConfigParameter>newArrayList(CoreConfigParameter.values());

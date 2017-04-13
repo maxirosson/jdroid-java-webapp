@@ -81,6 +81,15 @@ public class ConfigHelper {
 			return BuildConfigUtils.getBuildConfigLong(configParameter.getKey(), (Long)configParameter.getDefaultValue());
 		}
 	}
+	
+	public static void saveConfigParameter(String key, String value) {
+		initConfigRepository();
+		if (value != null) {
+			configRepository.add(new Pair(key, value));
+		} else {
+			configRepository.remove(key);
+		}
+	}
 
 	public static void reloadConfig() {
 		if (configRepository == null) {
