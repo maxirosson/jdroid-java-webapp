@@ -20,14 +20,6 @@ public class SentryAppModule extends AbstractAppModule {
 
 	private Raven raven;
 
-	@Override
-	public Map<String, String> createAppInfoParameters() {
-		Map<String, String> parameters = Maps.newHashMap();
-		parameters.put("Sentry Enabled", ConfigHelper.getBooleanValue(CoreConfigParameter.SENTRY_ENABLED).toString());
-		parameters.put("Sentry DSN", ConfigHelper.getStringValue(CoreConfigParameter.SENTRY_DSN));
-		return parameters;
-	}
-
 	public Raven getRaven() {
 		if (raven == null) {
 			raven = RavenFactory.ravenInstance(ConfigHelper.getStringValue(CoreConfigParameter.SENTRY_DSN));

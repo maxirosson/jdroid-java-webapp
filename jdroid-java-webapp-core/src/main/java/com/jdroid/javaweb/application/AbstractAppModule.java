@@ -5,7 +5,7 @@ import java.util.Map;
 public class AbstractAppModule implements AppModule {
 
 	@Override
-	public Map<String, String> createAppInfoParameters() {
+	public Map<String, String> getServerInfoMap() {
 		return null;
 	}
 

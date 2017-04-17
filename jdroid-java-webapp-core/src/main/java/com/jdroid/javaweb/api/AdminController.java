@@ -23,34 +23,16 @@ import java.util.TimeZone;
 
 public abstract class AdminController extends AbstractController {
 	
-	private Map<String, Object> getInfoMap() {
+	private Map<String, Object> getServerInfoMap() {
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
-		infoMap.put("App Name", ConfigHelper.getStringValue(CoreConfigParameter.APP_NAME));
-		infoMap.put("App Version", ConfigHelper.getStringValue(CoreConfigParameter.APP_VERSION));
-		infoMap.put("Build Type", ConfigHelper.getStringValue(CoreConfigParameter.BUILD_TYPE));
-		infoMap.put("Build Time", ConfigHelper.getStringValue(CoreConfigParameter.BUILD_TIME));
-		infoMap.put("Git Branch", ConfigHelper.getStringValue(CoreConfigParameter.GIT_BRANCH));
-		infoMap.put("Git Sha", ConfigHelper.getStringValue(CoreConfigParameter.GIT_SHA));
-		infoMap.put("Http Mock Enabled", ConfigHelper.getBooleanValue(CoreConfigParameter.HTTP_MOCK_ENABLED));
-		infoMap.put("Http Mock Sleep Duration", ConfigHelper.getIntegerValue(CoreConfigParameter.HTTP_MOCK_SLEEP_DURATION));
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 		
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
 		infoMap.put("Current Time", DateUtils.now());
 		
-		// Twitter
-		infoMap.put("Twitter Enabled", ConfigHelper.getBooleanValue(CoreConfigParameter.TWITTER_ENABLED));
-		infoMap.put("Twitter Oauth Consumer Key", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_KEY));
-		infoMap.put("Twitter Oauth Consumer Secret", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_CONSUMER_SECRET));
-		infoMap.put("Twitter Oauth Access Token", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN));
-		infoMap.put("Twitter Oauth Access Token Secret", ConfigHelper.getStringValue(CoreConfigParameter.TWITTER_OAUTH_ACCESS_TOKEN_SECRET));
-		
-		// Google
-		infoMap.put("Google Server API Key", ConfigHelper.getStringValue(CoreConfigParameter.GOOGLE_SERVER_API_KEY));
-		
 		for (AppModule appModule : Application.get().getAppModules()) {
-			Map<String, String> params = appModule.createAppInfoParameters();
+			Map<String, String> params = appModule.getServerInfoMap();
 			if (params != null) {
 				infoMap.putAll(params);
 			}
@@ -61,20 +43,32 @@ public abstract class AdminController extends AbstractController {
 		return infoMap;
 	}
 
-	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.HTML)
+	@RequestMapping(value = "/index", method = RequestMethod.GET, produces = MimeType.HTML)
 	@ResponseBody
-	public String getAppInfoAsText() {
+	public String getIndex() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<html>");
 		builder.append("<body>");
-		for (Entry<String, Object> entry : getInfoMap().entrySet()) {
+		builder.append("<h2>Server Info</h2>");
+		for (Entry<String, Object> entry : getServerInfoMap().entrySet()) {
 			builder.append("<div>");
-			builder.append("\n");
 			builder.append(entry.getKey());
 			builder.append(": ");
 			builder.append(entry.getValue());
 			builder.append("</div>");
+			builder.append("\n");
 		}
+		
+		builder.append("<h2>Config Parameters</h2>");
+		for (ConfigParameter configParameter : getConfigParameters()) {
+			builder.append("<div>");
+			builder.append(configParameter.getKey());
+			builder.append(": ");
+			builder.append(ConfigHelper.getObjectValue(configParameter));
+			builder.append("</div>");
+			builder.append("\n");
+		}
+		
 		builder.append("</body>");
 		builder.append("</html>");
 		return builder.toString();
@@ -82,8 +76,8 @@ public abstract class AdminController extends AbstractController {
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
 	@ResponseBody
-	public String getAppInfoAsJson() {
-		return marshall(getInfoMap());
+	public String getServerInfo() {
+		return marshall(getServerInfoMap());
 	}
 
 	protected Map<String, Object> getCustomInfoMap() {
