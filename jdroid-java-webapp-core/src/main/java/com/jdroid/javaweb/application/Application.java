@@ -17,7 +17,6 @@ import com.jdroid.javaweb.push.DeviceMarshaller;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ import java.util.Map;
  * 
  * @param <T>
  */
-public class Application<T extends Entity> implements ApplicationContextAware {
+public abstract class Application<T extends Entity> implements ApplicationContextAware {
 	
 	private static Application<?> INSTANCE;
 	
@@ -80,9 +79,7 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 		}
 	}
 
-	public Class<?> getBuildConfigClass() {
-		return null;
-	}
+	public abstract Class<?> getBuildConfigClass();
 	
 	/**
 	 * @return The {@link AbstractSecurityContext} instance
@@ -93,6 +90,14 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 	
 	public ApplicationContext getSpringApplicationContext() {
 		return springApplicationContext;
+	}
+	
+	public <T> T getBean(Class<T> requiredType) {
+		if (springApplicationContext != null) {
+			return springApplicationContext.getBean(requiredType);
+		} else {
+			return null;
+		}
 	}
 	
 	@Override

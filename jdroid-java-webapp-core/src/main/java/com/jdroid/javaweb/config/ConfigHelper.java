@@ -1,6 +1,7 @@
 package com.jdroid.javaweb.config;
 
 import com.jdroid.java.repository.CacheWrapperRepository;
+import com.jdroid.java.repository.InMemoryRepository;
 import com.jdroid.java.repository.Pair;
 import com.jdroid.java.repository.PairRepository;
 import com.jdroid.java.repository.Repository;
@@ -102,7 +103,12 @@ public class ConfigHelper {
 
 	private static void initConfigRepository() {
 		if (configRepository == null) {
-			configRepository = new CacheWrapperRepository<>(Application.get().getSpringApplicationContext().getBean(PairRepository.class));
+			PairRepository pairRepository = Application.get().getBean(PairRepository.class);
+			if (pairRepository != null) {
+				configRepository = new CacheWrapperRepository<>(pairRepository);
+			} else {
+				configRepository = new CacheWrapperRepository<>(new InMemoryRepository<Pair>());
+			}
 			reloadConfig();
 		}
 	}
