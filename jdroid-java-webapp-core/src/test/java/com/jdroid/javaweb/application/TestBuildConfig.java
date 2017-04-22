@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.application;
 
-public class BuildConfig {
+public class TestBuildConfig {
 	public static final String APP_NAME = "jdroid-java-webapp-sample";
 	public static final String APP_VERSION = null;
 	public static final String BUILD_TYPE = "test";
