@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.api;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.application.AppModule;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.nio.charset.Charset;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,6 +31,8 @@ public abstract class AdminController extends AbstractController {
 		
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
 		infoMap.put("Current Time", DateUtils.now());
+		infoMap.put("Fake Now", DateUtils.isFakeNow());
+		infoMap.put("Fake Timestamp", DateUtils.getFakeNow());
 		
 		for (AppModule appModule : Application.get().getAppModules()) {
 			Map<String, String> params = appModule.getServerInfoMap();
@@ -82,6 +85,23 @@ public abstract class AdminController extends AbstractController {
 
 	protected Map<String, Object> getCustomInfoMap() {
 		return Maps.newHashMap();
+	}
+	
+	@RequestMapping(value = "/fakeNow/save", method = RequestMethod.GET)
+	public void saveFakeNow(@RequestParam(required = false) Long timestamp) {
+		if (timestamp != null) {
+			DateUtils.setFakeNow(new Date(timestamp));
+		} else {
+			DateUtils.setFakeNow(null);
+		}
+	}
+	
+	@RequestMapping(value = "/fakeNow", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
+	@ResponseBody
+	public String getFakeNow() {
+		Map<String, Object> map = Maps.newHashMap();
+		map.put("timestamp", DateUtils.isFakeNow() ? DateUtils.getFakeNow().getTime() : null);
+		return marshall(map);
 	}
 
 	@RequestMapping(value = "/config/reload", method = RequestMethod.GET)
