@@ -8,12 +8,11 @@
 |Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-java-webapp.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid-java-webapp)|
 
 ## Features
+### jdroid-java-webapp-core
 * Http Filters
  * Authentication filter
  * API version filter
 * [Spring MVC integration](http://projects.spring.io/spring-framework/)
-* [Restfb Facebook integration](http://restfb.com/)
-* [Twitter 4j integration](http://twitter4j.org/)
 * [Sentry integration](http://sentry.io)
 * Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
 * Pagination and filtering support
@@ -22,7 +21,11 @@
 * A set of useful shell scripts to
  * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
  * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
- 
+### jdroid-java-webapp-twitter
+ * [Twitter 4j integration](http://twitter4j.org/)
+### jdroid-java-webapp-facebook
+ * [Restfb Facebook integration](http://restfb.com/)
+
 ## Setup
 
 Add the following lines to your `build.gradle`:

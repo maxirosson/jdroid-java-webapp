@@ -1,0 +1,35 @@
+apply plugin: 'com.jdroid.java.library'
+
+ext.PROJECT_NAME = 'Jdroid Java Web App - Twitter'
+description = 'Twitter integration'
+
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+buildscript {
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+	}
+}
+
+dependencies {
+
+	// Jdroid dependencies
+
+	compile project(":jdroid-java-webapp-core")
+
+	// Twitter
+	// http://twitter4j.org/en/index.html#download
+	compile "org.twitter4j:twitter4j-core:4.0.4"
+
+	// Testing
+	testCompile "org.testng:testng:6.8.21"
+	testCompile "org.mockito:mockito-all:1.10.19"
+}
+
+test {
+	useTestNG {
+	}
+}

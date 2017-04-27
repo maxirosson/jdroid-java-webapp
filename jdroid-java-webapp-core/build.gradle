@@ -57,13 +57,6 @@ dependencies {
 	compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
 	compile "com.fasterxml.jackson.core:jackson-annotations:2.7.3"
 
-	// Facebook
-	compile "com.restfb:restfb:1.6.12"
-
-	// Twitter
-	// http://twitter4j.org/en/index.html#download
-	compile "org.twitter4j:twitter4j-core:4.0.4"
-
 	// Apache Commons
 	compile "commons-collections:commons-collections:3.2.2"
 	compile "commons-beanutils:commons-beanutils:1.8.3"

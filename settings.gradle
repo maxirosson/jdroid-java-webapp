@@ -1,2 +1,4 @@
 include ':jdroid-java-webapp-core'
+include ':jdroid-java-webapp-facebook'
+include ':jdroid-java-webapp-twitter'
 include ':jdroid-java-webapp-sample'
