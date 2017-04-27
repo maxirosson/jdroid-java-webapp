@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.firebase.fcm;
+package com.jdroid.javaweb.push.fcm;
 
 import com.jdroid.java.json.JsonMap;
 import com.jdroid.java.marshaller.Marshaller;

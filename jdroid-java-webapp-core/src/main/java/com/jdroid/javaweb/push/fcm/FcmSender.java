@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.firebase.fcm;
+package com.jdroid.javaweb.push.fcm;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;

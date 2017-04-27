@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.push;
 
-import com.jdroid.javaweb.firebase.fcm.FcmSender;
+import com.jdroid.javaweb.push.fcm.FcmSender;
 
 public enum DeviceType {
 	ANDROID("android", FcmSender.get()),

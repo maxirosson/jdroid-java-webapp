@@ -9,8 +9,8 @@ import com.jdroid.javaweb.api.ConfigParameterInfoMarshaller;
 import com.jdroid.javaweb.config.ConfigHelper;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
 import com.jdroid.javaweb.context.SecurityContextHolder;
-import com.jdroid.javaweb.firebase.fcm.FcmMessage;
-import com.jdroid.javaweb.firebase.fcm.FcmMessageMarshaller;
+import com.jdroid.javaweb.push.fcm.FcmMessage;
+import com.jdroid.javaweb.push.fcm.FcmMessageMarshaller;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceMarshaller;
 

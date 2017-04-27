@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.firebase.fcm;
+package com.jdroid.javaweb.push.fcm;
 
 public abstract class AuthenticatedFcmMessage extends FcmMessage {
 	

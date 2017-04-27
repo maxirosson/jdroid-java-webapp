@@ -4,7 +4,7 @@ import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.api.AbstractController;
-import com.jdroid.javaweb.firebase.fcm.FcmMessage;
+import com.jdroid.javaweb.push.fcm.FcmMessage;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceParser;
 import com.jdroid.javaweb.push.DeviceRepository;
