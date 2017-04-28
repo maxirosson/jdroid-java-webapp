@@ -9,10 +9,6 @@ import com.jdroid.javaweb.api.ConfigParameterInfoMarshaller;
 import com.jdroid.javaweb.config.ConfigHelper;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
 import com.jdroid.javaweb.context.SecurityContextHolder;
-import com.jdroid.javaweb.push.fcm.FcmMessage;
-import com.jdroid.javaweb.push.fcm.FcmMessageMarshaller;
-import com.jdroid.javaweb.push.Device;
-import com.jdroid.javaweb.push.DeviceMarshaller;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -49,8 +45,6 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 		}
 		
 		MarshallerProvider.get().addMarshaller(ConfigParameterInfo.class, new ConfigParameterInfoMarshaller());
-		MarshallerProvider.get().addMarshaller(Device.class, new DeviceMarshaller());
-		MarshallerProvider.get().addMarshaller(FcmMessage.class, new FcmMessageMarshaller());
 	}
 	
 	public void init() {

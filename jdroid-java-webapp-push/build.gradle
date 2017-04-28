@@ -1,0 +1,34 @@
+apply plugin: 'com.jdroid.java.library'
+
+ext.PROJECT_NAME = 'Jdroid Java Web App - Push'
+description = 'Push notifications support'
+
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+buildscript {
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+	}
+}
+
+dependencies {
+
+	// Jdroid dependencies
+
+	compile project(":jdroid-java-webapp-core")
+
+	// Push for Android
+	compile "com.googlecode.json-simple:json-simple:1.1"
+
+	// Testing
+	testCompile "org.testng:testng:6.8.21"
+	testCompile "org.mockito:mockito-all:1.10.19"
+}
+
+test {
+	useTestNG {
+	}
+}

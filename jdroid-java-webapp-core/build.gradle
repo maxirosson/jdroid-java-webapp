@@ -36,9 +36,6 @@ dependencies {
 		}
 	}
 
-	// Push for Android
-	compile "com.googlecode.json-simple:json-simple:1.1"
-
 	// Sentry
 	compile 'com.getsentry.raven:raven:7.8.1'
 

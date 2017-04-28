@@ -3,6 +3,7 @@ package com.jdroid.javaweb.push.fcm;
 import com.jdroid.java.json.JsonMap;
 import com.jdroid.java.marshaller.Marshaller;
 import com.jdroid.java.marshaller.MarshallerMode;
+import com.jdroid.java.marshaller.MarshallerProvider;
 
 import java.util.Map;
 
@@ -14,6 +15,10 @@ public class FcmMessageMarshaller implements Marshaller<FcmMessage, JsonMap> {
 	public static final String PRIORITY = "priority";
 	public static final String TIME_TO_LIVE = "time_to_live";
 	public static final String DATA = "data";
+	
+	static {
+		MarshallerProvider.get().addMarshaller(FcmMessage.class, new FcmMessageMarshaller());
+	}
 
 	@Override
 	public JsonMap marshall(FcmMessage fcmMessage, MarshallerMode mode, Map<String, String> extras) {

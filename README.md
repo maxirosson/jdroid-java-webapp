@@ -10,21 +10,23 @@
 ## Features
 ### jdroid-java-webapp-core
 * Http Filters
- * Authentication filter
- * API version filter
+  * Authentication filter
+  * API version filter
 * [Spring MVC integration](http://projects.spring.io/spring-framework/)
 * [Sentry integration](http://sentry.io)
-* Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
 * Pagination and filtering support
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 * A set of useful shell scripts to
- * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
- * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
+  * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
+  * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
+### jdroid-java-webapp-push
+* Generic push framework. 
+  * [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
 ### jdroid-java-webapp-twitter
- * [Twitter 4j integration](http://twitter4j.org/)
+* [Twitter 4j integration](http://twitter4j.org/)
 ### jdroid-java-webapp-facebook
- * [Restfb Facebook integration](http://restfb.com/)
+* [Restfb Facebook integration](http://restfb.com/)
 
 ## Setup
 
