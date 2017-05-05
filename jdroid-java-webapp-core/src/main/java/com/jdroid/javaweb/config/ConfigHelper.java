@@ -83,10 +83,10 @@ public class ConfigHelper {
 		}
 	}
 	
-	public static void saveConfigParameter(String key, String value) {
+	public static void saveConfigParameter(String key, Object value) {
 		initConfigRepository();
 		if (value != null) {
-			configRepository.add(new Pair(key, value));
+			configRepository.add(new Pair(key, value.toString()));
 		} else {
 			configRepository.remove(key);
 		}

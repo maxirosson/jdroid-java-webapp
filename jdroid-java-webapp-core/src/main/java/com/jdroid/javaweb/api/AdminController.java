@@ -10,6 +10,7 @@ import com.jdroid.javaweb.config.ConfigHelper;
 import com.jdroid.javaweb.config.ConfigParameter;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -119,9 +120,10 @@ public abstract class AdminController extends AbstractController {
 		return marshall(configParameterInfos);
 	}
 	
-	@RequestMapping(value = "/config/save", method = RequestMethod.GET)
-	public void saveConfigParameter(@RequestParam(required = true) String key, @RequestParam String value) {
-		ConfigHelper.saveConfigParameter(key, value);
+	@RequestMapping(value = "/config/save", method = RequestMethod.POST)
+	public void saveConfigParameter(@RequestBody String deviceJSON) {
+		ConfigParameterInfo configParameterInfo = (ConfigParameterInfo)new ConfigParameterInfoParser().parse(deviceJSON);
+		ConfigHelper.saveConfigParameter(configParameterInfo.getKey(), configParameterInfo.getValue());
 	}
 	
 	protected List<ConfigParameter> getConfigParameters() {
