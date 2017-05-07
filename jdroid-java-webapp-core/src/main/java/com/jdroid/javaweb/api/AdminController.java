@@ -55,9 +55,9 @@ public abstract class AdminController extends AbstractController {
 		builder.append("<body>");
 		builder.append("<h2>Server Info</h2>");
 		for (Entry<String, Object> entry : getServerInfoMap().entrySet()) {
-			builder.append("<div>");
+			builder.append("<div><b>");
 			builder.append(entry.getKey());
-			builder.append(": ");
+			builder.append("</b>: ");
 			builder.append(entry.getValue());
 			builder.append("</div>");
 			builder.append("\n");
@@ -65,9 +65,9 @@ public abstract class AdminController extends AbstractController {
 		
 		builder.append("<h2>Config Parameters</h2>");
 		for (ConfigParameter configParameter : getConfigParameters()) {
-			builder.append("<div>");
+			builder.append("<div><b>");
 			builder.append(configParameter.getKey());
-			builder.append(": ");
+			builder.append("</b>: ");
 			builder.append(ConfigHelper.getObjectValue(configParameter));
 			builder.append("</div>");
 			builder.append("\n");

@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.exception;
 
-import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

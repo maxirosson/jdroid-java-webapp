@@ -2,8 +2,8 @@ package com.jdroid.javaweb.push.fcm;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
