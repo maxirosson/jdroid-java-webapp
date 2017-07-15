@@ -60,7 +60,7 @@ project.afterEvaluate {
 				out.writeLine("")
 				out.writeLine("public class BuildConfig {")
 				jdroid.setBuildConfigString(out, 'APP_NAME', project.name)
-				jdroid.setBuildConfigString(out, 'APP_VERSION', project.version)
+				jdroid.setBuildConfigString(out, 'APP_VERSION', project.version.toString())
 				jdroid.setBuildConfigString(out, 'BUILD_TYPE')
 				jdroid.setBuildConfigString(out, 'BUILD_TIME', jdroid.getBuildTime())
 				jdroid.setBuildConfigString(out, 'GIT_BRANCH', jdroid.getGitBranch())
