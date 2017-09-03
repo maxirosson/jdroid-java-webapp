@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 TOMCAT_HOME="$1"
 WAR_NAME="$2"
 PROJECT_NAME="$3"
