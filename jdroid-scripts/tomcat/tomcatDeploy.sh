@@ -5,6 +5,9 @@ PROJECT_NAME="$3"
 PROJECT_HOME="$4"
 BACKUPS=true
 AUTO_RECOVERY=true
+CLEAR_LOGS=true
+TOMCAT_START_COMMAND=/etc/init.d/tomcat start
+TOMCAR_STOP_COMMAND=/etc/init.d/tomcat stop
 
 # Help
 # ****
@@ -83,16 +86,6 @@ fi
 # *******************
 echo "Starting deployment..."
 
-# Killing TOMCAT
-
-#TOMCAT_PID="$(ps -ef | grep $TOMCAT_HOME/bin | grep -v grep | sed "s/ \+/,/g" | cut -f2 -d, | tr '\n' ' ')";
-#if [ ! -z "$TOMCAT_PID" ]
-#then
-#	echo "Killing Apache Tomcat ($TOMCAT_HOME [PID=$TOMCAT_PID])";
-#	kill -9 "$TOMCAT_PID";
-#	echo "Apache Tomcat killed";
-#fi
-
 if [ "$AUTO_RECOVERY" = 'true' ] 
 then
 	echo "Disabling autorecovery..."
@@ -100,12 +93,14 @@ then
 fi
 
 echo "Shuting down tomcat..."
-#$TOMCAT_HOME/bin/shutdown.sh
-/etc/init.d/tomcat stop
+$TOMCAR_STOP_COMMAND
 
-echo "Clearing logs..."
-cd $TOMCAT_HOME/logs
-rm -rf *
+if [ "$CLEAR_LOGS" = 'true' ]
+then
+	echo "Clearing logs..."
+	cd $TOMCAT_HOME/logs
+	rm -rf *
+fi
 
 echo "Removing earlier versions..."
 cd $TOMCAT_HOME/webapps
@@ -114,9 +109,8 @@ rm -rf $PROJECT_NAME*
 echo "Deploying war..."
 cp -p $WAR_PATH $TOMCAT_HOME/webapps/$PROJECT_NAME.war
 
-echo "Restarting tomcat..."
-#$TOMCAT_HOME/bin/startup.sh
-/etc/init.d/tomcat start
+echo "Starting tomcat..."
+$TOMCAT_START_COMMAND
 
 # Backups
 # *******************
