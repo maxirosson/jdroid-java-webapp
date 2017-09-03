@@ -9,8 +9,8 @@ PROJECT_HOME="$4"
 BACKUPS=true
 AUTO_RECOVERY=true
 CLEAR_LOGS=true
-TOMCAT_START_COMMAND=/etc/init.d/tomcat start
-TOMCAR_STOP_COMMAND=/etc/init.d/tomcat stop
+TOMCAT_START_COMMAND="/etc/init.d/tomcat start"
+TOMCAR_STOP_COMMAND="/etc/init.d/tomcat stop"
 
 # Help
 # ****
