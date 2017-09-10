@@ -23,7 +23,7 @@ public class InstanceIdLog4jFilter extends OncePerRequestFilter {
 		
 		String instanceId = request.getHeader(DeviceHeaders.INSTANCE_ID_HEADER);
 		if (instanceId != null) {
-			MDC.put(DeviceHeaders.INSTANCE_ID_HEADER,  "- " + instanceId);
+			MDC.put(DeviceHeaders.INSTANCE_ID_HEADER,  " - " + instanceId);
 		}
 		
 		try {
