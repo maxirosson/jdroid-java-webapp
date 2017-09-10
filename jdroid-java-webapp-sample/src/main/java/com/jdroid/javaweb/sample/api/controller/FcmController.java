@@ -4,12 +4,13 @@ import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.api.AbstractController;
-import com.jdroid.javaweb.push.fcm.FcmMessage;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceParser;
 import com.jdroid.javaweb.push.DeviceRepository;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushService;
+import com.jdroid.javaweb.push.api.DeviceHeaders;
+import com.jdroid.javaweb.push.fcm.FcmMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,7 +84,7 @@ public class FcmController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/device", method = RequestMethod.POST)
-	public void addDevice(@RequestHeader(value = "instanceId") String instanceId, @RequestHeader(value = "User-Agent") String userAgent,
+	public void addDevice(@RequestHeader(value = DeviceHeaders.INSTANCE_ID_HEADER) String instanceId, @RequestHeader(value = "User-Agent") String userAgent,
 						  @RequestHeader(value="Accept-Language") String acceptLanguage, @RequestBody String deviceJSON, @RequestParam Boolean updateLastActiveTimestamp) {
 		DeviceParser parser = new DeviceParser(instanceId, userAgent, acceptLanguage);
 		Device device = (Device)parser.parse(deviceJSON);
@@ -91,7 +92,7 @@ public class FcmController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/device", method = RequestMethod.DELETE)
-	public void removeDevice(@RequestHeader(value = "User-Agent") String userAgent, @RequestHeader(value = "instanceId") String instanceId) {
+	public void removeDevice(@RequestHeader(value = "User-Agent") String userAgent, @RequestHeader(value = DeviceHeaders.INSTANCE_ID_HEADER) String instanceId) {
 		pushService.removeDevice(instanceId, DeviceType.find(userAgent));
 	}
 }

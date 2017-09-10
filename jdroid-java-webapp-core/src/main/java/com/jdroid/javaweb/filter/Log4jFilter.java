@@ -27,10 +27,6 @@ public class Log4jFilter extends OncePerRequestFilter {
 	private static final String USER_ID = "userId";
 	private static final String SESSION_ID = "sessionId";
 	
-	/**
-	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
-	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {

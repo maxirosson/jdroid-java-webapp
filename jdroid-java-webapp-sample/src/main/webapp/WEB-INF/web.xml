@@ -18,6 +18,11 @@
 	</filter>
 
 	<filter>
+		<filter-name>InstanceId Log4j Filter</filter-name>
+		<filter-class>com.jdroid.javaweb.push.api.filter.InstanceIdLog4jFilter</filter-class>
+	</filter>
+
+	<filter>
 		<filter-name>Admin Security Filter</filter-name>
 		<filter-class>com.jdroid.javaweb.filter.AdminSecurityFilter</filter-class>
 	</filter>
@@ -29,6 +34,11 @@
 
 	<filter-mapping>
 		<filter-name>Log4j Filter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>InstanceId Log4j Filter</filter-name>
 		<url-pattern>/api/*</url-pattern>
 	</filter-mapping>
 
