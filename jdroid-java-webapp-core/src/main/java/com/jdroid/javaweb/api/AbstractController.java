@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.api;
 
+import com.google.gson.Gson;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.StringUtils;
@@ -32,5 +33,9 @@ public abstract class AbstractController {
 	public String getUserId() {
 		return Application.get().getSecurityContext().isAuthenticated() ? Application.get().getSecurityContext().getUser().getId()
 				: null;
+	}
+	
+	public String autoMarshall(Object object) {
+		return new Gson().toJson(object);
 	}
 }

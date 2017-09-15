@@ -12,7 +12,6 @@ import com.jdroid.javaweb.exception.InvalidAuthenticationException;
 
 import org.slf4j.Logger;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.core.style.StylerUtils;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpStatus;
@@ -213,10 +212,7 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 	}
 	
 	protected ApiError handleException(BadRequestException badRequestException) {
-		LOGGER.warn("No mapping found for HTTP request with [URI '" + badRequestException.getUri() + "', method '"
-				+ badRequestException.getRequestMethod() + "', parameters "
-				+ StylerUtils.style(badRequestException.getUriParameters()) + "] in DispatcherServlet with name '"
-				+ badRequestException.getServletName() + "'", badRequestException);
+		LOGGER.warn(badRequestException.getMessage(), badRequestException);
 		return new ApiError(HttpStatus.BAD_REQUEST, badRequestException.getErrorCode().getStatusCode(),
 				badRequestException.getMessage());
 	}

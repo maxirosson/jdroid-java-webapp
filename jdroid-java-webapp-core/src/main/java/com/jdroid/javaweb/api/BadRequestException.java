@@ -1,8 +1,11 @@
 package com.jdroid.javaweb.api;
 
-import java.util.Map;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.javaweb.exception.CommonErrorCode;
+
+import org.springframework.core.style.StylerUtils;
+
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 public class BadRequestException extends ErrorCodeException {
@@ -12,8 +15,11 @@ public class BadRequestException extends ErrorCodeException {
 	private String requestMethod;
 	private String servletName;
 	
-	public BadRequestException(String message, String uri, Map uriParameters, String requestMethod, String servletName) {
-		super(CommonErrorCode.BAD_REQUEST, message);
+	public BadRequestException(String uri, Map uriParameters, String requestMethod, String servletName) {
+		super(CommonErrorCode.BAD_REQUEST, "No mapping found for HTTP request with [URI '" + uri + "', method '"
+				+ requestMethod + "', parameters "
+				+ StylerUtils.style(uriParameters) + "] in DispatcherServlet with name '"
+				+ servletName + "'");
 		this.uri = uri;
 		this.uriParameters = uriParameters;
 		this.requestMethod = requestMethod;

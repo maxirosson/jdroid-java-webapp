@@ -13,7 +13,6 @@ public class ApiDispatcherServlet extends DispatcherServlet {
 	@Override
 	protected void noHandlerFound(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String requestUri = new UrlPathHelper().getRequestUri(request);
-		throw new BadRequestException("No mapping found for HTTP request", requestUri, request.getParameterMap(),
-				request.getMethod(), getServletName());
+		throw new BadRequestException(requestUri, request.getParameterMap(), request.getMethod(), getServletName());
 	}
 }
