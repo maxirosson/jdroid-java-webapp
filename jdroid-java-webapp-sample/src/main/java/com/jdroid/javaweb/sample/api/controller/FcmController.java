@@ -64,7 +64,7 @@ public class FcmController extends AbstractController {
 		}
 
 		if (params != null) {
-			for (String param : StringUtils.splitToCollectionWithCommaSeparator(params.replace("[", "").replace("]", ""))) {
+			for (String param : StringUtils.splitWithCommaSeparator(params.replace("[", "").replace("]", ""))) {
 				String[] vec = param.split("\\|");
 				pushMessage.addParameter(vec[0], vec[1]);
 			}
