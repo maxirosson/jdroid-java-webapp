@@ -50,7 +50,7 @@ public class ConfigHelper {
 		} else {
 			value = BuildConfigUtils.getBuildConfigString(configParameter.getKey(), (String)configParameter.getDefaultValue());
 		}
-		return StringUtils.splitToListWithCommaSeparator(value);
+		return StringUtils.splitWithCommaSeparator(value);
 	}
 
 	public static Boolean getBooleanValue(ConfigParameter configParameter) {
