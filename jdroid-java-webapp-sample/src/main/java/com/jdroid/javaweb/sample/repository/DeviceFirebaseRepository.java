@@ -42,7 +42,7 @@ public class DeviceFirebaseRepository extends FirebaseDatabaseRepository<Device>
 
 	@Override
 	public Device findByRegistrationToken(String registrationToken, DeviceType deviceType) {
-		for(Device each : findByField("registrationToken", registrationToken)) {
+		for(Device each : getByField("registrationToken", registrationToken)) {
 			if (each.getDeviceType().equals(deviceType)) {
 				LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + each + " ]");
 				return each;
@@ -53,7 +53,7 @@ public class DeviceFirebaseRepository extends FirebaseDatabaseRepository<Device>
 
 	@Override
 	public Device findByInstanceId(String instanceId, DeviceType deviceType) {
-		for(Device each : findByField("instanceId", instanceId)) {
+		for(Device each : getByField("instanceId", instanceId)) {
 			if (each.getDeviceType().equals(deviceType)) {
 				LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + each + " ]");
 				return each;

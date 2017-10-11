@@ -32,6 +32,10 @@ public class ServerApplication extends Application<Entity> {
 		appModulesMap.put(SentryAppModule.MODULE_NAME, new SentryAppModule());
 	}
 
+	public String getFirebaseProjectId() {
+		return BuildConfigUtils.getBuildConfigValue("FIREBASE_PROJECT_ID");
+	}
+	
 	public String getFirebaseUrl() {
 		return BuildConfigUtils.getBuildConfigValue("FIREBASE_URL");
 	}

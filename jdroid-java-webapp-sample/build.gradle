@@ -20,6 +20,7 @@ dependencies {
 	compile project(':jdroid-java-webapp-facebook')
 	compile project(':jdroid-java-webapp-twitter')
 	compile project(':jdroid-java-webapp-push')
+	compile project(':jdroid-java-webapp-firebase-firestore')
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile(project(':jdroid-java-firebase-database')) {
@@ -79,6 +80,7 @@ project.afterEvaluate {
 				jdroid.setBuildConfigString(out, 'TWITTER_OAUTH_ACCESS_TOKEN_SECRET')
 				jdroid.setBuildConfigBoolean(out, 'TWITTER_ENABLED', false)
 
+				jdroid.setBuildConfigString(out, 'FIREBASE_PROJECT_ID')
 				jdroid.setBuildConfigString(out, 'FIREBASE_URL')
 				jdroid.setBuildConfigString(out, 'FIREBASE_AUTH_TOKEN')
 

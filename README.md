@@ -20,6 +20,8 @@
 * A set of useful shell scripts to
   * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
   * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
+### jdroid-java-firebase-firestore
+* [Firestore integration](https://firebase.google.com/docs/firestore/)
 ### jdroid-java-webapp-push
 * Generic push framework. 
   * [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)

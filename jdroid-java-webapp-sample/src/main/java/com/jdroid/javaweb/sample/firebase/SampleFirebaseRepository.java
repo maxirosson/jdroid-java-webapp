@@ -5,7 +5,7 @@ import com.jdroid.java.firebase.database.auth.CustomTokenFirebaseAuthenticationS
 import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.javaweb.sample.context.ServerApplication;
 
-public class SampleFirebaseRepository extends FirebaseDatabaseRepository<SampleFirebaseEntity> {
+public class SampleFirebaseRepository extends FirebaseDatabaseRepository<SampleEntity> {
 
 	@Override
 	protected FirebaseAuthenticationStrategy createFirebaseAuthenticationStrategy() {
@@ -28,7 +28,7 @@ public class SampleFirebaseRepository extends FirebaseDatabaseRepository<SampleF
 	}
 
 	@Override
-	protected Class<SampleFirebaseEntity> getEntityClass() {
-		return SampleFirebaseEntity.class;
+	protected Class<SampleEntity> getEntityClass() {
+		return SampleEntity.class;
 	}
 }

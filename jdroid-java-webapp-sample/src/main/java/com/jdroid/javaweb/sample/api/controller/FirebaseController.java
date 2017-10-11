@@ -2,12 +2,11 @@ package com.jdroid.javaweb.sample.api.controller;
 
 import com.firebase.security.token.TokenGenerator;
 import com.firebase.security.token.TokenOptions;
-import com.jdroid.java.http.AbstractHttpService;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.javaweb.api.AbstractController;
-import com.jdroid.javaweb.sample.firebase.SampleFirebaseEntity;
+import com.jdroid.javaweb.sample.firebase.SampleEntity;
 import com.jdroid.javaweb.sample.firebase.SampleFirebaseRepository;
 
 import org.slf4j.Logger;
@@ -24,7 +23,7 @@ import java.util.Map;
 @RequestMapping("/firebase")
 public class FirebaseController extends AbstractController {
 
-	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractHttpService.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseController.class);
 
 	private SampleFirebaseRepository repository = new SampleFirebaseRepository();
 
@@ -38,18 +37,18 @@ public class FirebaseController extends AbstractController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public void add() {
-		SampleFirebaseEntity entity = new SampleFirebaseEntity();
+		SampleEntity entity = new SampleEntity();
 		lastId = RandomUtils.getLong().toString();
 		entity.setId(lastId);
-		entity.setField(RandomUtils.getLong().toString());
+		entity.setStringField(RandomUtils.getLong().toString());
 		repository.add(entity);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public void update() {
-		SampleFirebaseEntity entity = new SampleFirebaseEntity();
+		SampleEntity entity = new SampleEntity();
 		entity.setId(lastId);
-		entity.setField(RandomUtils.getLong().toString());
+		entity.setStringField(RandomUtils.getLong().toString());
 		repository.update(entity);	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
