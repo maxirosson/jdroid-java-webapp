@@ -45,7 +45,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		DocumentSnapshot documentSnapshot = getDocumentSnapshot(createCollectionReference().document(id).get());
 		T item = null;
 		if (documentSnapshot.exists()) {
-			item = documentSnapshot.toObject(getEntityClass());
+			item = getItem(documentSnapshot);
 			if (item.getId() == null) {
 				item.setId(id);
 			}
@@ -100,7 +100,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		for (Object value : values) {
 			Query query = collectionReference.whereEqualTo(fieldName, value);
 			for (DocumentSnapshot documentSnapshot : getQuerySnapshot(query.get()).getDocuments()) {
-				T item = documentSnapshot.toObject(getEntityClass());
+				T item = getItem(documentSnapshot);
 				if (item.getId() == null) {
 					item.setId(documentSnapshot.getId());
 				}
@@ -116,7 +116,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	public List<T> getAll() {
 		List<T> results = Lists.newArrayList();
 		for (DocumentSnapshot documentSnapshot : getQuerySnapshot(createCollectionReference().get()).getDocuments()) {
-			T item = documentSnapshot.toObject(getEntityClass());
+			T item = getItem(documentSnapshot);
 			if (item.getId() == null) {
 				item.setId(documentSnapshot.getId());
 			}
@@ -146,6 +146,31 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		} else {
 			return null;
 		}
+	}
+	
+	@Override
+	public T getUniqueInstance() {
+		List<DocumentSnapshot> documentSnapshots = getQuerySnapshot(createCollectionReference().limit(1).get()).getDocuments();
+		if (!documentSnapshots.isEmpty()) {
+			DocumentSnapshot documentSnapshot = documentSnapshots.get(0);
+			T item = getItem(documentSnapshot);
+			if (item.getId() == null) {
+				item.setId(documentSnapshot.getId());
+			}
+			return item;
+		}
+		return null;
+	}
+	
+	private T getItem(DocumentSnapshot documentSnapshot) {
+		T item = documentSnapshot.toObject(getEntityClass());
+		onItemLoaded(item);
+		return item;
+		
+	}
+	
+	protected void onItemLoaded(T item) {
+		// Do nothing
 	}
 	
 	@Override
@@ -212,21 +237,6 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		removeAll();
 		addAll(items);
 	}
-	
-	@Override
-	public T getUniqueInstance() {
-		List<DocumentSnapshot> documentSnapshots = getQuerySnapshot(createCollectionReference().limit(1).get()).getDocuments();
-		if (!documentSnapshots.isEmpty()) {
-			DocumentSnapshot documentSnapshot = documentSnapshots.get(0);
-			T item = documentSnapshot.toObject(getEntityClass());
-			if (item.getId() == null) {
-				item.setId(documentSnapshot.getId());
-			}
-			return item;
-		}
-		return null;
-	}
-	
 	
 	private QuerySnapshot getQuerySnapshot(ApiFuture<QuerySnapshot> futureResult) {
 		try {
