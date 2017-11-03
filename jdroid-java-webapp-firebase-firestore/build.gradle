@@ -18,14 +18,14 @@ dependencies {
 
 	// Jdroid dependencies
 
-	compile project(":jdroid-java-webapp-core")
+	implementation project(":jdroid-java-webapp-core")
 
 	// Firebase Firestone
-	compile 'com.google.cloud:google-cloud-firestore:0.25.0-beta'
+	api 'com.google.cloud:google-cloud-firestore:0.25.0-beta'
 
 	// Testing
-	testCompile "org.testng:testng:6.8.21"
-	testCompile "org.mockito:mockito-all:1.10.19"
+	testImplementation "org.testng:testng:6.8.21"
+	testImplementation "org.mockito:mockito-all:1.10.19"
 }
 
 test {

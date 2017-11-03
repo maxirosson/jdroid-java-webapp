@@ -15,36 +15,35 @@ buildscript {
 
 dependencies {
 
-	//compile 'com.jdroidframework:jdroid-java-webaapp-core:' + jdroidVersion
-	compile project(':jdroid-java-webapp-core')
-	compile project(':jdroid-java-webapp-facebook')
-	compile project(':jdroid-java-webapp-twitter')
-	compile project(':jdroid-java-webapp-push')
-	compile project(':jdroid-java-webapp-firebase-firestore')
+	implementation project(':jdroid-java-webapp-core')
+	implementation project(':jdroid-java-webapp-facebook')
+	implementation project(':jdroid-java-webapp-twitter')
+	implementation project(':jdroid-java-webapp-push')
+	implementation project(':jdroid-java-webapp-firebase-firestore')
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
-		compile(project(':jdroid-java-firebase-database')) {
+		implementation(project(':jdroid-java-firebase-database')) {
 			exclude module: 'jdroid-java-core'
 		}
 	} else {
-		compile('com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
+		implementation('com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
-		compile project(":jdroid-java-http-okhttp")
+		implementation project(":jdroid-java-http-okhttp")
 	} else {
-		compile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+		implementation ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	compile 'com.firebase:firebase-token-generator:2.0.0'
+	implementation 'com.firebase:firebase-token-generator:2.0.0'
 
 	// Testing
-	testCompile "org.testng:testng:6.8.21"
-	testCompile "org.mockito:mockito-all:1.10.19"
+	testImplementation "org.testng:testng:6.8.21"
+	testImplementation "org.mockito:mockito-all:1.10.19"
 }
 
 // Generate the settings.properties
