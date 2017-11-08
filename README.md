@@ -39,7 +39,11 @@ Add the following lines to your `build.gradle`:
     }
 
     dependencies {
-      compile 'com.jdroidframework:jdroid-java-webapp-core:X.Y.Z'
+      implementation 'com.jdroidframework:jdroid-java-webapp-core:X.Y.Z'
+      implementation 'com.jdroidframework:jdroid-java-webapp-firebase-firestore:X.Y.Z'
+      implementation 'com.jdroidframework:jdroid-java-webapp-push:X.Y.Z'
+      implementation 'com.jdroidframework:jdroid-java-webapp-twitter:X.Y.Z'
+      implementation 'com.jdroidframework:jdroid-java-webapp-facebook:X.Y.Z'
     }
 
 Replace the X.Y.Z by the [latest version](https://github.com/maxirosson/jdroid-java-webapp/releases/latest)
