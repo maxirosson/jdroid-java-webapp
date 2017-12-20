@@ -108,7 +108,8 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			}
 		}
 		
-		LOGGER.info("Retrieved objects [" + results.size() + "] from database of path: " + getPath() + " field: " + fieldName);
+		LOGGER.info("Retrieved objects [" + results.size() + "] from database of path [" + getPath() + "], field [" + fieldName + "], values [" + values + "]");
+		
 		return results;
 	}
 	

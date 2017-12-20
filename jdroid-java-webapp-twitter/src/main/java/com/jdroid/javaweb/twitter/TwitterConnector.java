@@ -21,6 +21,7 @@ public class TwitterConnector {
 	private static final Logger LOGGER = LoggerUtils.getLogger(TwitterConnector.class);
 	
 	public static Integer CHARACTERS_LIMIT = 140;
+	public static Integer NEW_CHARACTERS_LIMIT = 280;
 	public static Integer URL_CHARACTERS_COUNT = 22;
 	
 	private TwitterFactory twitterFactory;
@@ -35,7 +36,7 @@ public class TwitterConnector {
 		twitterFactory = new TwitterFactory(cb.build());
 	}
 	
-	public void tweetSafe(String text) {
+	public void tweet(String text) {
 		try {
 			if (ConfigHelper.getBooleanValue(CoreConfigParameter.TWITTER_ENABLED)) {
 				Status status = twitterFactory.getInstance().updateStatus(text);
@@ -44,6 +45,14 @@ public class TwitterConnector {
 				LOGGER.info("Ignored tweet status [" + text + "].");
 			}
 		} catch (TwitterException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void tweetSafe(String text) {
+		try {
+			tweet(text);
+		} catch (Exception e) {
 			LOGGER.error("Error when posting on Twitter: [" + text + "]", e);
 		}
 	}
