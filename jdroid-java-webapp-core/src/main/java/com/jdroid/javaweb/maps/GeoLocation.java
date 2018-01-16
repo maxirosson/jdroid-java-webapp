@@ -3,6 +3,7 @@ package com.jdroid.javaweb.maps;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class GeoLocation implements Serializable {
 	
@@ -39,6 +40,20 @@ public class GeoLocation implements Serializable {
 	@JsonIgnore
 	public boolean isValid() {
 		return (latitude != null) && (longitude != null);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		GeoLocation that = (GeoLocation)o;
+		return Objects.equals(longitude, that.longitude) &&
+				Objects.equals(latitude, that.latitude);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(longitude, latitude);
 	}
 	
 	@Override
