@@ -49,9 +49,9 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			if (item.getId() == null) {
 				item.setId(id);
 			}
-			LOGGER.info("[" + getPath() + "] Retrieved object from database: [" + item + "]");
+			LOGGER.debug("[" + getPath() + "] Retrieved object from database: [" + item + "]");
 		} else {
-			LOGGER.info("[" + getPath() + "] Object not found on database with id [" + id + "]");
+			LOGGER.debug("[" + getPath() + "] Object not found on database with id [" + id + "]");
 		}
 		return item;
 	}
@@ -70,7 +70,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		getWriteResult(documentReference.set(item));
 		item.setId(documentReference.getId());
 		
-		LOGGER.info("[" + getPath() + "] Stored object in database: " + item);
+		LOGGER.debug("[" + getPath() + "] Stored object in database: " + item);
 	}
 	
 	@Override
@@ -108,7 +108,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			}
 		}
 		
-		LOGGER.info("[" + getPath() + "] Retrieved objects [" + results.size() + "] from database with field [" + fieldName + "], values [" + values + "]");
+		LOGGER.debug("[" + getPath() + "] Retrieved objects [" + results.size() + "] from database with field [" + fieldName + "], values [" + values + "]");
 		
 		return results;
 	}
@@ -122,7 +122,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 				item.setId(documentSnapshot.getId());
 			}
 			results.add(item);		}
-		LOGGER.info("[" + getPath() + "] Retrieved all objects [" + results.size() + "]");
+		LOGGER.debug("[" + getPath() + "] Retrieved all objects [" + results.size() + "]");
 		return results;
 	}
 	
@@ -135,7 +135,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 				results.add(item);
 			}
 		}
-		LOGGER.info("[" + getPath() + "] Retrieved all objects [" + results.size() + "] with ids: " + ids);
+		LOGGER.debug("[" + getPath() + "] Retrieved all objects [" + results.size() + "] with ids: " + ids);
 		return null;
 	}
 	
@@ -182,7 +182,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	@Override
 	public void removeAll() {
 		deleteCollection(createCollectionReference(), 100);
-		LOGGER.trace("[" + getPath() + "] Deleted all objects in database");
+		LOGGER.debug("[" + getPath() + "] Deleted all objects in database");
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		
 		getWriteResult(createCollectionReference().document(id).delete());
 		
-		LOGGER.trace("[" + getPath() + "] Deleted object in database with id: " + id);
+		LOGGER.debug("[" + getPath() + "] Deleted object in database with id: " + id);
 	}
 	
 	@Override
