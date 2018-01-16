@@ -1,10 +1,12 @@
 package com.jdroid.javaweb.maps;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GeoLocation implements Serializable {
 	
 	private static final long serialVersionUID = -2822993513206651288L;
