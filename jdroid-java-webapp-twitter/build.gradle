@@ -22,6 +22,7 @@ dependencies {
 
 	// http://twitter4j.org/en/index.html#download
 	api "org.twitter4j:twitter4j-core:4.0.4"
+	api "org.twitter4j:twitter4j-stream:4.0.4"
 
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"
