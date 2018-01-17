@@ -12,6 +12,7 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterStreamConnector {
 	
 	private TwitterStreamFactory twitterStreamFactory;
+	private TwitterStream twitterStream;
 	
 	public TwitterStreamConnector() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -24,8 +25,27 @@ public class TwitterStreamConnector {
 	}
 	
 	public void listenTweets(FilterQuery tweetFilterQuery, StatusListener statusListener) {
-		TwitterStream twitterStream = twitterStreamFactory.getInstance();
+		twitterStream = twitterStreamFactory.getInstance();
 		twitterStream.addListener(statusListener);
 		twitterStream.filter(tweetFilterQuery);
 	}
+	
+	/**
+	 * Stop listening to tweets
+	 */
+	public void cleanUp() {
+		if (twitterStream != null) {
+			twitterStream.cleanUp();
+		}
+	}
+	
+	/**
+	 * Cancel received tweets but not notified
+	 */
+	public void shutdown() {
+		if (twitterStream != null) {
+			twitterStream.shutdown();
+		}
+	}
+	
 }
