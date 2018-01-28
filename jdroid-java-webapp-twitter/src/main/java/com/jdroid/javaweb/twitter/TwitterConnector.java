@@ -58,13 +58,15 @@ public class TwitterConnector {
 	}
 	
 	public List<Status> searchTweets(String queryText) {
+		return searchTweets(new Query(queryText));
+	}
+	
+	public List<Status> searchTweets(Query query) {
 		Twitter twitter = twitterFactory.getInstance();
-		Query query = new Query(queryText);
 		try {
 			return twitter.search(query).getTweets();
 		} catch (TwitterException e) {
 			throw new UnexpectedException(e);
 		}
 	}
-	
 }
