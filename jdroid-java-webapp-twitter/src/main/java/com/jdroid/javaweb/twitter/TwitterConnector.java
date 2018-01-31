@@ -69,4 +69,13 @@ public class TwitterConnector {
 			throw new UnexpectedException(e);
 		}
 	}
+	
+	public void retweetStatus(long tweetId) {
+		Twitter twitter = twitterFactory.getInstance();
+		try {
+			twitter.retweetStatus(tweetId);
+		} catch (TwitterException e) {
+			throw new UnexpectedException(e);
+		}
+	}
 }
