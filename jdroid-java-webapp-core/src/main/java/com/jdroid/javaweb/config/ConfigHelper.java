@@ -83,6 +83,16 @@ public class ConfigHelper {
 		}
 	}
 	
+	public static Double getDoubleValue(ConfigParameter configParameter) {
+		initConfigRepository();
+		Pair pair = getPairFromRepository(configParameter);
+		if (pair != null) {
+			return TypeUtils.getDouble(pair.getValue());
+		} else {
+			return BuildConfigUtils.getBuildConfigDouble(configParameter.getKey(), (Double)configParameter.getDefaultValue());
+		}
+	}
+	
 	public static void saveConfigParameter(String key, Object value) {
 		initConfigRepository();
 		if (value != null) {

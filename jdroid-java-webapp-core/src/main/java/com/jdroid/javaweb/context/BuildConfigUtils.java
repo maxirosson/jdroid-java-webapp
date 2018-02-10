@@ -30,4 +30,8 @@ public class BuildConfigUtils {
 	public static Long getBuildConfigLong(String property, Long defaultValue) {
 		return (Long)getBuildConfigValue(property, defaultValue);
 	}
+	
+	public static Double getBuildConfigDouble(String property, Double defaultValue) {
+		return (Double)getBuildConfigValue(property, defaultValue);
+	}
 }
