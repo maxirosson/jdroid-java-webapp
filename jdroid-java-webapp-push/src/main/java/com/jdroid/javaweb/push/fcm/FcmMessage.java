@@ -94,10 +94,12 @@ public class FcmMessage implements PushMessage {
 	}
 
 	public void addRegistrationId(String registrationId) {
-		if (registrationIds == null) {
-			registrationIds = Lists.newArrayList();
+		if (registrationId != null) {
+			if (registrationIds == null) {
+				registrationIds = Lists.newArrayList();
+			}
+			registrationIds.add(registrationId);
 		}
-		registrationIds.add(registrationId);
 	}
 
 	public void setRegistrationIds(List<String> registrationIds) {
