@@ -70,33 +70,12 @@ public class FcmMessage implements PushMessage {
 	}
 
 	@Override
-	public void addParameter(String key, String value) {
-		if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value)) {
-			data.put(key, value);
-		}
-	}
-
-	@Override
-	public void addParameter(String key, Boolean value) {
+	public void addParameter(String key, Object value) {
 		if (StringUtils.isNotEmpty(key) && value != null) {
 			data.put(key, value.toString());
 		}
 	}
-
-	@Override
-	public void addParameter(String key, Integer value) {
-		if (StringUtils.isNotEmpty(key) && value != null) {
-			data.put(key, value.toString());
-		}
-	}
-
-	@Override
-	public void addParameter(String key, Long value) {
-		if (StringUtils.isNotEmpty(key) && value != null) {
-			data.put(key, value.toString());
-		}
-	}
-
+	
 	@Override
 	public Map<String, String> getParameters() {
 		return data;
