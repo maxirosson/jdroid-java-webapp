@@ -7,10 +7,12 @@ import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.slf4j.Logger;
 
+import java.io.File;
 import java.util.List;
 
 import twitter4j.Query;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -37,9 +39,17 @@ public class TwitterConnector {
 	}
 	
 	public void tweet(String text) {
+		tweet(text, null);
+	}
+	
+	public void tweet(String text, File media) {
 		try {
 			if (ConfigHelper.getBooleanValue(CoreConfigParameter.TWITTER_ENABLED)) {
-				Status status = twitterFactory.getInstance().updateStatus(text);
+				StatusUpdate statusUpdate = new StatusUpdate(text);
+				if (media != null) {
+					statusUpdate.setMedia(media);
+				}
+				Status status = twitterFactory.getInstance().updateStatus(statusUpdate);
 				LOGGER.info("Successfully updated the status to [" + status.getText() + "].");
 			} else {
 				LOGGER.info("Ignored tweet status [" + text + "].");
