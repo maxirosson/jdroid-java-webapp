@@ -8,6 +8,7 @@ public class AbstractTest {
 	
 	@BeforeClass
 	public void onBeforeClass() {
-		new TestApplication();
+		TestApplication testApplication = new TestApplication();
+		testApplication.init();
 	}
 }

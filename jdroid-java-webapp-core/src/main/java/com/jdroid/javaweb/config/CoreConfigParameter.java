@@ -1,8 +1,9 @@
 package com.jdroid.javaweb.config;
 
 import com.jdroid.java.date.DateUtils;
+import com.jdroid.java.remoteconfig.RemoteConfigParameter;
 
-public enum CoreConfigParameter implements ConfigParameter {
+public enum CoreConfigParameter implements RemoteConfigParameter {
 
 	APP_NAME,
 	APP_VERSION,

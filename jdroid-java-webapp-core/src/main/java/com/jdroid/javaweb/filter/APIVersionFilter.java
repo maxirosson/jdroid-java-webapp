@@ -2,7 +2,7 @@ package com.jdroid.javaweb.filter;
 
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.ApiExceptionHandler;
-import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 
@@ -22,15 +22,11 @@ public class APIVersionFilter extends OncePerRequestFilter {
 	
 	private static final String API_VERSION_HEADER = "api-version";
 	
-	/**
-	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
-	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		Long minApiVersion = Long.parseLong(ConfigHelper.getStringValue(CoreConfigParameter.MIN_API_VERSION).replace(".", ""));
+		Long minApiVersion = Long.parseLong(Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.MIN_API_VERSION).replace(".", ""));
 		String header = request.getHeader(API_VERSION_HEADER);
 		Long clientApiVersion = header != null ? Long.parseLong(header.replace(".", "")) : null;
 		if (clientApiVersion == null) {

@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.filter;
 
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.slf4j.Logger;
@@ -37,6 +37,6 @@ public class AdminSecurityFilter extends OncePerRequestFilter {
 	}
 	
 	protected String getAdminToken() {
-		return ConfigHelper.getStringValue(CoreConfigParameter.ADMIN_TOKEN);
+		return Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.ADMIN_TOKEN);
 	}
 }

@@ -5,7 +5,7 @@ import com.getsentry.raven.event.EventBuilder;
 import com.getsentry.raven.event.interfaces.ExceptionInterface;
 import com.getsentry.raven.event.interfaces.MessageInterface;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
-import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.slf4j.Logger;
@@ -350,7 +350,7 @@ public class SentryLogger implements Logger {
 	}
 
 	private void log(final Event.Level level, final String message, final Throwable throwable) {
-		if (ConfigHelper.getBooleanValue(CoreConfigParameter.SENTRY_ENABLED)) {
+		if (Application.get().getRemoteConfigLoader().getBoolean(CoreConfigParameter.SENTRY_ENABLED)) {
 			executor.execute(new Runnable() {
 
 				@Override
@@ -358,9 +358,9 @@ public class SentryLogger implements Logger {
 					try {
 						EventBuilder eventBuilder = new EventBuilder();
 						eventBuilder.withLevel(level);
-						eventBuilder.withEnvironment(ConfigHelper.getStringValue(CoreConfigParameter.BUILD_TYPE));
-						eventBuilder.withRelease(ConfigHelper.getStringValue(CoreConfigParameter.APP_VERSION));
-						eventBuilder.withServerName(ConfigHelper.getStringValue(CoreConfigParameter.APP_NAME));
+						eventBuilder.withEnvironment(Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.BUILD_TYPE));
+						eventBuilder.withRelease(Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.APP_VERSION));
+						eventBuilder.withServerName(Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.APP_NAME));
 						eventBuilder.withLogger(getName());
 						eventBuilder.withPlatform(EventBuilder.DEFAULT_PLATFORM);
 						if (throwable != null) {

@@ -3,9 +3,7 @@ package com.jdroid.javaweb.application;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Entity;
-import com.jdroid.java.marshaller.MarshallerProvider;
-import com.jdroid.javaweb.api.ConfigParameterInfo;
-import com.jdroid.javaweb.api.ConfigParameterInfoMarshaller;
+import com.jdroid.java.remoteconfig.RemoteConfigLoader;
 import com.jdroid.javaweb.config.ConfigHelper;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
 import com.jdroid.javaweb.context.SecurityContextHolder;
@@ -31,24 +29,26 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 	
 	private SecurityContextHolder<T> securityContextHolder;
 	private ApplicationContext springApplicationContext;
+	private RemoteConfigLoader remoteConfigLoader;
 
 	private Map<String, AppModule> appModulesMap = Maps.newLinkedHashMap();
 
 	public Application() {
 		INSTANCE = this;
-		
+	}
+	
+	public void init() {
+		remoteConfigLoader = createRemoteConfigLoader();
 		onCreateApplication();
 		
 		initAppModule(appModulesMap);
 		for (AppModule each : appModulesMap.values()) {
 			each.onCreateApplication();
 		}
-		
-		MarshallerProvider.get().addMarshaller(ConfigParameterInfo.class, new ConfigParameterInfoMarshaller());
 	}
 	
-	public void init() {
-		ConfigHelper.reloadConfig();
+	protected RemoteConfigLoader createRemoteConfigLoader() {
+		return new ConfigHelper();
 	}
 	
 	protected void onCreateApplication() {
@@ -104,5 +104,9 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 	 */
 	public void setSecurityContextHolder(SecurityContextHolder<T> securityContextHolder) {
 		this.securityContextHolder = securityContextHolder;
+	}
+	
+	public RemoteConfigLoader getRemoteConfigLoader() {
+		return remoteConfigLoader;
 	}
 }

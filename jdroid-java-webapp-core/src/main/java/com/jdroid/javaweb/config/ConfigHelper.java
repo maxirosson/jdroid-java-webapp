@@ -1,5 +1,7 @@
 package com.jdroid.javaweb.config;
 
+import com.jdroid.java.remoteconfig.RemoteConfigLoader;
+import com.jdroid.java.remoteconfig.RemoteConfigParameter;
 import com.jdroid.java.repository.CacheWrapperRepository;
 import com.jdroid.java.repository.InMemoryRepository;
 import com.jdroid.java.repository.Pair;
@@ -12,114 +14,110 @@ import com.jdroid.javaweb.context.BuildConfigUtils;
 
 import java.util.List;
 
-public class ConfigHelper {
+public class ConfigHelper implements RemoteConfigLoader {
 	
-	private static Repository<Pair> configRepository;
+	private Repository<Pair> configRepository;
+	
+	public ConfigHelper() {
+		PairRepository pairRepository = Application.get().getBean(PairRepository.class);
+		if (pairRepository != null) {
+			configRepository = new CacheWrapperRepository<>(pairRepository);
+		} else {
+			configRepository = new CacheWrapperRepository<>(new InMemoryRepository<Pair>());
+		}
+		configRepository.getAll();
+	}
 
-	private static Pair getPairFromRepository(ConfigParameter configParameter) {
-		Pair pair = configRepository.get(configParameter.getKey());
+	private Pair getPairFromRepository(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = configRepository.get(remoteConfigParameter.getKey());
 		return pair != null && pair.getValue() != null ? pair : null;
 	}
 	
-	public static Object getObjectValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
+	@Override
+	public Object getObject(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = getPairFromRepository(remoteConfigParameter);
 		if (pair != null) {
 			return pair.getValue();
 		} else {
-			return BuildConfigUtils.getBuildConfigValue(configParameter.getKey(), configParameter.getDefaultValue());
-		}
-	}
-
-	public static String getStringValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
-		if (pair != null) {
-			return pair.getValue();
-		} else {
-			return BuildConfigUtils.getBuildConfigString(configParameter.getKey(), configParameter.getDefaultValue() != null ? configParameter.getDefaultValue().toString() : null);
+			return BuildConfigUtils.getBuildConfigValue(remoteConfigParameter.getKey(), remoteConfigParameter.getDefaultValue());
 		}
 	}
 	
-	public static List<String> getStringListValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
-		String value = null;
+	@Override
+	public String getString(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = getPairFromRepository(remoteConfigParameter);
+		if (pair != null) {
+			return pair.getValue();
+		} else {
+			return BuildConfigUtils.getBuildConfigString(remoteConfigParameter.getKey(), remoteConfigParameter.getDefaultValue() != null ? remoteConfigParameter.getDefaultValue().toString() : null);
+		}
+	}
+	
+	@Override
+	public List<String> getStringList(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = getPairFromRepository(remoteConfigParameter);
+		String value;
 		if (pair != null) {
 			value = pair.getValue();
 		} else {
-			value = BuildConfigUtils.getBuildConfigString(configParameter.getKey(), (String)configParameter.getDefaultValue());
+			value = BuildConfigUtils.getBuildConfigString(remoteConfigParameter.getKey(), (String)remoteConfigParameter.getDefaultValue());
 		}
 		return StringUtils.splitWithCommaSeparator(value);
 	}
-
-	public static Boolean getBooleanValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
+	
+	@Override
+	public Boolean getBoolean(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = getPairFromRepository(remoteConfigParameter);
 		if (pair != null) {
 			return TypeUtils.getBoolean(pair.getValue());
 		} else {
-			return BuildConfigUtils.getBuildConfigBoolean(configParameter.getKey(), (Boolean)configParameter.getDefaultValue());
+			return BuildConfigUtils.getBuildConfigBoolean(remoteConfigParameter.getKey(), (Boolean)remoteConfigParameter.getDefaultValue());
 		}
 	}
-
-	public static Integer getIntegerValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
-		if (pair != null) {
-			return TypeUtils.getInteger(pair.getValue());
-		} else {
-			return BuildConfigUtils.getBuildConfigInteger(configParameter.getKey(), (Integer)configParameter.getDefaultValue());
-		}
-	}
-
-	public static Long getLongValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
+	
+	@Override
+	public Long getLong(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = getPairFromRepository(remoteConfigParameter);
 		if (pair != null) {
 			return TypeUtils.getLong(pair.getValue());
 		} else {
-			return BuildConfigUtils.getBuildConfigLong(configParameter.getKey(), (Long)configParameter.getDefaultValue());
+			Long defaultValue;
+			if (remoteConfigParameter.getDefaultValue() instanceof Integer) {
+				defaultValue = ((Integer)remoteConfigParameter.getDefaultValue()).longValue();
+			} else {
+				defaultValue = (Long)remoteConfigParameter.getDefaultValue();
+			}
+			return BuildConfigUtils.getBuildConfigLong(remoteConfigParameter.getKey(), defaultValue);
 		}
 	}
 	
-	public static Double getDoubleValue(ConfigParameter configParameter) {
-		initConfigRepository();
-		Pair pair = getPairFromRepository(configParameter);
+	@Override
+	public Double getDouble(RemoteConfigParameter remoteConfigParameter) {
+		Pair pair = getPairFromRepository(remoteConfigParameter);
 		if (pair != null) {
 			return TypeUtils.getDouble(pair.getValue());
 		} else {
-			return BuildConfigUtils.getBuildConfigDouble(configParameter.getKey(), (Double)configParameter.getDefaultValue());
+			Double defaultValue;
+			if (remoteConfigParameter.getDefaultValue() instanceof Integer) {
+				defaultValue = ((Float)remoteConfigParameter.getDefaultValue()).doubleValue();
+			} else {
+				defaultValue = (Double)remoteConfigParameter.getDefaultValue();
+			}
+			return BuildConfigUtils.getBuildConfigDouble(remoteConfigParameter.getKey(), defaultValue);
 		}
 	}
 	
-	public static void saveConfigParameter(String key, Object value) {
-		initConfigRepository();
+	public void saveRemoteConfigParameter(String key, Object value) {
 		if (value != null) {
 			configRepository.add(new Pair(key, value.toString()));
 		} else {
 			configRepository.remove(key);
 		}
 	}
-
-	public static void reloadConfig() {
-		if (configRepository == null) {
-			initConfigRepository();
-		} else {
-			((CacheWrapperRepository)configRepository).clearCache();
-			configRepository.getAll();
-		}
-	}
-
-	private static void initConfigRepository() {
-		if (configRepository == null) {
-			PairRepository pairRepository = Application.get().getBean(PairRepository.class);
-			if (pairRepository != null) {
-				configRepository = new CacheWrapperRepository<>(pairRepository);
-			} else {
-				configRepository = new CacheWrapperRepository<>(new InMemoryRepository<Pair>());
-			}
-			reloadConfig();
-		}
+	
+	@Override
+	public void fetch() {
+		((CacheWrapperRepository)configRepository).clearCache();
+		configRepository.getAll();
 	}
 }

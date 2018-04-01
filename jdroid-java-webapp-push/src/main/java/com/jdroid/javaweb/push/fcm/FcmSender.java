@@ -7,7 +7,7 @@ import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.jdroid.javaweb.config.ConfigHelper;
+import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushMessage;
@@ -83,7 +83,7 @@ public class FcmSender implements PushMessageSender {
 
 	private PushResponse sendNoRetry(FcmMessage fcmMessage) {
 
-		String googleServerApiKey = StringUtils.isNotBlank(fcmMessage.getGoogleServerApiKey()) ? fcmMessage.getGoogleServerApiKey() : ConfigHelper.getStringValue(CoreConfigParameter.GOOGLE_SERVER_API_KEY);
+		String googleServerApiKey = StringUtils.isNotBlank(fcmMessage.getGoogleServerApiKey()) ? fcmMessage.getGoogleServerApiKey() : Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.GOOGLE_SERVER_API_KEY);
 		FcmResponse fcmResponse = fcmApiService.sendMessage(fcmMessage, googleServerApiKey);
 
 		PushResponse pushResponse = new PushResponse(DeviceType.ANDROID);

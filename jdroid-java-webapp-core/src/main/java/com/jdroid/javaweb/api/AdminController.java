@@ -4,10 +4,11 @@ import com.google.common.collect.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
+import com.jdroid.java.http.parser.json.GsonParser;
+import com.jdroid.java.remoteconfig.RemoteConfigParameter;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.ConfigHelper;
-import com.jdroid.javaweb.config.ConfigParameter;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,11 +65,11 @@ public abstract class AdminController extends AbstractController {
 		}
 		
 		builder.append("<h2>Config Parameters</h2>");
-		for (ConfigParameter configParameter : getConfigParameters()) {
+		for (RemoteConfigParameter remoteConfigParameter : getRemoteConfigParameters()) {
 			builder.append("<div><b>");
-			builder.append(configParameter.getKey());
+			builder.append(remoteConfigParameter.getKey());
 			builder.append("</b>: ");
-			builder.append(ConfigHelper.getObjectValue(configParameter));
+			builder.append(Application.get().getRemoteConfigLoader().getObject(remoteConfigParameter));
 			builder.append("</div>");
 			builder.append("\n");
 		}
@@ -105,35 +106,37 @@ public abstract class AdminController extends AbstractController {
 		return marshall(map);
 	}
 
-	@RequestMapping(value = "/config/reload", method = RequestMethod.GET)
-	public void reloadConfig() {
-		ConfigHelper.reloadConfig();
+	@RequestMapping(value = "/config/fetch", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
+	@ResponseBody
+	public String fetch() {
+		Application.get().getRemoteConfigLoader().fetch();
+		return getRemoteConfigParametersValues();
 	}
 	
 	@RequestMapping(value = "/config", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
 	@ResponseBody
-	public String getConfigParametersValues() {
+	public String getRemoteConfigParametersValues() {
 		List<ConfigParameterInfo> configParameterInfos = Lists.newArrayList();
-		for (ConfigParameter configParameter : getConfigParameters()) {
-			configParameterInfos.add(new ConfigParameterInfo(configParameter.getKey(), ConfigHelper.getObjectValue(configParameter), configParameter.getDefaultValue()));
+		for (RemoteConfigParameter configParameter : getRemoteConfigParameters()) {
+			configParameterInfos.add(new ConfigParameterInfo(configParameter.getKey(), Application.get().getRemoteConfigLoader().getObject(configParameter), configParameter.getDefaultValue()));
 		}
-		return marshall(configParameterInfos);
+		return autoMarshall(configParameterInfos);
 	}
 	
-	@RequestMapping(value = "/config/save", method = RequestMethod.POST)
-	public void saveConfigParameter(@RequestBody String deviceJSON) {
-		ConfigParameterInfo configParameterInfo = (ConfigParameterInfo)new ConfigParameterInfoParser().parse(deviceJSON);
-		ConfigHelper.saveConfigParameter(configParameterInfo.getKey(), configParameterInfo.getValue());
+	@RequestMapping(value = "/config", method = RequestMethod.POST)
+	public void saveRemoteConfigParameter(@RequestBody String configJSON) {
+		ConfigParameterInfo configParameterInfo = (ConfigParameterInfo)new GsonParser(ConfigParameterInfo.class).parse(configJSON);
+		((ConfigHelper)Application.get().getRemoteConfigLoader()).saveRemoteConfigParameter(configParameterInfo.getKey(), configParameterInfo.getValue());
 	}
 	
-	protected List<ConfigParameter> getConfigParameters() {
-		return Lists.<ConfigParameter>newArrayList(CoreConfigParameter.values());
+	protected List<RemoteConfigParameter> getRemoteConfigParameters() {
+		return Lists.newArrayList(CoreConfigParameter.values());
 	}
 	
-	@RequestMapping(value = "/config/database/get", method = RequestMethod.GET, produces = MimeType.TEXT)
+	@RequestMapping(value = "/config/database", method = RequestMethod.GET, produces = MimeType.TEXT)
 	@ResponseBody
 	public String getConfig(@RequestParam(required = true) final String key) {
-		return ConfigHelper.getStringValue(new ConfigParameter() {
+		return Application.get().getRemoteConfigLoader().getString(new RemoteConfigParameter() {
 			@Override
 			public String getKey() {
 				return key;
