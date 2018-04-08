@@ -1,11 +1,12 @@
 # Jdroid Library for Java Web Apps
 
+
 ## Continuous Integration
-|Branch|Status|
-| ------------- | ------------- |
-|Master|[![Build Status](https://travis-ci.org/maxirosson/jdroid-java-webapp.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid-java-webapp)|
-|Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-java-webapp.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid-java-webapp)|
-|Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-java-webapp.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid-java-webapp)|
+|Branch|Status|Workflows|Insights|
+| ------------- | ------------- | ------------- | ------------- |
+|master|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/master.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/master)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-java-webapp/tree/master)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-java-webapp/master)|
+|staging|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/staging.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/staging)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-java-webapp/tree/staging)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-java-webapp/staging)|
+|production|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/production.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/production)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-java-webapp/tree/production)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-java-webapp/production)|
 
 ## Features
 ### jdroid-java-webapp-core
