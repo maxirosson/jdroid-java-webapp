@@ -55,14 +55,7 @@ public class ConfigHelper implements RemoteConfigLoader {
 	
 	@Override
 	public List<String> getStringList(RemoteConfigParameter remoteConfigParameter) {
-		Pair pair = getPairFromRepository(remoteConfigParameter);
-		String value;
-		if (pair != null) {
-			value = pair.getValue();
-		} else {
-			value = BuildConfigUtils.getBuildConfigString(remoteConfigParameter.getKey(), (String)remoteConfigParameter.getDefaultValue());
-		}
-		return StringUtils.splitWithCommaSeparator(value);
+		return StringUtils.splitWithCommaSeparator(getString(remoteConfigParameter));
 	}
 	
 	@Override
