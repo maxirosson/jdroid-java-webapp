@@ -1,5 +1,21 @@
 # Change Log
 
+## [v1.0.0](https://github.com/maxirosson/jdroid-java-webapp/tree/v1.0.0) (2018-04-10)
+[Full Changelog](https://github.com/maxirosson/jdroid-java-webapp/compare/v0.10.0...v1.0.0)
+
+**Implemented enhancements:**
+
+- New jdroid-java-webapp-push library [\#18](https://github.com/maxirosson/jdroid-java-webapp/issues/18)
+- New jdroid-java-webapp-facebook library [\#17](https://github.com/maxirosson/jdroid-java-webapp/issues/17)
+- New jdroid-java-webapp-twitter library [\#16](https://github.com/maxirosson/jdroid-java-webapp/issues/16)
+
+**Closed issues:**
+
+- Upgrade twitter4j to v4.0.6 [\#28](https://github.com/maxirosson/jdroid-java-webapp/issues/28)
+- Upgrade to jdroid java http v0.15.0 [\#21](https://github.com/maxirosson/jdroid-java-webapp/issues/21)
+- Upgrade to jdroid java v0.15.0 [\#20](https://github.com/maxirosson/jdroid-java-webapp/issues/20)
+- Upgrade to jdroid gradle plugins v0.18.0 [\#19](https://github.com/maxirosson/jdroid-java-webapp/issues/19)
+
 ## [v0.10.0](https://github.com/maxirosson/jdroid-java-webapp/tree/v0.10.0) (2017-03-16)
 [Full Changelog](https://github.com/maxirosson/jdroid-java-webapp/compare/v0.9.6...v0.10.0)
 
