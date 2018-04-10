@@ -9,7 +9,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-java-webapp-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath 'com.jdroidtools:jdroid-gradle-java-webapp-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
 	}
 }
 
@@ -21,20 +21,20 @@ dependencies {
 	compile project(':jdroid-java-webapp-push')
 	compile project(':jdroid-java-webapp-firebase-firestore')
 
-	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile(project(':jdroid-java-firebase-database')) {
 			exclude module: 'jdroid-java-core'
 		}
 	} else {
-		compile('com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
+		compile('com.jdroidtools:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-http-okhttp")
 	} else {
-		compile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+		compile ('com.jdroidtools:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
 			exclude module: 'jdroid-java-core'
 		}
 	}

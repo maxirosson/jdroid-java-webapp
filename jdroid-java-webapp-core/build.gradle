@@ -12,7 +12,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath 'com.jdroidtools:jdroid-gradle-java-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
 	}
 }
 
@@ -20,20 +20,20 @@ dependencies {
 
 	// Jdroid dependencies
 
-	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-core")
 		compile project(":jdroid-java-firebase-database")
 		compile project(":jdroid-java-remote-config")
 	} else {
-		compile 'com.jdroidframework:jdroid-java-core:' + JDROID_JAVA_VERSION
-		compile 'com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION
-		compile 'com.jdroidframework:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
+		compile 'com.jdroidtools:jdroid-java-core:' + JDROID_JAVA_VERSION
+		compile 'com.jdroidtools:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION
+		compile 'com.jdroidtools:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
 	}
 
-	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-http-core")
 	} else {
-		compile ('com.jdroidframework:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
+		compile ('com.jdroidtools:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
