@@ -1,5 +1,5 @@
-# Jdroid Library for Java Web Apps
-
+# Jdroid Java Web App
+Tools for Java Web Apps
 
 ## Continuous Integration
 |Branch|Status|Workflows|Insights|
