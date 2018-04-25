@@ -86,7 +86,15 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		if (item.getId() == null) {
 			throw new UnexpectedException("Item with null id can not be updated");
 		}
-		add(item);
+		
+		CollectionReference collectionReference = createCollectionReference();
+		DocumentReference documentReference = collectionReference.document(item.getId());
+		
+		item.setId(null);
+		getWriteResult(documentReference.set(item));
+		item.setId(documentReference.getId());
+		
+		LOGGER.debug("[" + getPath() + "] Updated object in database: " + item);
 	}
 	
 	@Override
