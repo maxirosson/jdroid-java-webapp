@@ -7,6 +7,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.jdroid.java.collections.Lists;
@@ -159,7 +160,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	
 	@Override
 	public T getUniqueInstance() {
-		List<DocumentSnapshot> documentSnapshots = getQuerySnapshot(createCollectionReference().limit(1).get()).getDocuments();
+		List<QueryDocumentSnapshot> documentSnapshots = getQuerySnapshot(createCollectionReference().limit(1).get()).getDocuments();
 		if (!documentSnapshots.isEmpty()) {
 			DocumentSnapshot documentSnapshot = documentSnapshots.get(0);
 			T item = getItem(documentSnapshot);
@@ -202,7 +203,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		ApiFuture<QuerySnapshot> future = collectionReference.limit(batchSize).get();
 		int deleted = 0;
 		// future.get() blocks on document retrieval
-		List<DocumentSnapshot> documents = getQuerySnapshot(future).getDocuments();
+		List<QueryDocumentSnapshot> documents = getQuerySnapshot(future).getDocuments();
 		for (DocumentSnapshot document : documents) {
 			document.getReference().delete();
 			++deleted;
