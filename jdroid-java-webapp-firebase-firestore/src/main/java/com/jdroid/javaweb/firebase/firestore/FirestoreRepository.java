@@ -9,6 +9,7 @@ import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteBatch;
 import com.google.cloud.firestore.WriteResult;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Entity;
@@ -26,6 +27,9 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(FirestoreRepository.class);
 	
+	private static final int ADD_BATCH_LIMIT = 500;
+	private static final int DELETE_BATCH_SIZE = 100;
+	
 	protected abstract String getPath();
 	
 	protected abstract Class<T> getEntityClass();
@@ -38,7 +42,11 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	}
 	
 	private CollectionReference createCollectionReference() {
-		return createFirestore().collection(getPath());
+		return createCollectionReference(createFirestore());
+	}
+	
+	private CollectionReference createCollectionReference(Firestore firestore) {
+		return firestore.collection(getPath());
 	}
 	
 	@Override
@@ -65,20 +73,50 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			documentReference = collectionReference.document(item.getId());
 		} else {
 			documentReference = collectionReference.document();
+			item.setId(documentReference.getId());
 		}
 		
-		item.setId(null);
 		getWriteResult(documentReference.set(item));
-		item.setId(documentReference.getId());
 		
 		LOGGER.debug("[" + getPath() + "] Stored object in database: " + item);
 	}
 	
 	@Override
 	public void addAll(Collection<T> items) {
-		// TODO See https://firebase.google.com/docs/firestore/manage-data/update-data#batch_multiple_write_operations
-		for (T each : items) {
-			add(each);
+		Firestore firestore = createFirestore();
+		List<T> pendingItems = Lists.newArrayList(items);
+		while (!pendingItems.isEmpty()) {
+			processBatch(firestore, pendingItems.subList(0, Math.min(pendingItems.size(), ADD_BATCH_LIMIT)));
+			if (pendingItems.size() > ADD_BATCH_LIMIT) {
+				pendingItems = pendingItems.subList(ADD_BATCH_LIMIT, pendingItems.size());
+			} else {
+				break;
+			}
+		}
+		
+		LOGGER.debug("[" + getPath() + "] Stored objects in database: " + items);
+	}
+	
+	private void processBatch(Firestore firestore, Collection<T> items) {
+		WriteBatch batch = firestore.batch();
+		CollectionReference collectionReference = createCollectionReference(firestore);
+		
+		for (T item : items) {
+			DocumentReference documentReference;
+			if (item.getId() != null) {
+				documentReference = collectionReference.document(item.getId());
+			} else {
+				documentReference = collectionReference.document();
+				item.setId(documentReference.getId());
+			}
+			
+			batch.set(documentReference, item);
+		}
+		
+		try {
+			batch.commit().get();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new UnexpectedException(e);
 		}
 	}
 	
@@ -91,9 +129,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		CollectionReference collectionReference = createCollectionReference();
 		DocumentReference documentReference = collectionReference.document(item.getId());
 		
-		item.setId(null);
 		getWriteResult(documentReference.set(item));
-		item.setId(documentReference.getId());
 		
 		LOGGER.debug("[" + getPath() + "] Updated object in database: " + item);
 	}
@@ -190,7 +226,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	
 	@Override
 	public void removeAll() {
-		deleteCollection(createCollectionReference(), 100);
+		deleteCollection(createCollectionReference(), getDeleteBatchSize());
 		LOGGER.debug("[" + getPath() + "] Deleted all objects in database");
 	}
 	
@@ -202,9 +238,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		// retrieve a small batch of documents to avoid out-of-memory errors
 		ApiFuture<QuerySnapshot> future = collectionReference.limit(batchSize).get();
 		int deleted = 0;
-		// future.get() blocks on document retrieval
-		List<QueryDocumentSnapshot> documents = getQuerySnapshot(future).getDocuments();
-		for (DocumentSnapshot document : documents) {
+		for (DocumentSnapshot document : getQuerySnapshot(future).getDocuments()) {
 			document.getReference().delete();
 			++deleted;
 		}
@@ -212,6 +246,10 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			// retrieve and delete another batch
 			deleteCollection(collectionReference, batchSize);
 		}
+	}
+	
+	protected int getDeleteBatchSize() {
+		return DELETE_BATCH_SIZE;
 	}
 	
 	@Override
