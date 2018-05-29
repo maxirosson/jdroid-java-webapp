@@ -6,6 +6,7 @@ import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.RandomUtils;
+import com.jdroid.java.utils.TypeUtils;
 import com.jdroid.javaweb.api.AbstractController;
 import com.jdroid.javaweb.sample.firebase.SampleEntity;
 import com.jdroid.javaweb.sample.firebase.SampleFirestoreRepository;
@@ -30,8 +31,18 @@ public class FirestoreController extends AbstractController {
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
 	@ResponseBody
-	public String getAll() {
-		return autoMarshall(repository.getAll());
+	public String getAll(@RequestParam(required = false) String orderByField, @RequestParam(required = false) String limit) {
+		return autoMarshall(new SampleFirestoreRepository() {
+			@Override
+			protected String getOrderByField() {
+				return orderByField;
+			}
+			
+			@Override
+			protected Integer getLimit() {
+				return TypeUtils.getInteger(limit);
+			}
+		}.getAll());
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
@@ -50,6 +61,12 @@ public class FirestoreController extends AbstractController {
 	@ResponseBody
 	public String getByField(@RequestParam String field, @RequestParam String value1, @RequestParam String value2) {
 		return autoMarshall(repository.getByField(field, value1, value2));
+	}
+	
+	@RequestMapping(value = "/getByIds", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
+	@ResponseBody
+	public String getByIds(@RequestParam String value1, @RequestParam String value2) {
+		return autoMarshall(repository.getByIds(Lists.newArrayList(value1, value2)));
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)

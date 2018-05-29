@@ -50,22 +50,6 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	}
 	
 	@Override
-	public T get(String id) {
-		DocumentSnapshot documentSnapshot = getDocumentSnapshot(createCollectionReference().document(id).get());
-		T item = null;
-		if (documentSnapshot.exists()) {
-			item = getItem(documentSnapshot);
-			if (item.getId() == null) {
-				item.setId(id);
-			}
-			LOGGER.debug("[" + getPath() + "] Retrieved object from database: [" + item + "]");
-		} else {
-			LOGGER.debug("[" + getPath() + "] Object not found on database with id [" + id + "]");
-		}
-		return item;
-	}
-	
-	@Override
 	public void add(T item) {
 		CollectionReference collectionReference = createCollectionReference();
 		DocumentReference documentReference;
@@ -135,6 +119,22 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	}
 	
 	@Override
+	public T get(String id) {
+		DocumentSnapshot documentSnapshot = getDocumentSnapshot(createCollectionReference().document(id).get());
+		T item = null;
+		if (documentSnapshot.exists()) {
+			item = getItem(documentSnapshot);
+			if (item.getId() == null) {
+				item.setId(id);
+			}
+			LOGGER.debug("[" + getPath() + "] Retrieved object from database: [" + item + "]");
+		} else {
+			LOGGER.debug("[" + getPath() + "] Object not found on database with id [" + id + "]");
+		}
+		return item;
+	}
+	
+	@Override
 	public List<T> getByField(String fieldName, Object... values) {
 		if (values == null) {
 			throw new UnexpectedException("Null values not supported");
@@ -144,6 +144,12 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		CollectionReference collectionReference = createCollectionReference();
 		for (Object value : values) {
 			Query query = collectionReference.whereEqualTo(fieldName, value);
+			if (getOrderByField() != null) {
+				query = query.orderBy(getOrderByField(), getOrderByDirection());
+			}
+			if (getLimit() != null) {
+				query = query.limit(getLimit());
+			}
 			for (DocumentSnapshot documentSnapshot : getQuerySnapshot(query.get()).getDocuments()) {
 				T item = getItem(documentSnapshot);
 				if (item.getId() == null) {
@@ -158,10 +164,29 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		return results;
 	}
 	
+	protected String getOrderByField() {
+		return null;
+	}
+	
+	protected Query.Direction getOrderByDirection() {
+		return Query.Direction.ASCENDING;
+	}
+	
+	protected Integer getLimit() {
+		return null;
+	}
+	
 	@Override
 	public List<T> getAll() {
 		List<T> results = Lists.newArrayList();
-		for (DocumentSnapshot documentSnapshot : getQuerySnapshot(createCollectionReference().get()).getDocuments()) {
+		Query collectionReference = createCollectionReference();
+		if (getOrderByField() != null) {
+			collectionReference = collectionReference.orderBy(getOrderByField(), getOrderByDirection());
+		}
+		if (getLimit() != null) {
+			collectionReference = collectionReference.limit(getLimit());
+		}
+		for (DocumentSnapshot documentSnapshot : getQuerySnapshot(collectionReference.get()).getDocuments()) {
 			T item = getItem(documentSnapshot);
 			if (item.getId() == null) {
 				item.setId(documentSnapshot.getId());
@@ -173,15 +198,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	
 	@Override
 	public List<T> getByIds(List<String> ids) {
-		List<T> results = Lists.newArrayList();
-		for (String id : ids) {
-			T item = get(id);
-			if (item != null) {
-				results.add(item);
-			}
-		}
-		LOGGER.debug("[" + getPath() + "] Retrieved all objects [" + results.size() + "] with ids: " + ids);
-		return null;
+		return getByField("id", ids.toArray());
 	}
 	
 	@Override
