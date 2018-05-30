@@ -9,7 +9,12 @@ public class SampleFirestoreRepository extends FirestoreRepository<SampleEntity>
 	protected String getProjectId() {
 		return ServerApplication.get().getFirebaseProjectId();
 	}
-
+	
+	@Override
+	protected String getServiceAccountJsonPath() {
+		return ServerApplication.get().getFirebaseServiceAccount();
+	}
+	
 	@Override
 	protected String getPath() {
 		return "samples";

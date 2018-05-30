@@ -43,5 +43,8 @@ public class ServerApplication extends Application<Entity> {
 	public String getFirebaseAuthToken() {
 		return BuildConfigUtils.getBuildConfigValue("FIREBASE_AUTH_TOKEN");
 	}
+	public String getFirebaseServiceAccount() {
+		return BuildConfigUtils.getBuildConfigValue("FIREBASE_SERVICE_ACCOUNT");
+	}
 
 }
