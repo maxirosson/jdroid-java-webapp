@@ -22,11 +22,9 @@ dependencies {
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-core")
-		compile project(":jdroid-java-firebase-database")
 		compile project(":jdroid-java-remote-config")
 	} else {
 		compile 'com.jdroidtools:jdroid-java-core:' + JDROID_JAVA_VERSION
-		compile 'com.jdroidtools:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION
 		compile 'com.jdroidtools:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
 	}
 
