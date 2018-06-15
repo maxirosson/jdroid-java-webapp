@@ -25,7 +25,7 @@ public class ConfigHelper implements RemoteConfigLoader {
 		} else {
 			configRepository = new CacheWrapperRepository<>(new InMemoryRepository<Pair>());
 		}
-		configRepository.getAll();
+		fetch();
 	}
 
 	private Pair getPairFromRepository(RemoteConfigParameter remoteConfigParameter) {

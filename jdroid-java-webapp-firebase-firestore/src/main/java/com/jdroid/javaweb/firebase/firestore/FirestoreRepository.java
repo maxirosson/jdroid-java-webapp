@@ -1,6 +1,8 @@
 package com.jdroid.javaweb.firebase.firestore;
 
 import com.google.api.core.ApiFuture;
+import com.google.auth.Credentials;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -19,9 +21,13 @@ import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import javax.annotation.Nullable;
 
 public abstract class FirestoreRepository<T extends Entity> implements Repository<T> {
 	
@@ -36,10 +42,30 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	
 	protected abstract String getProjectId();
 	
-	protected Firestore createFirestore() {
-		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(getProjectId()).build();
-		return firestoreOptions.getService();
+	protected String getServiceAccountJsonPath() {
+		return null;
 	}
+	
+	protected Firestore createFirestore() {
+		try {
+			FirestoreOptions.Builder builder = FirestoreOptions.getDefaultInstance().toBuilder();
+			builder.setProjectId(getProjectId());
+			Credentials credentials = createCredentials();
+			if (credentials != null) {
+				builder.setCredentials(createCredentials());
+			}
+			return builder.build().getService();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@Nullable
+	protected Credentials createCredentials() throws IOException {
+		String serviceAccountJsonPath = getServiceAccountJsonPath();
+		return serviceAccountJsonPath != null ? GoogleCredentials.fromStream(new FileInputStream(serviceAccountJsonPath)) : null;
+	}
+	
 	
 	private CollectionReference createCollectionReference() {
 		return createCollectionReference(createFirestore());
