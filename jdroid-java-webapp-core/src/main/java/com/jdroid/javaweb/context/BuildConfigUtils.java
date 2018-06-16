@@ -12,7 +12,8 @@ public class BuildConfigUtils {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T getBuildConfigValue(String property, Object defaultValue) {
-		return (T)ReflectionUtils.getStaticFieldValue(Application.get().getBuildConfigClass(), property, defaultValue);
+		T value = (T)ReflectionUtils.getStaticFieldValue(Application.get().getBuildConfigClass(), property, defaultValue);
+		return value != null ? value : (T)defaultValue;
 	}
 
 	public static String getBuildConfigString(String property, String defaultValue) {
