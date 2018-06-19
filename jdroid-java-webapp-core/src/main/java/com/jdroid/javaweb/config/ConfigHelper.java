@@ -7,14 +7,19 @@ import com.jdroid.java.repository.InMemoryRepository;
 import com.jdroid.java.repository.Pair;
 import com.jdroid.java.repository.PairRepository;
 import com.jdroid.java.repository.Repository;
+import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.TypeUtils;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.context.BuildConfigUtils;
 
+import org.slf4j.Logger;
+
 import java.util.List;
 
 public class ConfigHelper implements RemoteConfigLoader {
+	
+	private static final Logger LOGGER = LoggerUtils.getLogger(ConfigHelper.class);
 	
 	private Repository<Pair> configRepository;
 	
@@ -25,7 +30,11 @@ public class ConfigHelper implements RemoteConfigLoader {
 		} else {
 			configRepository = new CacheWrapperRepository<>(new InMemoryRepository<Pair>());
 		}
-		fetch();
+		try {
+			fetch();
+		} catch (Exception e) {
+			LOGGER.warn("Error when fetching config pairs", e);
+		}
 	}
 
 	private Pair getPairFromRepository(RemoteConfigParameter remoteConfigParameter) {
