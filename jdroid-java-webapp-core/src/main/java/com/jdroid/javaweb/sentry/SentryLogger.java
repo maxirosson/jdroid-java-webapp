@@ -363,11 +363,10 @@ public class SentryLogger implements Logger {
 						eventBuilder.withServerName(Application.get().getRemoteConfigLoader().getString(CoreConfigParameter.APP_NAME));
 						eventBuilder.withLogger(getName());
 						eventBuilder.withPlatform(EventBuilder.DEFAULT_PLATFORM);
+						eventBuilder.withMessage(message);
 						if (throwable != null) {
-							eventBuilder.withMessage(throwable.getMessage());
 							eventBuilder.withSentryInterface(new ExceptionInterface(throwable));
 						} else {
-							eventBuilder.withMessage(message);
 							eventBuilder.withSentryInterface(new MessageInterface(message));
 						}
 						SentryAppModule.get().getRaven().sendEvent(eventBuilder.build());

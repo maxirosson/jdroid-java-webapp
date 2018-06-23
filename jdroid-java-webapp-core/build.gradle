@@ -37,6 +37,7 @@ dependencies {
 	}
 
 	// Sentry
+	// https://github.com/getsentry/sentry-java
 	compile 'com.getsentry.raven:raven:8.0.2'
 
 	// Logging
