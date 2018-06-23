@@ -39,7 +39,11 @@ public class TwitterConnector {
 	}
 	
 	public void tweet(String text) {
-		tweet(text, null);
+		tweet(text, (File)null);
+	}
+	
+	public void tweet(String text, String mediaPath) {
+		tweet(text, mediaPath != null ? new File(mediaPath) : null);
 	}
 	
 	public void tweet(String text, File media) {
@@ -52,7 +56,7 @@ public class TwitterConnector {
 				Status status = twitterFactory.getInstance().updateStatus(statusUpdate);
 				LOGGER.info("Successfully updated the status to [" + status.getText() + "].");
 			} else {
-				LOGGER.info("Ignored tweet status [" + text + "].");
+				LOGGER.info("Ignored tweet status [" + text + "]" + (media != null ? (" with media: " + media.getAbsolutePath()) : ""));
 			}
 		} catch (TwitterException e) {
 			throw new RuntimeException(e);
