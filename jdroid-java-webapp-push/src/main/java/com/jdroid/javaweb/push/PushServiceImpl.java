@@ -74,6 +74,7 @@ public class PushServiceImpl implements PushService {
 		ExecutorUtils.execute(new PushProcessor(this, pushMessage));
 	}
 
+	// TODO By Google recommendation, we should remove all the tokens that weren't recently updated
 	@Override
 	public void processResponse(PushResponse pushResponse) {
 		for (String each : pushResponse.getRegistrationTokensToRemove()) {
