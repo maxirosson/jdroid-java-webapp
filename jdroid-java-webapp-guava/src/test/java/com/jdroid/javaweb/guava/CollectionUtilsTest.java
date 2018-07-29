@@ -1,15 +1,17 @@
-package com.jdroid.javaweb.utils;
+package com.jdroid.javaweb.guava;
+
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.javaweb.guava.predicate.EqualsPropertyPredicate;
+
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
-import com.jdroid.javaweb.guava.predicate.EqualsPropertyPredicate;
 
 /**
  * Tests the {@link CollectionUtils}

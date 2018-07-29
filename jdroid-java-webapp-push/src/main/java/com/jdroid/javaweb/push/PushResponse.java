@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.push;
 
-import com.google.common.collect.Lists;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 
 import java.util.List;

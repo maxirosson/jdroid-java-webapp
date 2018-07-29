@@ -1,12 +1,13 @@
-package com.jdroid.javaweb.utils;
+package com.jdroid.javaweb.guava;
 
-import java.util.Collection;
-import java.util.NoSuchElementException;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+
+import java.util.Collection;
+import java.util.NoSuchElementException;
 
 /**
  * A set of useful functions used against a Collection

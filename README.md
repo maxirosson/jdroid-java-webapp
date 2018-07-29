@@ -17,7 +17,7 @@ Tools for Java Web Apps
 * [Sentry integration](http://sentry.io)
 * Pagination and filtering support
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
-* Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
+* Utilities for Collections, CSV, Files, Reflection and more
 * A set of useful shell scripts to
   * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
   * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
@@ -30,6 +30,8 @@ Tools for Java Web Apps
 * [Twitter 4j integration](http://twitter4j.org/)
 ### jdroid-java-webapp-facebook
 * [Restfb Facebook integration](http://restfb.com/)
+### jdroid-java-webapp-guava
+  * Utilities [Guava](https://code.google.com/p/guava-libraries/)
 
 ## Setup
 

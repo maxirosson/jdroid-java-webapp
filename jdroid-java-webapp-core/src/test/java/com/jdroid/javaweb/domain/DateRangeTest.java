@@ -1,14 +1,16 @@
 package com.jdroid.javaweb.domain;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.date.DateUtils;
+
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import com.google.common.collect.Lists;
-import com.jdroid.java.date.DateUtils;
 
 /**
  * Test the different methods of {@link DateRange}

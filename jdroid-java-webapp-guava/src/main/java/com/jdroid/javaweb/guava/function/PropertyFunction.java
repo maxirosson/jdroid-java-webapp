@@ -1,8 +1,9 @@
 package com.jdroid.javaweb.guava.function;
 
-import java.io.Serializable;
 import com.google.common.base.Function;
 import com.jdroid.java.utils.ReflectionUtils;
+
+import java.io.Serializable;
 
 /**
  * Transforms an object into one of its property
@@ -23,7 +24,7 @@ public class PropertyFunction<F, T> implements Function<F, T>, Serializable {
 	}
 	
 	/**
-	 * @see com.google.common.base.Function#apply(java.lang.Object)
+	 * @see com.google.common.base.Function#apply(Object)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override

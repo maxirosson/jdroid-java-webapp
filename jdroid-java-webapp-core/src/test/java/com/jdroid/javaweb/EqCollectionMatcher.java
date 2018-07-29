@@ -1,11 +1,13 @@
 package com.jdroid.javaweb;
 
-import java.util.Collection;
-import java.util.List;
+import com.jdroid.java.collections.Iterables;
+import com.jdroid.java.collections.Lists;
+
 import org.hamcrest.Description;
 import org.mockito.ArgumentMatcher;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Matcher that verify that two collections have the same elements in no particular order.

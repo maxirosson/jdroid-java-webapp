@@ -1,13 +1,14 @@
 package com.jdroid.javaweb.search;
 
-import java.util.Iterator;
-import java.util.List;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.UnexpectedException;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.google.common.collect.Lists;
-import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.javaweb.search.Pager;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class PagerTest {
 	

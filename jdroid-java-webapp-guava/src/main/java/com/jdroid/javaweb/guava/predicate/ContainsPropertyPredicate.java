@@ -31,7 +31,7 @@ public class ContainsPropertyPredicate<T> implements Predicate<T>, Serializable 
 	}
 	
 	/**
-	 * @see com.google.common.base.Predicate#apply(java.lang.Object)
+	 * @see com.google.common.base.Predicate#apply(Object)
 	 */
 	@Override
 	public boolean apply(T input) {

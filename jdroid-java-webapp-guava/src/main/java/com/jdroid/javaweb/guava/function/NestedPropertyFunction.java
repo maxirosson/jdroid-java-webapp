@@ -1,10 +1,12 @@
 package com.jdroid.javaweb.guava.function;
 
-import java.io.Serializable;
-import org.apache.commons.beanutils.NestedNullException;
-import org.apache.commons.beanutils.PropertyUtils;
 import com.google.common.base.Function;
 import com.jdroid.java.exception.UnexpectedException;
+
+import org.apache.commons.beanutils.NestedNullException;
+import org.apache.commons.beanutils.PropertyUtils;
+
+import java.io.Serializable;
 
 /**
  * Transforms an object into one of its property
@@ -25,7 +27,7 @@ public class NestedPropertyFunction<F, T> implements Function<F, T>, Serializabl
 	}
 	
 	/**
-	 * @see com.google.common.base.Function#apply(java.lang.Object)
+	 * @see com.google.common.base.Function#apply(Object)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override

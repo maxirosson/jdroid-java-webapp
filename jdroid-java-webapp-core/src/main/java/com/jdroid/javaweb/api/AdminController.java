@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.api;
 
-import com.google.common.collect.Lists;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;

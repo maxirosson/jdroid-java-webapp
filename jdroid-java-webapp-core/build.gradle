@@ -56,7 +56,6 @@ dependencies {
 	compile "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
 
 	// Apache Commons
-	compile "com.google.guava:guava:20.0"
 	compile "commons-beanutils:commons-beanutils:1.9.3"
 
 	// Open CSV

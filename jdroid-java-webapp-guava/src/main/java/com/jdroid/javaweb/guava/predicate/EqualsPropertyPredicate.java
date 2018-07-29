@@ -1,9 +1,10 @@
 package com.jdroid.javaweb.guava.predicate;
 
-import java.io.Serializable;
 import com.google.common.base.Predicate;
 import com.jdroid.java.utils.ObjectUtils;
 import com.jdroid.javaweb.guava.function.PropertyFunction;
+
+import java.io.Serializable;
 
 /**
  * Predicates that verifies if the value of the propertyName is equals to the given value
@@ -25,7 +26,7 @@ public class EqualsPropertyPredicate<T> implements Predicate<T>, Serializable {
 	}
 	
 	/**
-	 * @see com.google.common.base.Predicate#apply(java.lang.Object)
+	 * @see com.google.common.base.Predicate#apply(Object)
 	 */
 	@Override
 	public boolean apply(T input) {

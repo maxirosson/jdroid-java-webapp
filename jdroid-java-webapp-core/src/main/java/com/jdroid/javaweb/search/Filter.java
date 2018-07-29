@@ -1,9 +1,10 @@
 package com.jdroid.javaweb.search;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
+
 import java.util.Collection;
 import java.util.Map;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class Filter {
 	

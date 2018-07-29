@@ -1,7 +1,8 @@
 package com.jdroid.javaweb.guava.function;
 
-import java.io.Serializable;
 import com.google.common.base.Function;
+
+import java.io.Serializable;
 
 /**
  * Transforms an enum in its name
@@ -12,7 +13,7 @@ import com.google.common.base.Function;
 public class EnumNameFunction<E extends Enum<E>> implements Function<E, String>, Serializable {
 	
 	/**
-	 * @see com.google.common.base.Function#apply(java.lang.Object)
+	 * @see com.google.common.base.Function#apply(Object)
 	 */
 	@Override
 	public String apply(E from) {

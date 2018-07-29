@@ -9,7 +9,7 @@ import com.jdroid.java.domain.Identifiable;
 public class IdPropertyFunction implements Function<Identifiable, String> {
 	
 	/**
-	 * @see com.jdroid.javaweb.guava.function.PropertyFunction#apply(java.lang.Object)
+	 * @see PropertyFunction#apply(Object)
 	 */
 	@Override
 	public String apply(Identifiable from) {
