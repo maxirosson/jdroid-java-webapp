@@ -1,4 +1,11 @@
-package com.jdroid.javaweb.utils;
+package com.jdroid.javaweb.csv;
+
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.javaweb.Assert;
+import com.jdroid.javaweb.utils.CSVUtils;
+
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,11 +13,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.List;
-import org.testng.annotations.Test;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.javaweb.Assert;
-import com.jdroid.javaweb.utils.CSVUtils;
 
 /**
  * Tests the {@link CSVUtils} class

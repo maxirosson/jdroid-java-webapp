@@ -55,9 +55,6 @@ dependencies {
 	compile "com.fasterxml.jackson.core:jackson-databind:2.8.7"
 	compile "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
 
-	// Open CSV
-	compile "net.sf.opencsv:opencsv:2.3"
-
 	// Servlet API
 	compile "javax.servlet:servlet-api:2.5"
 

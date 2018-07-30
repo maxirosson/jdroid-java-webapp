@@ -16,6 +16,7 @@ buildscript {
 dependencies {
 
 	compile project(':jdroid-java-webapp-core')
+	compile project(':jdroid-java-webapp-csv')
 	compile project(':jdroid-java-webapp-facebook')
 	compile project(':jdroid-java-webapp-twitter')
 	compile project(':jdroid-java-webapp-push')
