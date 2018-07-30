@@ -55,9 +55,6 @@ dependencies {
 	compile "com.fasterxml.jackson.core:jackson-databind:2.8.7"
 	compile "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
 
-	// Apache Commons
-	compile "commons-beanutils:commons-beanutils:1.9.3"
-
 	// Open CSV
 	compile "net.sf.opencsv:opencsv:2.3"
 
@@ -69,6 +66,8 @@ dependencies {
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"
 	testImplementation "org.mockito:mockito-all:1.10.19"
+	testImplementation "commons-beanutils:commons-beanutils:1.9.3"
+
 }
 
 test {

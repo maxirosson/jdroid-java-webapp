@@ -21,6 +21,7 @@ dependencies {
 	implementation project(":jdroid-java-webapp-core")
 
 	compile "com.google.guava:guava:20.0"
+	compile "commons-beanutils:commons-beanutils:1.9.3"
 
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"
