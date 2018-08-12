@@ -1,9 +1,15 @@
 package com.jdroid.javaweb.sample.firebase;
 
 import com.jdroid.javaweb.firebase.firestore.FirestoreRepository;
+import com.jdroid.javaweb.sample.context.BuildConfig;
 import com.jdroid.javaweb.sample.context.ServerApplication;
 
 public class SampleFirestoreRepository extends FirestoreRepository<SampleEntity> {
+	
+	@Override
+	protected String getServiceAccountJsonPath() {
+		return BuildConfig.FIREBASE_SERVICE_ACCOUNT;
+	}
 	
 	@Override
 	protected String getProjectId() {
