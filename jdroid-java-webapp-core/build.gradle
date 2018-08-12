@@ -51,6 +51,7 @@ dependencies {
 	compile "org.springframework:spring-context-support:" + SPRING_VERSION
 
 	// Jackson
+	// TODO Remove these dependencies, and replace MappingJackson2HttpMessageConverter by a GsonHttpMessageConverter on Spring 4.1
 	compile "com.fasterxml.jackson.core:jackson-core:2.8.7"
 	compile "com.fasterxml.jackson.core:jackson-databind:2.8.7"
 	compile "com.fasterxml.jackson.core:jackson-annotations:2.8.7"

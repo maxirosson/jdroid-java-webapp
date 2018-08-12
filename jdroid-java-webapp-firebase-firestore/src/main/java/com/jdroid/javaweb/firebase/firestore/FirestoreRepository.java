@@ -67,7 +67,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	}
 	
 	
-	private CollectionReference createCollectionReference() {
+	protected CollectionReference createCollectionReference() {
 		return createCollectionReference(createFirestore());
 	}
 	
@@ -186,6 +186,21 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		}
 		
 		LOGGER.debug("[" + getPath() + "] Retrieved objects [" + results.size() + "] from database with field [" + fieldName + "], values [" + values + "]");
+		
+		return results;
+	}
+	
+	protected List<T> getByQuery(Query query) {
+		List<T> results = Lists.newArrayList();
+		for (DocumentSnapshot documentSnapshot : getQuerySnapshot(query.get()).getDocuments()) {
+			T item = getItem(documentSnapshot);
+			if (item.getId() == null) {
+				item.setId(documentSnapshot.getId());
+			}
+			results.add(item);
+		}
+		
+		LOGGER.debug("[" + getPath() + "] Retrieved objects [" + results.size() + "] from database with query [" + query + "]");
 		
 		return results;
 	}

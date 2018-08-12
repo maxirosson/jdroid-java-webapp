@@ -21,7 +21,7 @@ dependencies {
 	implementation project(":jdroid-java-webapp-core")
 
 	// Firebase Firestone
-	api 'com.google.cloud:google-cloud-firestore:0.49.0-beta'
+	api 'com.google.cloud:google-cloud-firestore:0.57.0-beta'
 
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"
