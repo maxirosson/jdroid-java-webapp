@@ -190,6 +190,15 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 		return results;
 	}
 	
+	protected T getItemByQuery(Query query) {
+		List<T> items = getByQuery(query);
+		if (!items.isEmpty()) {
+			return items.get(0);
+		} else {
+			return null;
+		}
+	}
+	
 	protected List<T> getByQuery(Query query) {
 		List<T> results = Lists.newArrayList();
 		for (DocumentSnapshot documentSnapshot : getQuerySnapshot(query.get()).getDocuments()) {
