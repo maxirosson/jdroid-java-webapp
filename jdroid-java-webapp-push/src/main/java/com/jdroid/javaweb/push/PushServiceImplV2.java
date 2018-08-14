@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map.Entry;
 
-@Deprecated
 @Service
-public class PushServiceImpl implements PushService {
+public class PushServiceImplV2 implements PushService {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(PushServiceImpl.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(PushServiceImplV2.class);
 	
 	@Autowired
 	private DeviceRepository deviceRepository;
@@ -26,7 +25,9 @@ public class PushServiceImpl implements PushService {
 
 	@Override
 	public void addDevice(Device device, Boolean updateLastActiveTimestamp) {
-		Device deviceToUpdate = deviceRepository.findByInstanceId(device.getInstanceId(), device.getDeviceType());
+		device.setId(generateId(device.getDeviceType(), device.getInstanceId()));
+		
+		Device deviceToUpdate = deviceRepository.get(device.getId());
 		if (deviceToUpdate != null) {
 			if (isDeviceUpdateRequired(deviceToUpdate, device)) {
 				deviceToUpdate.setLastActiveTimestamp(updateLastActiveTimestamp ? DateUtils.nowMillis() : device.getLastActiveTimestamp());
@@ -40,7 +41,7 @@ public class PushServiceImpl implements PushService {
 				if (pushServiceListener != null) {
 					pushServiceListener.onUpdateDevice(deviceToUpdate.getInstanceId(), deviceToUpdate.getDeviceType());
 				}
-
+				
 			}
 		} else {
 			Long now = DateUtils.nowMillis();
@@ -52,16 +53,20 @@ public class PushServiceImpl implements PushService {
 			}
 		}
 	}
-
+	
 	protected Boolean isDeviceUpdateRequired(Device oldDevice, Device newDevice) {
 		newDevice.setLastActiveTimestamp(oldDevice.getLastActiveTimestamp());
 		newDevice.setId(oldDevice.getId());
 		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getRemoteConfigLoader().getLong(CoreConfigParameter.DEVICE_UPDATE_REQUIRED_DURATION);
 	}
+	
+	private String generateId(DeviceType deviceType, String instanceId) {
+		return deviceType.getUserAgent() + "-" + instanceId;
+	}
 
 	@Override
 	public void removeDevice(String instanceId, DeviceType deviceType) {
-		Device deviceToRemove = deviceRepository.findByInstanceId(instanceId, deviceType);
+		Device deviceToRemove = deviceRepository.get(generateId(deviceType, instanceId));
 		if (deviceToRemove != null) {
 			deviceRepository.remove(deviceToRemove);
 			if (pushServiceListener != null) {
