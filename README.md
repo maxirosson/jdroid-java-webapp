@@ -5,7 +5,6 @@ Tools for Java Web Apps
 |Branch|Status|Workflows|Insights|
 | ------------- | ------------- | ------------- | ------------- |
 |master|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/master.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/master)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-java-webapp/tree/master)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-java-webapp/master)|
-|staging|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/staging.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/staging)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-java-webapp/tree/staging)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-java-webapp/staging)|
 |production|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/production.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-java-webapp/tree/production)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-java-webapp/tree/production)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-java-webapp/production)|
 
 ## Features
