@@ -2,6 +2,7 @@ package com.jdroid.javaweb.api;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.date.DateConfiguration;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.http.parser.json.GsonParser;
@@ -33,8 +34,8 @@ public abstract class AdminController extends AbstractController {
 		
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
 		infoMap.put("Current Time", DateUtils.now());
-		infoMap.put("Fake Now", DateUtils.isFakeNow());
-		infoMap.put("Fake Timestamp", DateUtils.getFakeNow());
+		infoMap.put("Fake Now", DateConfiguration.isFakeNow());
+		infoMap.put("Fake Timestamp", DateConfiguration.getFakeNow());
 		
 		for (AppModule appModule : Application.get().getAppModules()) {
 			Map<String, String> params = appModule.getServerInfoMap();
@@ -92,9 +93,9 @@ public abstract class AdminController extends AbstractController {
 	@RequestMapping(value = "/fakeNow/save", method = RequestMethod.GET)
 	public void saveFakeNow(@RequestParam(required = false) Long timestamp) {
 		if (timestamp != null) {
-			DateUtils.setFakeNow(new Date(timestamp));
+			DateConfiguration.setFakeNow(new Date(timestamp));
 		} else {
-			DateUtils.setFakeNow(null);
+			DateConfiguration.setFakeNow(null);
 		}
 	}
 	
@@ -102,7 +103,7 @@ public abstract class AdminController extends AbstractController {
 	@ResponseBody
 	public String getFakeNow() {
 		Map<String, Object> map = Maps.newHashMap();
-		map.put("timestamp", DateUtils.isFakeNow() ? DateUtils.getFakeNow().getTime() : null);
+		map.put("timestamp", DateConfiguration.isFakeNow() ? DateConfiguration.getFakeNow().getTime() : null);
 		return marshall(map);
 	}
 

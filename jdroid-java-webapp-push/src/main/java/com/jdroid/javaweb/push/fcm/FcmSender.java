@@ -16,6 +16,9 @@ import com.jdroid.javaweb.push.PushResponse;
 
 import org.slf4j.Logger;
 
+import java.util.concurrent.TimeUnit;
+
+
 public class FcmSender implements PushMessageSender {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(FcmSender.class);
@@ -68,7 +71,7 @@ public class FcmSender implements PushMessageSender {
 				}
 				int sleepTime = backoff / 2 + RandomUtils.getInt(backoff);
 				LOGGER.debug("Next attempt on " + sleepTime / 1000 + " seconds");
-				ExecutorUtils.sleepInMillis(sleepTime);
+				ExecutorUtils.sleep(sleepTime, TimeUnit.MILLISECONDS);
 				if (2 * backoff < MAX_BACKOFF_DELAY) {
 					backoff *= 2;
 				}

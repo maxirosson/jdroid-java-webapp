@@ -1,7 +1,9 @@
 package com.jdroid.javaweb.config;
 
-import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.remoteconfig.RemoteConfigParameter;
+
+import java.util.concurrent.TimeUnit;
+
 
 public enum CoreConfigParameter implements RemoteConfigParameter {
 
@@ -24,7 +26,7 @@ public enum CoreConfigParameter implements RemoteConfigParameter {
 	TWITTER_ENABLED(false),
 	SENTRY_DSN,
 	SENTRY_ENABLED(false),
-	DEVICE_UPDATE_REQUIRED_DURATION(DateUtils.MILLIS_PER_DAY * 7);
+	DEVICE_UPDATE_REQUIRED_DURATION(TimeUnit.DAYS.toMillis(7));
 
 	private Object defaultValue;
 
