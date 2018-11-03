@@ -5,6 +5,7 @@ import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.javaweb.application.AppModule;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.context.BuildConfigUtils;
+import com.jdroid.javaweb.firebase.admin.FirebaseAdminSdkHelper;
 import com.jdroid.javaweb.sample.api.controller.SampleResponse;
 import com.jdroid.javaweb.sample.api.controller.SampleResponseMarshaller;
 import com.jdroid.javaweb.sentry.SentryAppModule;
@@ -20,6 +21,7 @@ public class ServerApplication extends Application<Entity> {
 	@Override
 	protected void onCreateApplication() {
 		MarshallerProvider.get().addMarshaller(SampleResponse.class, new SampleResponseMarshaller());
+		FirebaseAdminSdkHelper.init(BuildConfig.FIREBASE_SERVICE_ACCOUNT);
 	}
 	
 	@Override

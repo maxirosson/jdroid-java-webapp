@@ -76,6 +76,14 @@ jobs:
           destination: jdroid-java-webapp-firebase-firestore/tests
 
       - store_artifacts:
+          path: ./jdroid-java-webapp-firebase-admin/build/reports/tests/test
+          destination: jdroid-java-webapp-firebase-admin/tests
+
+      - store_artifacts:
+          path: ./jdroid-java-webapp-firebase-fcm/build/reports/tests/test
+          destination: jdroid-java-webapp-firebase-fcm/tests
+
+      - store_artifacts:
           path: ./jdroid-java-webapp-push/build/reports/tests/test
           destination: jdroid-java-webapp-push/tests
 

@@ -1,6 +1,7 @@
-package com.jdroid.javaweb.push.api.filter;
+package com.jdroid.javaweb.firebase.fcm.api.filter;
 
-import com.jdroid.javaweb.push.api.DeviceHeaders;
+
+import com.jdroid.javaweb.firebase.fcm.api.DeviceHeaders;
 
 import org.apache.log4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;

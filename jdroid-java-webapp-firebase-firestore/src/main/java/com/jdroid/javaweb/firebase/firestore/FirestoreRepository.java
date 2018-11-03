@@ -52,7 +52,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			builder.setProjectId(getProjectId());
 			Credentials credentials = createCredentials();
 			if (credentials != null) {
-				builder.setCredentials(createCredentials());
+				builder.setCredentials(credentials);
 			}
 			return builder.build().getService();
 		} catch (IOException e) {

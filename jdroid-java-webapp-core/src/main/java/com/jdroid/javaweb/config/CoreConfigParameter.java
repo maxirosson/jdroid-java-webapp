@@ -16,7 +16,10 @@ public enum CoreConfigParameter implements RemoteConfigParameter {
 	HTTP_MOCK_ENABLED(false),
 	HTTP_MOCK_SLEEP_DURATION(10),
 	ADMIN_TOKEN,
+
+	@Deprecated
 	GOOGLE_SERVER_API_KEY,
+
 	GIT_SHA,
 	GIT_BRANCH,
 	TWITTER_OAUTH_CONSUMER_KEY,

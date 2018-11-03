@@ -1,7 +1,7 @@
 apply plugin: 'com.jdroid.java.library'
 
-ext.PROJECT_NAME = 'Jdroid Java Web App - Twitter'
-description = 'Twitter integration'
+ext.PROJECT_NAME = 'Jdroid Java Web App - Firebase Admin'
+description = 'Firebase Admin'
 
 configurations.all {
 	// check for updates every build
@@ -20,10 +20,7 @@ dependencies {
 
 	implementation project(":jdroid-java-webapp-core")
 
-	// http://twitter4j.org/en/index.html#download
-	// https://github.com/Twitter4J/Twitter4J/releases
-	api "org.twitter4j:twitter4j-core:4.0.7"
-	api "org.twitter4j:twitter4j-stream:4.0.7"
+	api 'com.google.firebase:firebase-admin:6.5.0'
 
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"

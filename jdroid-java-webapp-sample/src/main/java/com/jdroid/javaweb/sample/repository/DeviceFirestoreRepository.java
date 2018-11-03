@@ -1,10 +1,10 @@
 package com.jdroid.javaweb.sample.repository;
 
 import com.google.cloud.firestore.Query;
+import com.jdroid.javaweb.firebase.fcm.Device;
+import com.jdroid.javaweb.firebase.fcm.DeviceRepository;
+import com.jdroid.javaweb.firebase.fcm.DeviceType;
 import com.jdroid.javaweb.firebase.firestore.FirestoreRepository;
-import com.jdroid.javaweb.push.Device;
-import com.jdroid.javaweb.push.DeviceRepository;
-import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.sample.context.BuildConfig;
 import com.jdroid.javaweb.sample.context.ServerApplication;
 

@@ -19,7 +19,8 @@ dependencies {
 	compile project(':jdroid-java-webapp-csv')
 	compile project(':jdroid-java-webapp-facebook')
 	compile project(':jdroid-java-webapp-twitter')
-	compile project(':jdroid-java-webapp-push')
+	compile project(':jdroid-java-webapp-firebase-admin')
+	compile project(':jdroid-java-webapp-firebase-fcm')
 	compile project(':jdroid-java-webapp-firebase-firestore')
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {

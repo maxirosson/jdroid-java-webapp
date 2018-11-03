@@ -1,16 +1,17 @@
 package com.jdroid.javaweb.sample.api.controller;
 
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.Message;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.api.AbstractController;
-import com.jdroid.javaweb.push.Device;
-import com.jdroid.javaweb.push.DeviceParser;
-import com.jdroid.javaweb.push.DeviceRepository;
-import com.jdroid.javaweb.push.DeviceType;
-import com.jdroid.javaweb.push.PushService;
-import com.jdroid.javaweb.push.api.DeviceHeaders;
-import com.jdroid.javaweb.push.fcm.FcmMessage;
+import com.jdroid.javaweb.firebase.fcm.Device;
+import com.jdroid.javaweb.firebase.fcm.DeviceParser;
+import com.jdroid.javaweb.firebase.fcm.DeviceRepository;
+import com.jdroid.javaweb.firebase.fcm.DeviceType;
+import com.jdroid.javaweb.firebase.fcm.PushService;
+import com.jdroid.javaweb.firebase.fcm.api.DeviceHeaders;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,42 +35,49 @@ public class FcmController extends AbstractController {
 	private DeviceRepository deviceRepository;
 	
 	@RequestMapping(value = "/send", method = RequestMethod.GET)
-	public void send(@RequestParam(required = false) String googleServerApiKey, @RequestParam(required = false) String registrationToken,
-					 @RequestParam String messageKeyExtraName,
-					 @RequestParam String messageKey, @RequestParam(required = false) String collapseKey,
+	public void send(@RequestParam(required = false) String registrationToken,
+					 @RequestParam(required = false) String topic,
+				 	 @RequestParam String messageKeyExtraName,
+					 @RequestParam String messageKey,
+					 @RequestParam(required = false) String collapseKey,
 					 @RequestParam(required = false) String highPriority,
-					 @RequestParam(required = false) Integer timeToLive, @RequestParam(required = false) String timestampEnabled,
+					 @RequestParam(required = false) Integer timeToLive,
+					 @RequestParam(required = false) String timestampEnabled,
 					 @RequestParam(required = false) String params) {
 
-		FcmMessage pushMessage = new FcmMessage(messageKeyExtraName, messageKey);
-		pushMessage.setGoogleServerApiKey(googleServerApiKey);
+		Message.Builder builder = Message.builder();
+		AndroidConfig.Builder androidConfigBuilder = AndroidConfig.builder();
+
+		builder.putData(messageKeyExtraName, messageKey);
+
 		if (StringUtils.isNotEmpty(registrationToken)) {
-			pushMessage.setTo(registrationToken);
-		} else {
-			List<Device> devices = deviceRepository.getAll();
-			for(Device device : devices) {
-				if (device.getRegistrationToken() != null) {
-					pushMessage.addRegistrationId(device.getRegistrationToken());
-				}
-			}
+			builder.setToken(registrationToken);
 		}
 
-		pushMessage.setCollapseKey(StringUtils.isNotEmpty(collapseKey) ? collapseKey : null);
-		if (highPriority != null && highPriority.equalsIgnoreCase("true")) {
-			pushMessage.markAsHighPriority();
+		if (StringUtils.isNotEmpty(topic)) {
+			builder.setTopic(topic);
 		}
-		pushMessage.setTimeToLive(timeToLive);
+
+		androidConfigBuilder.setCollapseKey(StringUtils.isNotEmpty(collapseKey) ? collapseKey : null);
+		if (highPriority != null && highPriority.equalsIgnoreCase("true")) {
+			androidConfigBuilder.setPriority(AndroidConfig.Priority.HIGH);
+		}
+		if (timeToLive != null) {
+			androidConfigBuilder.setTtl(timeToLive);
+		}
 		if (timestampEnabled != null && timestampEnabled.equalsIgnoreCase("true")) {
-			pushMessage.addParameter("timestamp", DateUtils.nowMillis());
+			builder.putData("timestamp", "" + DateUtils.nowMillis());
 		}
 
 		if (params != null) {
 			for (String param : StringUtils.splitWithCommaSeparator(params.replace("[", "").replace("]", ""))) {
 				String[] vec = param.split("\\|");
-				pushMessage.addParameter(vec[0], vec[1]);
+				builder.putData(vec[0], vec[1]);
 			}
 		}
-		pushService.send(pushMessage);
+
+		builder.setAndroidConfig(androidConfigBuilder.build());
+		pushService.send(builder.build());
 	}
 
 	@RequestMapping(value = "/device", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
