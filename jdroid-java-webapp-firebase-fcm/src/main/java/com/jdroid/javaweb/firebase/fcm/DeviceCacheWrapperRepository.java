@@ -28,20 +28,4 @@ public class DeviceCacheWrapperRepository extends CacheWrapperRepository<Device>
 		}
 		return device;
 	}
-
-	@Override
-	public Device findByInstanceId(String instanceId, DeviceType deviceType) {
-		for (Device each : getCache().values()) {
-			if (each.getInstanceId() != null && each.getInstanceId().equals(instanceId) && each.getDeviceType().equals(deviceType)) {
-				LOGGER.info("Retrieved object from cache: " + each.getClass().getSimpleName() + ". [ " + each + " ]");
-				return each;
-			}
-		}
-
-		Device device = ((DeviceRepository)getWrappedRepository()).findByInstanceId(instanceId, deviceType);
-		if (device != null) {
-			getCache().put(device.getId(), device);
-		}
-		return device;
-	}
 }

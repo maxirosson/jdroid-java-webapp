@@ -11,5 +11,4 @@ public interface PushService {
 	
 	public void send(Message message);
 
-	public void processResponse(MessageSendingResponse messageSendingResponse);
 }

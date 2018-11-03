@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.firebase.fcm;
+package com.jdroid.javaweb.firebase.fcm.instanceid;
 
 import com.jdroid.java.http.DefaultServer;
 import com.jdroid.java.http.HttpService;

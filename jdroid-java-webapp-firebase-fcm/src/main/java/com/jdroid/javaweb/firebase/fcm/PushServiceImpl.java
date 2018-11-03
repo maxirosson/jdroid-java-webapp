@@ -24,6 +24,8 @@ public class PushServiceImpl implements PushService {
 	@Autowired(required = false)
 	private PushServiceListener pushServiceListener;
 
+	private FcmSenderListener fcmSenderListener = new SenderListener();
+
 	@Override
 	public void addDevice(Device device, Boolean updateLastActiveTimestamp) {
 		device.setId(generateId(device.getDeviceType(), device.getInstanceId()));
@@ -78,57 +80,44 @@ public class PushServiceImpl implements PushService {
 
 	@Override
 	public void send(Message message) {
-		ExecutorUtils.execute(new PushProcessor(this, message));
+		ExecutorUtils.execute(new Runnable() {
+			@Override
+			public void run() {
+				FcmSender.get().send(message, fcmSenderListener);
+			}
+		});
 	}
 
-	// TODO By Google recommendation, we should remove all the tokens that weren't recently updated
-	@Override
-	public void processResponse(MessageSendingResponse messageSendingResponse) {
-		for (String each : messageSendingResponse.getRegistrationTokensToRemove()) {
-			Device deviceToRemove = deviceRepository.findByRegistrationToken(each, messageSendingResponse.getDeviceType());
-			if (deviceToRemove != null) {
-				deviceRepository.remove(deviceToRemove);
-				if (pushServiceListener != null) {
-					pushServiceListener.onRemoveDevice(deviceToRemove.getInstanceId(), deviceToRemove.getDeviceType());
-				}
-			}
-		}
-
-		for (Entry<String, String> entry : messageSendingResponse.getRegistrationTokensToReplace().entrySet()) {
-			Device deviceToUpdate = deviceRepository.findByRegistrationToken(entry.getKey(), messageSendingResponse.getDeviceType());
-			if (deviceToUpdate != null) {
-				deviceToUpdate.setRegistrationToken(entry.getValue());
-				deviceRepository.update(deviceToUpdate);
-				if (pushServiceListener != null) {
-					pushServiceListener.onUpdateDevice(deviceToUpdate.getInstanceId(), deviceToUpdate.getDeviceType());
-				}
-			}
-		}
-	}
-
-	private class PushProcessor implements Runnable {
-		
-		private PushService pushService;
-		private Message message;
-		
-		public PushProcessor(PushService pushService, Message message) {
-			this.pushService = pushService;
-			this.message = message;
-		}
-		
+	private class SenderListener implements FcmSenderListener {
 		@Override
-		public void run() {
-			FcmSender.get().send(message, new FcmSenderListener() {
-				@Override
-				public void onSuccessfulSend(MessageSendingResponse messageSendingResponse) {
-					pushService.processResponse(messageSendingResponse);
-				}
+		public void onSuccessfulSend(MessageSendingResponse messageSendingResponse) {
 
-				@Override
-				public void onErrorSend(String errorCode) {
-
+			// TODO By Google recommendation, we should remove all the tokens that weren't recently updated
+			for (String each : messageSendingResponse.getRegistrationTokensToRemove()) {
+				Device deviceToRemove = deviceRepository.findByRegistrationToken(each, messageSendingResponse.getDeviceType());
+				if (deviceToRemove != null) {
+					deviceRepository.remove(deviceToRemove);
+					if (pushServiceListener != null) {
+						pushServiceListener.onRemoveDevice(deviceToRemove.getInstanceId(), deviceToRemove.getDeviceType());
+					}
 				}
-			});
+			}
+
+			for (Entry<String, String> entry : messageSendingResponse.getRegistrationTokensToReplace().entrySet()) {
+				Device deviceToUpdate = deviceRepository.findByRegistrationToken(entry.getKey(), messageSendingResponse.getDeviceType());
+				if (deviceToUpdate != null) {
+					deviceToUpdate.setRegistrationToken(entry.getValue());
+					deviceRepository.update(deviceToUpdate);
+					if (pushServiceListener != null) {
+						pushServiceListener.onUpdateDevice(deviceToUpdate.getInstanceId(), deviceToUpdate.getDeviceType());
+					}
+				}
+			}
 		}
-	}
+
+		@Override
+		public void onErrorSend(String errorCode) {
+
+		}
+	};
 }

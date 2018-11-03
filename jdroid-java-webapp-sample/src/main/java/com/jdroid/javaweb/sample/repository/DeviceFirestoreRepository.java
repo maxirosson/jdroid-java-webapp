@@ -35,10 +35,4 @@ public class DeviceFirestoreRepository extends FirestoreRepository<Device> imple
 		Query query = createCollectionReference().whereEqualTo("registrationToken", registrationToken).whereEqualTo("deviceType", deviceType);
 		return getItemByQuery(query);
 	}
-	
-	@Override
-	public Device findByInstanceId(String instanceId, DeviceType deviceType) {
-		Query query = createCollectionReference().whereEqualTo("instanceId", instanceId).whereEqualTo("deviceType", deviceType);
-		return getItemByQuery(query);
-	}
 }

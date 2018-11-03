@@ -19,7 +19,7 @@
 
 	<filter>
 		<filter-name>InstanceId Log4j Filter</filter-name>
-		<filter-class>com.jdroid.javaweb.firebase.fcm.api.filter.InstanceIdLog4jFilter</filter-class>
+		<filter-class>com.jdroid.javaweb.firebase.fcm.instanceid.InstanceIdLog4jFilter</filter-class>
 	</filter>
 
 	<filter>
