@@ -3,11 +3,9 @@ package com.jdroid.javaweb.firebase.fcm;
 import com.google.firebase.messaging.Message;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.config.CoreConfigParameter;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +13,6 @@ import java.util.Map.Entry;
 
 @Service
 public class PushServiceImpl implements PushService {
-	
-	private static final Logger LOGGER = LoggerUtils.getLogger(PushServiceImpl.class);
 	
 	@Autowired
 	private DeviceRepository deviceRepository;

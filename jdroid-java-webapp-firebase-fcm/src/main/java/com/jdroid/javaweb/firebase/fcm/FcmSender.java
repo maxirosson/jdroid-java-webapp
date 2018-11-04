@@ -26,6 +26,10 @@ public class FcmSender {
 		return INSTANCE;
 	}
 
+	public void send(Message message) {
+		sendRetry(message, null, 1);
+	}
+
 	public void send(Message message, FcmSenderListener listener) {
 		sendRetry(message, listener, 1);
 	}
@@ -34,7 +38,9 @@ public class FcmSender {
 		LOGGER.info("Attempt #" + attempt + " to send message " + message);
 		MessageSendingResponse messageSendingResponse = sendNoRetry(message);
 		if (messageSendingResponse.getSuccessful()) {
-			listener.onSuccessfulSend(messageSendingResponse);
+			if (listener != null) {
+				listener.onSuccessfulSend(messageSendingResponse);
+			}
 		} else {
 			if (messageSendingResponse.getRetry()) {
 				if (attempt <= RETRIES) {
@@ -47,10 +53,14 @@ public class FcmSender {
 					}, backoff, TimeUnit.SECONDS);
 				} else {
 					LOGGER.error("Could not send message after " + attempt + " attempts");
-					listener.onErrorSend(messageSendingResponse.getErrorCode());
+					if (listener != null) {
+						listener.onErrorSend(messageSendingResponse.getErrorCode());
+					}
 				}
 			} else {
-				listener.onErrorSend(messageSendingResponse.getErrorCode());
+				if (listener != null) {
+					listener.onErrorSend(messageSendingResponse.getErrorCode());
+				}
 			}
 		}
 	}
