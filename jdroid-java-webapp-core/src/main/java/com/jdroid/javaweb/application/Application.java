@@ -38,9 +38,9 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 	}
 	
 	public void init() {
-		remoteConfigLoader = createRemoteConfigLoader();
 		onCreateApplication();
-		
+		remoteConfigLoader = createRemoteConfigLoader();
+
 		initAppModule(appModulesMap);
 		for (AppModule each : appModulesMap.values()) {
 			each.onCreateApplication();

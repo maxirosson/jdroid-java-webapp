@@ -17,11 +17,11 @@ public class ServerApplication extends Application<Entity> {
 	public static ServerApplication get() {
 		return (ServerApplication)Application.get();
 	}
-	
+
 	@Override
 	protected void onCreateApplication() {
-		MarshallerProvider.get().addMarshaller(SampleResponse.class, new SampleResponseMarshaller());
 		FirebaseAdminSdkHelper.init(BuildConfig.FIREBASE_SERVICE_ACCOUNT);
+		MarshallerProvider.get().addMarshaller(SampleResponse.class, new SampleResponseMarshaller());
 	}
 	
 	@Override
