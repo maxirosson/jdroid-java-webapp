@@ -20,7 +20,8 @@ dependencies {
 
 	implementation project(":jdroid-java-webapp-core")
 
-	api 'com.google.firebase:firebase-admin:6.5.0'
+	// https://firebase.google.com/support/release-notes/admin/java
+	api 'com.google.firebase:firebase-admin:6.6.0'
 
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"

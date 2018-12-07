@@ -83,7 +83,7 @@
 
 	<servlet-mapping>
 		<servlet-name>ping</servlet-name>
-		<url-pattern>/ping</url-pattern>
+		<url-pattern>/api/ping</url-pattern>
 	</servlet-mapping>
 
 	<session-config>
