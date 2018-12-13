@@ -1,19 +1,22 @@
 package com.jdroid.javaweb.filter;
 
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.ApiExceptionHandler;
 import com.jdroid.javaweb.application.Application;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
+
+import org.slf4j.Logger;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Filter used to verify that requests come from an authenticated user when accessing to content that requires
@@ -25,10 +28,6 @@ public class AbstractAuthenticationFilter extends OncePerRequestFilter {
 	
 	private static final String USER_TOKEN_HEADER = "x-user-token";
 	
-	/**
-	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
-	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
