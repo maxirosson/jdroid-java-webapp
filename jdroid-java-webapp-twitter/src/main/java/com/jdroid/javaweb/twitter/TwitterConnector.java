@@ -92,4 +92,8 @@ public class TwitterConnector {
 			throw new UnexpectedException(e);
 		}
 	}
+
+	public TwitterFactory getTwitterFactory() {
+		return twitterFactory;
+	}
 }
