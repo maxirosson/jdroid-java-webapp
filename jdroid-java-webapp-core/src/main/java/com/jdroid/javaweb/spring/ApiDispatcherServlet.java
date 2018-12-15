@@ -19,10 +19,11 @@ public class ApiDispatcherServlet extends DispatcherServlet {
 	protected void noHandlerFound(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String requestUri = new UrlPathHelper().getRequestUri(request);
 		if (shouldNotThrowBadRequestException(request)) {
-			LOGGER.debug("Ignoring request [URI '" + requestUri + "', method '"
+			LOGGER.info("Ignoring request [URI '" + requestUri + "', method '"
 					+ request.getMethod() + "', parameters "
 					+ StylerUtils.style(request.getParameterMap()) + "] in DispatcherServlet with name '"
 					+ getServletName() + "'");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} else {
 			throw new BadRequestException(requestUri, request.getParameterMap(), request.getMethod(), getServletName());
 		}
