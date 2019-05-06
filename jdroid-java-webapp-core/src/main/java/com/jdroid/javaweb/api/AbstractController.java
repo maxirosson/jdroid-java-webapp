@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.api;
 
 import com.google.gson.GsonBuilder;
-import com.jdroid.java.date.DateConfiguration;
+import com.jdroid.java.gson.GsonBuilderFactory;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.StringUtils;
@@ -37,8 +37,11 @@ public abstract class AbstractController {
 	}
 	
 	public String autoMarshall(Object object) {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setDateFormat(DateConfiguration.getDefaultDateTimeFormat());
+		GsonBuilder gsonBuilder = createGsonBuilder();
 		return gsonBuilder.create().toJson(object);
+	}
+
+	protected GsonBuilder createGsonBuilder() {
+		return GsonBuilderFactory.createGsonBuilder();
 	}
 }
