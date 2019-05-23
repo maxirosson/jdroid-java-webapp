@@ -4,6 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
@@ -20,7 +21,9 @@ import com.jdroid.java.utils.LoggerUtils;
 import org.slf4j.Logger;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public abstract class FirestoreRepository<T extends Entity> implements Repository<T> {
@@ -322,6 +325,16 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	public void replaceAll(Collection<T> items) {
 		removeAll();
 		addAll(items);
+	}
+
+	public void removeFields(String id, String... fieldNames) {
+		CollectionReference collectionReference = createCollectionReference();
+		DocumentReference documentReference = collectionReference.document(id);
+		Map<String, Object> updates = new HashMap<>();
+		for (String fieldName : fieldNames) {
+			updates.put(fieldName, FieldValue.delete());
+		}
+		getWriteResult(documentReference.update(updates));
 	}
 	
 	private QuerySnapshot getQuerySnapshot(ApiFuture<QuerySnapshot> futureResult) {
