@@ -28,7 +28,7 @@ abstract class AbstractController {
 		return createGsonBuilder().create().toJson(value)
 	}
 
-	protected fun createGsonBuilder(): GsonBuilder {
+	protected open fun createGsonBuilder(): GsonBuilder {
 		return GsonBuilderFactory.createGsonBuilder()
 	}
 }
