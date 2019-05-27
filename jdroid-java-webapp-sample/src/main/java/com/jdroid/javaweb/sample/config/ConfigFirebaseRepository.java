@@ -12,14 +12,14 @@ public class ConfigFirebaseRepository extends PairFirebaseRepository {
 		return new CustomTokenFirebaseAuthenticationStrategy() {
 			@Override
 			protected String getAuthToken() {
-				return ServerApplication.get().getFirebaseAuthToken();
+				return ServerApplication.Companion.get().getFirebaseAuthToken();
 			}
 		};
 	}
 
 	@Override
 	protected String getFirebaseUrl() {
-		return ServerApplication.get().getFirebaseUrl();
+		return ServerApplication.Companion.get().getFirebaseUrl();
 	}
 
 	@Override

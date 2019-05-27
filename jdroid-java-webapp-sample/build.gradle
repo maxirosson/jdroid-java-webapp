@@ -55,12 +55,12 @@ project.afterEvaluate {
 		doLast {
 			File dir = new File("$projectDir/build/generated/com/jdroid/javaweb/sample/context")
 			dir.mkdirs()
-			File file = new File(dir, "BuildConfig.java")
+			File file = new File(dir, "BuildConfig.kt")
 			file.withWriter { out ->
 
-				out.writeLine("package com.jdroid.javaweb.sample.context;")
+				out.writeLine("package com.jdroid.javaweb.sample.context")
 				out.writeLine("")
-				out.writeLine("public class BuildConfig {")
+				out.writeLine("object BuildConfig {")
 				jdroid.setBuildConfigString(out, 'APP_NAME', project.name)
 				jdroid.setBuildConfigString(out, 'APP_VERSION', project.version.toString())
 				jdroid.setBuildConfigString(out, 'BUILD_TYPE')
@@ -92,7 +92,7 @@ project.afterEvaluate {
 		}
 	}
 
-	project.tasks.'compileJava'.dependsOn 'generateBuildConfigClass'
+	project.tasks.'compileKotlin'.dependsOn 'generateBuildConfigClass'
 }
 
 test {

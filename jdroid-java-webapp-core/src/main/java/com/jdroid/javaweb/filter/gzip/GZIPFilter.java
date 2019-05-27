@@ -1,6 +1,9 @@
 package com.jdroid.javaweb.filter.gzip;
 
+import com.jdroid.java.http.HttpService;
+
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,14 +12,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.jdroid.java.http.HttpService;
 
 public class GZIPFilter implements Filter {
 	
-	/**
-	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-	 *      javax.servlet.FilterChain)
-	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {

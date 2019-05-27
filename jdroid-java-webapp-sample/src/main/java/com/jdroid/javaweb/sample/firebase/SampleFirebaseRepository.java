@@ -12,14 +12,14 @@ public class SampleFirebaseRepository extends FirebaseDatabaseRepository<SampleE
 		return new CustomTokenFirebaseAuthenticationStrategy() {
 			@Override
 			protected String getAuthToken() {
-				return ServerApplication.get().getFirebaseAuthToken();
+				return ServerApplication.Companion.get().getFirebaseAuthToken();
 			}
 		};
 	}
 
 	@Override
 	protected String getFirebaseUrl() {
-		return ServerApplication.get().getFirebaseUrl();
+		return ServerApplication.Companion.get().getFirebaseUrl();
 	}
 
 	@Override
