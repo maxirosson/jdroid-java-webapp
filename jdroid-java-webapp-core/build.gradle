@@ -22,44 +22,44 @@ dependencies {
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		api project(":jdroid-java-core")
-		implementation project(":jdroid-java-remote-config")
+		api project(":jdroid-java-remote-config")
 	} else {
 		api 'com.jdroidtools:jdroid-java-core:' + JDROID_JAVA_VERSION
-		implementation 'com.jdroidtools:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
+		api 'com.jdroidtools:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
 	}
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
-		compile project(":jdroid-java-http-core")
+		api project(":jdroid-java-http-core")
 	} else {
-		compile ('com.jdroidtools:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
+		api ('com.jdroidtools:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
 	// Sentry
 	// https://github.com/getsentry/sentry-java
-	compile 'com.getsentry.raven:raven:8.0.2'
+	implementation 'com.getsentry.raven:raven:8.0.2'
 
 	// Logging
-	compile "log4j:log4j:1.2.17"
-	compile "org.slf4j:slf4j-log4j12:1.7.25"
+	implementation "log4j:log4j:1.2.17"
+	api "org.slf4j:slf4j-log4j12:1.7.25"
 
 	// Spring
-	compile "org.springframework:spring-core:" + SPRING_VERSION
-	compile "org.springframework:spring-web:" + SPRING_VERSION
-	compile "org.springframework:spring-webmvc:" + SPRING_VERSION
-	compile "org.springframework:spring-context-support:" + SPRING_VERSION
+	api "org.springframework:spring-core:" + SPRING_VERSION
+	api "org.springframework:spring-web:" + SPRING_VERSION
+	api "org.springframework:spring-webmvc:" + SPRING_VERSION
+	api "org.springframework:spring-context-support:" + SPRING_VERSION
 
 	// Jackson
 	// TODO Remove these dependencies, and replace MappingJackson2HttpMessageConverter by a GsonHttpMessageConverter on Spring 4.1
-	compile "com.fasterxml.jackson.core:jackson-core:2.8.7"
-	compile "com.fasterxml.jackson.core:jackson-databind:2.8.7"
-	compile "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
+	api "com.fasterxml.jackson.core:jackson-core:2.8.7"
+	api "com.fasterxml.jackson.core:jackson-databind:2.8.7"
+	api "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
 
 	// Servlet API
-	compile "javax.servlet:servlet-api:2.5"
+	implementation "javax.servlet:servlet-api:2.5"
 
-	compile "org.json:json:20131018"
+	api "org.json:json:20131018"
 
 	// Testing
 	testImplementation "org.testng:testng:6.8.21"
