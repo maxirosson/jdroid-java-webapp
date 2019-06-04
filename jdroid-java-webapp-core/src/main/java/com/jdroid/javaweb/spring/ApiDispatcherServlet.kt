@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse
 
 class ApiDispatcherServlet : DispatcherServlet() {
 
-	@Throws(Exception::class)
-	override fun noHandlerFound(request: HttpServletRequest, response: HttpServletResponse) {
-		val requestUri = UrlPathHelper().getRequestUri(request)
-		throw BadRequestException(requestUri, request.parameterMap, request.method, servletName)
-	}
+    @Throws(Exception::class)
+    override fun noHandlerFound(request: HttpServletRequest, response: HttpServletResponse) {
+        val requestUri = UrlPathHelper().getRequestUri(request)
+        throw BadRequestException(requestUri, request.parameterMap, request.method, servletName)
+    }
 }

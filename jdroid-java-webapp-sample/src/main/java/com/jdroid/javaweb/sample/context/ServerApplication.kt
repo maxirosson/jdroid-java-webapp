@@ -12,32 +12,31 @@ import com.jdroid.javaweb.sentry.SentryAppModule
 
 class ServerApplication : Application<Entity>() {
 
-	val firebaseUrl: String
-		get() = BuildConfigUtils.getBuildConfigValue("FIREBASE_URL")
+    val firebaseUrl: String
+        get() = BuildConfigUtils.getBuildConfigValue("FIREBASE_URL")
 
-	val firebaseAuthToken: String
-		get() = BuildConfigUtils.getBuildConfigValue("FIREBASE_AUTH_TOKEN")
+    val firebaseAuthToken: String
+        get() = BuildConfigUtils.getBuildConfigValue("FIREBASE_AUTH_TOKEN")
 
-	override fun onCreateApplication() {
-		super.onCreateApplication()
+    override fun onCreateApplication() {
+        super.onCreateApplication()
 
-		FirebaseAdminSdkHelper.init(BuildConfig.FIREBASE_SERVICE_ACCOUNT)
-		MarshallerProvider.get().addMarshaller(SampleResponse::class.java, SampleResponseMarshaller())
-	}
+        FirebaseAdminSdkHelper.init(BuildConfig.FIREBASE_SERVICE_ACCOUNT)
+        MarshallerProvider.get().addMarshaller(SampleResponse::class.java, SampleResponseMarshaller())
+    }
 
-	override fun getBuildConfigClass(): Class<*> {
-		return BuildConfig::class.java
-	}
+    override fun getBuildConfigClass(): Class<*> {
+        return BuildConfig::class.java
+    }
 
-	override fun initAppModule(appModulesMap: MutableMap<String, AppModule>) {
-		appModulesMap[SentryAppModule.MODULE_NAME] = SentryAppModule()
-	}
+    override fun initAppModule(appModulesMap: MutableMap<String, AppModule>) {
+        appModulesMap[SentryAppModule.MODULE_NAME] = SentryAppModule()
+    }
 
-	companion object {
+    companion object {
 
-		fun get(): ServerApplication {
-			return Application.get() as ServerApplication
-		}
-	}
-
+        fun get(): ServerApplication {
+            return Application.get() as ServerApplication
+        }
+    }
 }

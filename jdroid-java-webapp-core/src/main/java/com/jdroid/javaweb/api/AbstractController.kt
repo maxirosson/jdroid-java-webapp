@@ -9,26 +9,26 @@ import com.jdroid.javaweb.application.Application
 
 abstract class AbstractController {
 
-	val userId: String?
-		get() = if (Application.get().securityContext != null && Application.get().securityContext.isAuthenticated)
-			Application.get().securityContext.user.id
-		else
-			null
+    val userId: String?
+        get() = if (Application.get().securityContext != null && Application.get().securityContext.isAuthenticated)
+            Application.get().securityContext.user.id
+        else
+            null
 
-	fun marshallSimple(value: Any): String {
-		return marshall(value, MarshallerMode.SIMPLE)
-	}
+    fun marshallSimple(value: Any): String {
+        return marshall(value, MarshallerMode.SIMPLE)
+    }
 
-	@JvmOverloads
-	fun marshall(value: Any?, mode: MarshallerMode = MarshallerMode.COMPLETE, extras: Map<String, String>? = null): String {
-		return if (value != null) MarshallerProvider.get().marshall(value, mode, extras).toString() else StringUtils.EMPTY
-	}
+    @JvmOverloads
+    fun marshall(value: Any?, mode: MarshallerMode = MarshallerMode.COMPLETE, extras: Map<String, String>? = null): String {
+        return if (value != null) MarshallerProvider.get().marshall(value, mode, extras).toString() else StringUtils.EMPTY
+    }
 
-	fun autoMarshall(value: Any): String {
-		return createGsonBuilder().create().toJson(value)
-	}
+    fun autoMarshall(value: Any): String {
+        return createGsonBuilder().create().toJson(value)
+    }
 
-	protected open fun createGsonBuilder(): GsonBuilder {
-		return GsonBuilderFactory.createGsonBuilder()
-	}
+    protected open fun createGsonBuilder(): GsonBuilder {
+        return GsonBuilderFactory.createGsonBuilder()
+    }
 }

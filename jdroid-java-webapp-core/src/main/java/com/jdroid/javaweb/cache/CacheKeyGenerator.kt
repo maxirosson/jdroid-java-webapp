@@ -6,7 +6,7 @@ import java.lang.reflect.Method
 
 class CacheKeyGenerator : DefaultKeyGenerator() {
 
-	override fun generate(target: Any?, method: Method?, vararg params: Any): Any {
-		return method?.name + super.generate(target, method, *params).toString()
-	}
+    override fun generate(target: Any?, method: Method?, vararg params: Any): Any {
+        return method?.name + super.generate(target, method, *params).toString()
+    }
 }

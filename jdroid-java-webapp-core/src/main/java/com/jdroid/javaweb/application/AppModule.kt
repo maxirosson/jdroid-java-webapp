@@ -2,9 +2,9 @@ package com.jdroid.javaweb.application
 
 interface AppModule {
 
-	fun getServerInfoMap(): Map<String, String>?
+    fun getServerInfoMap(): Map<String, String>?
 
-	fun onCreateApplication()
+    fun onCreateApplication()
 
-	fun onContextDestroyed()
+    fun onContextDestroyed()
 }

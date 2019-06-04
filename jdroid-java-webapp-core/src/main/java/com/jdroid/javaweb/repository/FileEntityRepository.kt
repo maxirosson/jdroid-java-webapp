@@ -5,6 +5,5 @@ import com.jdroid.javaweb.domain.FileEntity
 
 interface FileEntityRepository : Repository<FileEntity> {
 
-	fun getByName(name: String): FileEntity
-
+    fun getByName(name: String): FileEntity
 }

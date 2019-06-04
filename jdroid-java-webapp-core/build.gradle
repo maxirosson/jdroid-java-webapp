@@ -21,10 +21,10 @@ dependencies {
 	// Jdroid dependencies
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
-		implementation project(":jdroid-java-core")
+		api project(":jdroid-java-core")
 		implementation project(":jdroid-java-remote-config")
 	} else {
-		implementation 'com.jdroidtools:jdroid-java-core:' + JDROID_JAVA_VERSION
+		api 'com.jdroidtools:jdroid-java-core:' + JDROID_JAVA_VERSION
 		implementation 'com.jdroidtools:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
 	}
 

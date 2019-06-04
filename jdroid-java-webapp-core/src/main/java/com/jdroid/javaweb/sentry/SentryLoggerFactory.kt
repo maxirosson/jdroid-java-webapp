@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory
 
 class SentryLoggerFactory : ILoggerFactory {
 
-	override fun getLogger(name: String): Logger {
-		return SentryLogger(LoggerFactory.getLogger(name))
-	}
+    override fun getLogger(name: String): Logger {
+        return SentryLogger(LoggerFactory.getLogger(name))
+    }
 }

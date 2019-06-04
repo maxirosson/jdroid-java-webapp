@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse
 
 class PingServlet : HttpServlet() {
 
-	@Throws(IOException::class)
-	override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
-		response.writer.write("Server running.")
-	}
+    @Throws(IOException::class)
+    override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
+        response.writer.write("Server running.")
+    }
 }
