@@ -57,7 +57,7 @@ dependencies {
 	api "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
 
 	// Servlet API
-	implementation "javax.servlet:servlet-api:2.5"
+	api "javax.servlet:servlet-api:2.5"
 
 	api "org.json:json:20131018"
 
