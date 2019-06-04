@@ -37,7 +37,14 @@ jobs:
           path: ~/jars
           destination: jars
 
-  verify:
+
+  ktlint:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: ./gradlew ktlint --stacktrace
+
+  test:
     <<: *defaults
     steps:
       - checkout
@@ -47,7 +54,7 @@ jobs:
 
       - run:
           name: Verifying
-          command: ./gradlew check --stacktrace
+          command: ./gradlew test --stacktrace
 
       - save_cache:
           paths:
@@ -112,9 +119,9 @@ workflows:
   commit:
     jobs:
       - build
-      - verify:
+      - test:
           requires:
             - build
       - deploy:
           requires:
-            - verify
+            - test
