@@ -23,7 +23,7 @@ public class ErrorController extends AbstractController {
 					 @RequestParam(required = true) Boolean newThread,
 					 @RequestParam(required = true) final Boolean exception) {
 		if (newThread) {
-			ExecutorUtils.execute(new Runnable() {
+			ExecutorUtils.INSTANCE.execute(new Runnable() {
 				@Override
 				public void run() {
 					if (errorLevel) {
