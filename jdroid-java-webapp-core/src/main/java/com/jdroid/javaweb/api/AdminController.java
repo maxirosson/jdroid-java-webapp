@@ -34,8 +34,8 @@ public abstract class AdminController extends AbstractController {
 		
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
 		infoMap.put("Current Time", DateUtils.now());
-		infoMap.put("Fake Now", DateConfiguration.isFakeNow());
-		infoMap.put("Fake Timestamp", DateConfiguration.getFakeNow());
+		infoMap.put("Fake Now", DateConfiguration.INSTANCE.isFakeNow());
+		infoMap.put("Fake Timestamp", DateConfiguration.INSTANCE.getFakeNow());
 		
 		for (AppModule appModule : Application.get().getAppModules()) {
 			Map<String, String> params = appModule.getServerInfoMap();
@@ -93,9 +93,9 @@ public abstract class AdminController extends AbstractController {
 	@RequestMapping(value = "/fakeNow/save", method = RequestMethod.GET)
 	public void saveFakeNow(@RequestParam(required = false) Long timestamp) {
 		if (timestamp != null) {
-			DateConfiguration.setFakeNow(new Date(timestamp));
+			DateConfiguration.INSTANCE.setFakeNow(new Date(timestamp));
 		} else {
-			DateConfiguration.setFakeNow(null);
+			DateConfiguration.INSTANCE.setFakeNow(null);
 		}
 	}
 	
@@ -103,7 +103,7 @@ public abstract class AdminController extends AbstractController {
 	@ResponseBody
 	public String getFakeNow() {
 		Map<String, Object> map = Maps.newHashMap();
-		map.put("timestamp", DateConfiguration.isFakeNow() ? DateConfiguration.getFakeNow().getTime() : null);
+		map.put("timestamp", DateConfiguration.INSTANCE.isFakeNow() ? DateConfiguration.INSTANCE.getFakeNow().getTime() : null);
 		return marshall(map);
 	}
 
