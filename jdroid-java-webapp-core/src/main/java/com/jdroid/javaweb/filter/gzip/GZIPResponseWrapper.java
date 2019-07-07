@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -77,7 +78,7 @@ public class GZIPResponseWrapper extends HttpServletResponseWrapper {
 		}
 		
 		stream = createOutputStream();
-		writer = new PrintWriter(new OutputStreamWriter(stream, EncodingUtils.UTF8));
+		writer = new PrintWriter(new OutputStreamWriter(stream, StandardCharsets.UTF_8));
 		return writer;
 	}
 	

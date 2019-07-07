@@ -29,11 +29,11 @@ import au.com.bytecode.opencsv.CSVWriter;
  */
 public class CSVUtils {
 	
-	public static interface ValueConverter<T> {
+	public interface ValueConverter<T> {
 		
-		public T fromString(String value);
+		T fromString(String value);
 		
-		public String[] toArray(Collection<T> values);
+		String[] toArray(Collection<T> values);
 	}
 	
 	public static class StringConverter implements ValueConverter<String> {
@@ -88,7 +88,7 @@ public class CSVUtils {
 	 */
 	public static <T> List<T> fromCSV(String csv, ValueConverter<T> valueConverter) {
 		return com.jdroid.java.utils.StringUtils.isNotEmpty(csv) ? CSVUtils.fromCSV(new StringReader(csv),
-			valueConverter) : Lists.<T>newArrayList();
+			valueConverter) : Lists.newArrayList();
 	}
 	
 	/**

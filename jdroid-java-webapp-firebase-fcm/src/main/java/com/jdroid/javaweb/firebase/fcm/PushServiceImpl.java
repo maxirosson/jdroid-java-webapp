@@ -115,5 +115,5 @@ public class PushServiceImpl implements PushService {
 		public void onErrorSend(String errorCode) {
 
 		}
-	};
+	}
 }

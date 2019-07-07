@@ -45,7 +45,7 @@ public class FcmSender {
 			if (messageSendingResponse.getRetry()) {
 				if (attempt <= RETRIES) {
 					long backoff = (long) (Math.pow(2, attempt));
-					ExecutorUtils.schedule(new Runnable() {
+					ExecutorUtils.INSTANCE.schedule(new Runnable() {
 						@Override
 						public void run() {
 							sendRetry(message, listener, attempt + 1);

@@ -60,7 +60,7 @@ public class GeoLocation implements Serializable {
 	
 	@Override
 	public String toString() {
-		return Double.toString(getLatitude()) + "," + Double.toString(getLongitude());
+		return getLatitude() + "," + getLongitude();
 	}
 	
 	public double distance(GeoLocation geoLocation) {

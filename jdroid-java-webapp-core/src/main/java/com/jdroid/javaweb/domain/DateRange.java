@@ -82,13 +82,8 @@ public class DateRange implements Serializable, Comparable<DateRange> {
 			return false;
 		}
 		if (startDate == null) {
-			if (other.startDate != null) {
-				return false;
-			}
-		} else if (!startDate.equals(other.startDate)) {
-			return false;
-		}
-		return true;
+			return other.startDate == null;
+		} else return startDate.equals(other.startDate);
 	}
 	
 	/**

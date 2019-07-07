@@ -76,7 +76,7 @@ public class FcmSender implements PushMessageSender {
 					backoff *= 2;
 				}
 			}
-		};
+		}
 		if (pushResponse == null) {
 			throw new UnexpectedException("Could not send message after " + attempt + " attempts");
 		}

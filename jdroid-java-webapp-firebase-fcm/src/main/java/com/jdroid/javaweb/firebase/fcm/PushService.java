@@ -5,10 +5,10 @@ import com.google.firebase.messaging.Message;
 
 public interface PushService {
 	
-	public void addDevice(Device device, Boolean updateLastActiveTimestamp);
+	void addDevice(Device device, Boolean updateLastActiveTimestamp);
 
-	public void removeDevice(String instanceId, DeviceType deviceType);
+	void removeDevice(String instanceId, DeviceType deviceType);
 	
-	public void send(Message message);
+	void send(Message message);
 
 }

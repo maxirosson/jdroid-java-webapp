@@ -4,6 +4,6 @@ import com.jdroid.java.repository.Repository;
 
 public interface DeviceRepository extends Repository<Device> {
 	
-	public Device findByRegistrationToken(String registrationToken, DeviceType deviceType);
+	Device findByRegistrationToken(String registrationToken, DeviceType deviceType);
 	
 }

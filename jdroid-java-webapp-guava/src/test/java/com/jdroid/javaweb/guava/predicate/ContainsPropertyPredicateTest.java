@@ -61,7 +61,7 @@ public class ContainsPropertyPredicateTest {
 	private enum TestEnum {
 		TEST_1,
 		TEST_2,
-		TEST_3;
+		TEST_3
 	}
 	
 	public class TestObject {
