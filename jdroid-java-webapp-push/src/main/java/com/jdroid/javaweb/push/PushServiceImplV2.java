@@ -30,7 +30,7 @@ public class PushServiceImplV2 implements PushService {
 		Device deviceToUpdate = deviceRepository.get(device.getId());
 		if (deviceToUpdate != null) {
 			if (isDeviceUpdateRequired(deviceToUpdate, device)) {
-				deviceToUpdate.setLastActiveTimestamp(updateLastActiveTimestamp ? DateUtils.nowMillis() : device.getLastActiveTimestamp());
+				deviceToUpdate.setLastActiveTimestamp(updateLastActiveTimestamp ? DateUtils.INSTANCE.nowMillis() : device.getLastActiveTimestamp());
 				deviceToUpdate.setRegistrationToken(device.getRegistrationToken());
 				deviceToUpdate.setDeviceGroupId(device.getDeviceGroupId());
 				deviceToUpdate.setAppVersionCode(device.getAppVersionCode());
@@ -44,7 +44,7 @@ public class PushServiceImplV2 implements PushService {
 				
 			}
 		} else {
-			Long now = DateUtils.nowMillis();
+			Long now = DateUtils.INSTANCE.nowMillis();
 			device.setCreationTimestamp(now);
 			device.setLastActiveTimestamp(now);
 			deviceRepository.add(device);
@@ -57,7 +57,7 @@ public class PushServiceImplV2 implements PushService {
 	protected Boolean isDeviceUpdateRequired(Device oldDevice, Device newDevice) {
 		newDevice.setLastActiveTimestamp(oldDevice.getLastActiveTimestamp());
 		newDevice.setId(oldDevice.getId());
-		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getRemoteConfigLoader().getLong(CoreConfigParameter.DEVICE_UPDATE_REQUIRED_DURATION);
+		return !oldDevice.equals(newDevice) || DateUtils.INSTANCE.nowMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getRemoteConfigLoader().getLong(CoreConfigParameter.DEVICE_UPDATE_REQUIRED_DURATION);
 	}
 	
 	private String generateId(DeviceType deviceType, String instanceId) {

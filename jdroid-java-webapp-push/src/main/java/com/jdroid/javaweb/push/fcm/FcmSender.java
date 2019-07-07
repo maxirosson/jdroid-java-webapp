@@ -69,7 +69,7 @@ public class FcmSender implements PushMessageSender {
 				if (pushResponse != null && !pushResponse.getRegistrationTokensToRetry().isEmpty()) {
 					fcmMessage.setRegistrationIds(pushResponse.getRegistrationTokensToRetry());
 				}
-				int sleepTime = backoff / 2 + RandomUtils.getInt(backoff);
+				int sleepTime = backoff / 2 + RandomUtils.INSTANCE.getInt(backoff);
 				LOGGER.debug("Next attempt on " + sleepTime / 1000 + " seconds");
 				ExecutorUtils.INSTANCE.sleep(sleepTime, TimeUnit.MILLISECONDS);
 				if (2 * backoff < MAX_BACKOFF_DELAY) {

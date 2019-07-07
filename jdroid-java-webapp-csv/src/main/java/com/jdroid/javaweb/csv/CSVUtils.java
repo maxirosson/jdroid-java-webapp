@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.utils;
+package com.jdroid.javaweb.csv;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.date.DateUtils;
@@ -200,7 +200,7 @@ public class CSVUtils {
 	@SuppressWarnings("resource")
 	public static File toCSVFile(Collection<String> values) {
 		try {
-			String fileName = "csv_file" + DateUtils.now().getTime();
+			String fileName = "csv_file" + DateUtils.INSTANCE.now().getTime();
 			File file = File.createTempFile(fileName, ".csv");
 			CSVUtils.writeCSV(new FileOutputStream(file), values);
 			return file;
@@ -273,7 +273,7 @@ public class CSVUtils {
 	@SuppressWarnings("resource")
 	public static File toMultipleColumnCSVFile(List<String[]> values) {
 		try {
-			String fileName = "csv_file" + DateUtils.now().getTime();
+			String fileName = "csv_file" + DateUtils.INSTANCE.now().getTime();
 			File file = File.createTempFile(fileName, ".csv");
 			CSVUtils.writeMultipleColumnCSV(new FileOutputStream(file), values);
 			return file;

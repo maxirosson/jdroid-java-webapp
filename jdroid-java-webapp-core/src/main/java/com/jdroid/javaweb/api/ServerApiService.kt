@@ -16,7 +16,7 @@ abstract class ServerApiService : AbstractApiService() {
         return object : JsonMockHttpService(*urlSegments) {
 
             override fun getHttpMockSleepDuration(vararg urlSegments: Any): Int {
-                return Application.get().remoteConfigLoader.getLong(CoreConfigParameter.HTTP_MOCK_SLEEP_DURATION).toInt()
+                return Application.get().remoteConfigLoader.getLong(CoreConfigParameter.HTTP_MOCK_SLEEP_DURATION)!!.toInt()
             }
         }
     }

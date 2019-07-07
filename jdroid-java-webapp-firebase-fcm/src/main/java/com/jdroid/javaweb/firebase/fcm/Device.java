@@ -163,9 +163,9 @@ public class Device extends Entity {
 		sb.append(", deviceOsVersion='").append(deviceOsVersion).append('\'');
 		sb.append(", appVersionCode='").append(appVersionCode).append('\'');
 		sb.append(", acceptLanguage='").append(acceptLanguage).append('\'');
-		sb.append(", creationTimestamp='").append(DateUtils.getDate(creationTimestamp)).append('\'');
+		sb.append(", creationTimestamp='").append(DateUtils.INSTANCE.getDate(creationTimestamp)).append('\'');
 		if (lastActiveTimestamp != null) {
-			sb.append(", lastActiveTimestamp=").append(DateUtils.getDate(lastActiveTimestamp));
+			sb.append(", lastActiveTimestamp=").append(DateUtils.INSTANCE.getDate(lastActiveTimestamp));
 		}
 		sb.append(", extras='").append(extras).append('\'');
 		sb.append(", transientExtras='").append(transientExtras).append('\'');

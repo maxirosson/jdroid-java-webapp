@@ -66,7 +66,7 @@ public class FcmController extends AbstractController {
 			androidConfigBuilder.setTtl(timeToLive);
 		}
 		if (timestampEnabled != null && timestampEnabled.equalsIgnoreCase("true")) {
-			builder.putData("timestamp", "" + DateUtils.nowMillis());
+			builder.putData("timestamp", "" + DateUtils.INSTANCE.nowMillis());
 		}
 
 		if (params != null) {

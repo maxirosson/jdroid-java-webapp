@@ -149,7 +149,7 @@ public enum CommonErrorCode implements ErrorCode {
 	 * @param value
 	 */
 	public void validateEmail(String value) {
-		if (!ValidationUtils.isValidEmail(value)) {
+		if (!ValidationUtils.INSTANCE.isValidEmail(value)) {
 			throw newErrorCodeException();
 		}
 	}

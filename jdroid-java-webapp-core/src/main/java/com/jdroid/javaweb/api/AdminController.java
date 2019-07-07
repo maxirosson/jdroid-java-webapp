@@ -33,7 +33,7 @@ public abstract class AdminController extends AbstractController {
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 		
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
-		infoMap.put("Current Time", DateUtils.now());
+		infoMap.put("Current Time", DateUtils.INSTANCE.now());
 		infoMap.put("Fake Now", DateConfiguration.INSTANCE.isFakeNow());
 		infoMap.put("Fake Timestamp", DateConfiguration.INSTANCE.getFakeNow());
 		

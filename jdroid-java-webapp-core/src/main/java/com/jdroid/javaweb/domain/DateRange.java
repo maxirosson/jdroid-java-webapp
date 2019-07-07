@@ -32,7 +32,7 @@ public class DateRange implements Serializable, Comparable<DateRange> {
 	 */
 	public DateRange(Date startDate, Date endDate) {
 		
-		if ((startDate != null) && (endDate != null) && DateUtils.isAfter(startDate, endDate)) {
+		if ((startDate != null) && (endDate != null) && DateUtils.INSTANCE.isAfter(startDate, endDate)) {
 			throw new UnexpectedException("The end date must be after start date.");
 		}
 		this.startDate = startDate;
@@ -120,7 +120,7 @@ public class DateRange implements Serializable, Comparable<DateRange> {
 	 * @return If this date range is inside the range
 	 */
 	public boolean isContainedInPeriod(Date theStartDate, Date theEndDate) {
-		return DateUtils.containsPeriod(theStartDate, theEndDate, getStartDate(), getEndDate());
+		return DateUtils.INSTANCE.containsPeriod(theStartDate, theEndDate, getStartDate(), getEndDate());
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public class DateRange implements Serializable, Comparable<DateRange> {
 	 * @return <b>boolean</b> <code>true</code> if both ranges overlap.
 	 */
 	public boolean overlaps(DateRange dateRange) {
-		return DateUtils.periodsOverlap(getStartDate(), getEndDate(), dateRange.getStartDate(), dateRange.getEndDate());
+		return DateUtils.INSTANCE.periodsOverlap(getStartDate(), getEndDate(), dateRange.getStartDate(), dateRange.getEndDate());
 	}
 	
 	/**
