@@ -76,7 +76,7 @@ public class PushServiceImpl implements PushService {
 
 	@Override
 	public void send(Message message) {
-		ExecutorUtils.execute(new Runnable() {
+		ExecutorUtils.INSTANCE.execute(new Runnable() {
 			@Override
 			public void run() {
 				FcmSender.get().send(message, fcmSenderListener);

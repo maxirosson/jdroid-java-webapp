@@ -72,7 +72,7 @@ public class PushServiceImpl implements PushService {
 
 	@Override
 	public void send(final PushMessage pushMessage) {
-		ExecutorUtils.execute(new PushProcessor(this, pushMessage));
+		ExecutorUtils.INSTANCE.execute(new PushProcessor(this, pushMessage));
 	}
 
 	// TODO By Google recommendation, we should remove all the tokens that weren't recently updated

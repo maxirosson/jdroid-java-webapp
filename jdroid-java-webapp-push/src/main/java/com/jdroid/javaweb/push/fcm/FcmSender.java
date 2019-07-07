@@ -71,7 +71,7 @@ public class FcmSender implements PushMessageSender {
 				}
 				int sleepTime = backoff / 2 + RandomUtils.getInt(backoff);
 				LOGGER.debug("Next attempt on " + sleepTime / 1000 + " seconds");
-				ExecutorUtils.sleep(sleepTime, TimeUnit.MILLISECONDS);
+				ExecutorUtils.INSTANCE.sleep(sleepTime, TimeUnit.MILLISECONDS);
 				if (2 * backoff < MAX_BACKOFF_DELAY) {
 					backoff *= 2;
 				}
