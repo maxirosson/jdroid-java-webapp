@@ -70,7 +70,7 @@ public class CSVUtils {
 		
 		@Override
 		public String[] toArray(Collection<Long> values) {
-			List<String> stringsValues = Lists.newArrayList();
+			List<String> stringsValues = Lists.INSTANCE.newArrayList();
 			for (Long each : values) {
 				stringsValues.add(each.toString());
 			}
@@ -88,7 +88,7 @@ public class CSVUtils {
 	 */
 	public static <T> List<T> fromCSV(String csv, ValueConverter<T> valueConverter) {
 		return com.jdroid.java.utils.StringUtils.isNotEmpty(csv) ? CSVUtils.fromCSV(new StringReader(csv),
-			valueConverter) : Lists.newArrayList();
+			valueConverter) : Lists.INSTANCE.newArrayList();
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class CSVUtils {
 	
 	public static <T> List<T> fromCSV(Reader reader, ValueConverter<T> valueConverter) {
 		try {
-			List<T> result = Lists.newArrayList();
+			List<T> result = Lists.INSTANCE.newArrayList();
 			CSVReader csvReader = new CSVReader(reader);
 			try {
 				for (String[] values : csvReader.readAll()) {
@@ -158,7 +158,7 @@ public class CSVUtils {
 	}
 	
 	public static String toCSVFromToString(Collection<?> values) {
-		Collection<String> stringValues = Lists.newArrayList();
+		Collection<String> stringValues = Lists.INSTANCE.newArrayList();
 		for (Object value : values) {
 			stringValues.add(value.toString());
 		}

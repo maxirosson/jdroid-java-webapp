@@ -179,7 +179,7 @@ public class EventConsolidatingAppender extends AppenderSkeleton implements Appe
 		Appender downstreamAppender = (Appender)appenders.getAllAppenders().nextElement();
 		
 		List<LoggingEvent> existingEvents = cachedEvents.remove(loggerName);
-		if (CollectionUtils.isNotEmpty(existingEvents)) {
+		if (CollectionUtils.INSTANCE.isNotEmpty(existingEvents)) {
 			LoggingEvent eventToSendDownstream;
 			if (existingEvents.size() == 1) {
 				eventToSendDownstream = existingEvents.get(0);

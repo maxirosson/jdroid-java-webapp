@@ -68,7 +68,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	@Override
 	public void addAll(Collection<T> items) {
 		Firestore firestore = createFirestore();
-		List<T> pendingItems = Lists.newArrayList(items);
+		List<T> pendingItems = Lists.INSTANCE.newArrayList(items);
 		while (!pendingItems.isEmpty()) {
 			processBatch(firestore, pendingItems.subList(0, Math.min(pendingItems.size(), ADD_BATCH_LIMIT)));
 			if (pendingItems.size() > ADD_BATCH_LIMIT) {
@@ -140,7 +140,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 			throw new UnexpectedException("Null values not supported");
 		}
 		
-		List<T> results = Lists.newArrayList();
+		List<T> results = Lists.INSTANCE.newArrayList();
 		CollectionReference collectionReference = createCollectionReference();
 		for (Object value : values) {
 			Query query = collectionReference.whereEqualTo(fieldName, value);
@@ -174,7 +174,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	}
 	
 	protected List<T> getByQuery(Query query) {
-		List<T> results = Lists.newArrayList();
+		List<T> results = Lists.INSTANCE.newArrayList();
 		for (DocumentSnapshot documentSnapshot : getQuerySnapshot(query.get()).getDocuments()) {
 			T item = getItem(documentSnapshot);
 			if (item.getId() == null) {
@@ -202,7 +202,7 @@ public abstract class FirestoreRepository<T extends Entity> implements Repositor
 	
 	@Override
 	public List<T> getAll() {
-		List<T> results = Lists.newArrayList();
+		List<T> results = Lists.INSTANCE.newArrayList();
 		Query collectionReference = createCollectionReference();
 		if (getOrderByField() != null) {
 			collectionReference = collectionReference.orderBy(getOrderByField(), getOrderByDirection());

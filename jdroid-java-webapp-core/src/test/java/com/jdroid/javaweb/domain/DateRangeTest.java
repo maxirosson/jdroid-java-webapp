@@ -23,7 +23,7 @@ public class DateRangeTest {
 	 */
 	@DataProvider
 	public Iterator<Object[]> getForIsBiggerThan() {
-		List<Object[]> cases = Lists.newArrayList();
+		List<Object[]> cases = Lists.INSTANCE.newArrayList();
 		cases.add(new Object[] { DateUtils.INSTANCE.getDate(2009, Calendar.JANUARY, 10),
 				DateUtils.INSTANCE.getDate(2009, Calendar.JANUARY, 12), DateUtils.INSTANCE.getDate(2009, Calendar.JANUARY, 10),
 				DateUtils.INSTANCE.getDate(2009, Calendar.JANUARY, 12), true });
@@ -71,7 +71,7 @@ public class DateRangeTest {
 	 */
 	@DataProvider
 	public Iterator<Object[]> overlapsDataProvider() {
-		List<Object[]> cases = Lists.newArrayList();
+		List<Object[]> cases = Lists.INSTANCE.newArrayList();
 		Date firstOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 1);
 		Date tenthOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 10);
 		Date twentiethOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 20);
@@ -242,7 +242,7 @@ public class DateRangeTest {
 	 */
 	@DataProvider
 	public Iterator<Object[]> overlapsExceptionDataProvider() {
-		List<Object[]> cases = Lists.newArrayList();
+		List<Object[]> cases = Lists.INSTANCE.newArrayList();
 		Date firstOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 1);
 		Date tenthOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 10);
 		Date twentiethOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 20);
@@ -299,7 +299,7 @@ public class DateRangeTest {
 	 */
 	@DataProvider
 	public Iterator<Object[]> intersectionDataProvider() {
-		List<Object[]> cases = Lists.newArrayList();
+		List<Object[]> cases = Lists.INSTANCE.newArrayList();
 		Date firstOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 1);
 		Date tenthOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 10);
 		Date twentiethOfJan = DateUtils.INSTANCE.getDate(2010, Calendar.JANUARY, 10);

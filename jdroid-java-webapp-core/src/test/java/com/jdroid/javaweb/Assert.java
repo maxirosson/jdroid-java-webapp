@@ -1,10 +1,11 @@
 package com.jdroid.javaweb;
 
+import com.jdroid.java.collections.Iterables;
+import com.jdroid.java.collections.Lists;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import com.jdroid.java.collections.Iterables;
-import com.jdroid.java.collections.Lists;
 
 /**
  * Assertion tool class. Presents assertion methods with a more natural parameter order. The order is always
@@ -38,10 +39,10 @@ public class Assert extends org.testng.Assert {
 	public static void assertEqualsNoOrder(Iterable<?> actual, Iterable<?> expected, String message) {
 		
 		// Check if both iterables have the same size.
-		org.testng.Assert.assertEquals(Iterables.size(actual), Iterables.size(expected), message);
+		org.testng.Assert.assertEquals(Iterables.INSTANCE.size(actual), Iterables.INSTANCE.size(expected), message);
 		
 		// Create a list based on the expected results.
-		List<?> expectedList = Lists.newArrayList(expected);
+		List<?> expectedList = Lists.INSTANCE.newArrayList(expected);
 		
 		// Iterate over the obtained results and check if the expected list
 		// contains the item. If the item is contained within the expected list
@@ -63,7 +64,7 @@ public class Assert extends org.testng.Assert {
 	 * @param expected The expected value.
 	 */
 	public static void assertEqualsNoOrder(Object[] actual, Object[] expected) {
-		Assert.assertEqualsNoOrder(Lists.newArrayList(actual), Lists.newArrayList(expected));
+		Assert.assertEqualsNoOrder(Lists.INSTANCE.newArrayList(actual), Lists.INSTANCE.newArrayList(expected));
 	}
 	
 	/**
@@ -78,7 +79,7 @@ public class Assert extends org.testng.Assert {
 	 * @param message The assertion error message.
 	 */
 	public static void assertEqualsNoOrder(Object[] actual, Object[] expected, String message) {
-		Assert.assertEqualsNoOrder(Lists.newArrayList(actual), Lists.newArrayList(expected), message);
+		Assert.assertEqualsNoOrder(Lists.INSTANCE.newArrayList(actual), Lists.INSTANCE.newArrayList(expected), message);
 	}
 	
 	/**
@@ -105,7 +106,7 @@ public class Assert extends org.testng.Assert {
 	 * @param contents The series of contents to be tested if they are present in the collection.
 	 */
 	public static <T> void assertContentsNotPresent(Collection<T> container, T... contents) {
-		Assert.assertContentsNotPresent(container, Lists.newArrayList(contents));
+		Assert.assertContentsNotPresent(container, Lists.INSTANCE.newArrayList(contents));
 	}
 	
 	// /**

@@ -89,7 +89,7 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(ApiExceptionHandler.class);
 	
-	private List<HttpMessageConverter<?>> messageConverters = Lists.newArrayList();
+	private List<HttpMessageConverter<?>> messageConverters = Lists.INSTANCE.newArrayList();
 	
 	public ApiExceptionHandler() {
 		setOrder(0);

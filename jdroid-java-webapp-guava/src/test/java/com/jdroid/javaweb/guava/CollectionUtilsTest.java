@@ -24,9 +24,9 @@ public class CollectionUtilsTest {
 	 */
 	@DataProvider
 	public Object[][] getJoinDataProvider() {
-		Object[] case1 = { ",", Lists.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1,2,3,4,5" };
-		Object[] case2 = { ", ", Lists.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1, 2, 3, 4, 5" };
-		Object[] case3 = { ", ", Lists.newArrayList(1, 2, 3, 4, 5), new Function<Object, String>() {
+		Object[] case1 = { ",", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1,2,3,4,5" };
+		Object[] case2 = { ", ", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1, 2, 3, 4, 5" };
+		Object[] case3 = { ", ", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), new Function<Object, String>() {
 			
 			@Override
 			public String apply(Object from) {
@@ -55,7 +55,7 @@ public class CollectionUtilsTest {
 	 */
 	@Test
 	public void join() {
-		String actual = CollectionUtils.join(Lists.newArrayList(1, 2, 3, 4, 5));
+		String actual = CollectionUtils.join(Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5));
 		Assert.assertEquals(actual, "1, 2, 3, 4, 5");
 	}
 	
@@ -64,12 +64,12 @@ public class CollectionUtilsTest {
 	 */
 	@DataProvider
 	public Iterator<Object[]> findFirstMatchDataProvider() {
-		List<Object[]> cases = Lists.newArrayList();
+		List<Object[]> cases = Lists.INSTANCE.newArrayList();
 		TestObject expected = new TestObject("other");
-		cases.add(new Object[] { Lists.newArrayList(new TestObject("some"), expected), "other", expected });
-		cases.add(new Object[] { Lists.newArrayList(new TestObject("some")), "other", null });
-		cases.add(new Object[] { Lists.newArrayList(new TestObject("some")), null, null });
-		cases.add(new Object[] { Lists.newArrayList(), "other", null });
+		cases.add(new Object[] { Lists.INSTANCE.newArrayList(new TestObject("some"), expected), "other", expected });
+		cases.add(new Object[] { Lists.INSTANCE.newArrayList(new TestObject("some")), "other", null });
+		cases.add(new Object[] { Lists.INSTANCE.newArrayList(new TestObject("some")), null, null });
+		cases.add(new Object[] { Lists.INSTANCE.newArrayList(), "other", null });
 		return cases.iterator();
 	}
 	

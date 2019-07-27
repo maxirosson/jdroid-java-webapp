@@ -25,7 +25,7 @@ public class CSVUtilsTest {
 	@Test
 	public void fromCSV() {
 		String csv = "1,2,3,4\n,5,\n6,\t7\t,8";
-		List<String> expected = Lists.newArrayList("1", "2", "3", "4", "5", "6", "7", "8");
+		List<String> expected = Lists.INSTANCE.newArrayList("1", "2", "3", "4", "5", "6", "7", "8");
 		Assert.assertEqualsNoOrder(CSVUtils.fromCSV(csv), expected);
 	}
 	
@@ -36,7 +36,7 @@ public class CSVUtilsTest {
 	@Test
 	public void fromCSVInputStream() {
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("files/csv_file.csv");
-		List<String> expected = Lists.newArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11");
+		List<String> expected = Lists.INSTANCE.newArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11");
 		Assert.assertEqualsNoOrder(CSVUtils.fromCSV(inputStream), expected);
 	}
 	
@@ -66,7 +66,7 @@ public class CSVUtilsTest {
 	 */
 	@Test
 	public void toCSV() {
-		List<String> values = Lists.newArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11");
+		List<String> values = Lists.INSTANCE.newArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11");
 		String expected = "1,2,3,4,5,6,7,8,9,10,11";
 		org.testng.Assert.assertEquals(CSVUtils.toCSV(values), expected);
 	}
@@ -76,7 +76,7 @@ public class CSVUtilsTest {
 	 */
 	@Test
 	public void toCSVFile() {
-		List<String> values = Lists.newArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11");
+		List<String> values = Lists.INSTANCE.newArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11");
 		File file = CSVUtils.toCSVFile(values);
 		org.testng.Assert.assertEquals(CSVUtils.fromCSV(file), values);
 	}
@@ -87,10 +87,10 @@ public class CSVUtilsTest {
 	@Test
 	public void toMultipleColumnCSVFile() {
 		
-		List<String[]> values = Lists.newArrayList(new String[] { "1", "a" }, new String[] { "2", "b" }, new String[] {
+		List<String[]> values = Lists.INSTANCE.newArrayList(new String[] { "1", "a" }, new String[] { "2", "b" }, new String[] {
 				"3", "c" });
 		File csvFile = CSVUtils.toMultipleColumnCSVFile(values);
-		org.testng.Assert.assertEquals(CSVUtils.fromCSV(csvFile), Lists.newArrayList("1", "a", "2", "b", "3", "c"));
+		org.testng.Assert.assertEquals(CSVUtils.fromCSV(csvFile), Lists.INSTANCE.newArrayList("1", "a", "2", "b", "3", "c"));
 	}
 	
 }

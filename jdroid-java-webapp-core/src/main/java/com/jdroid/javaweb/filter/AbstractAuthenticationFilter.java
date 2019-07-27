@@ -72,6 +72,6 @@ public class AbstractAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	public List<String> getAllowedPaths() {
-		return Lists.newArrayList();
+		return Lists.INSTANCE.newArrayList();
 	}
 }

@@ -72,7 +72,7 @@ class FirestoreController : AbstractController() {
     fun add(@RequestParam(required = false, defaultValue = "false") autoId: Boolean, @RequestParam(required = false, defaultValue = "false") withSubcollection: Boolean): String {
         val entity = SampleEntity()
         if (!autoId) {
-            entity.id = RandomUtils.getLong().toString()
+            entity.setId(RandomUtils.getLong().toString())
         }
         entity.stringField = RandomUtils.getLong().toString()
         entity.longField = RandomUtils.getLong()
@@ -100,7 +100,7 @@ class FirestoreController : AbstractController() {
         entity.composite = sampleInnerEntity
 
         repository.add(entity)
-        lastId = entity.id
+        lastId = entity.getId()
 
         return autoMarshall(entity)
     }
@@ -112,13 +112,13 @@ class FirestoreController : AbstractController() {
         val items = Lists.newArrayList<SampleEntity>()
         var entity = SampleEntity()
         if (!autoId) {
-            entity.id = RandomUtils.getLong().toString()
+            entity.setId(RandomUtils.getLong().toString())
         }
         entity.stringField = RandomUtils.getLong().toString()
         items.add(entity)
         entity = SampleEntity()
         if (!autoId) {
-            entity.id = RandomUtils.getLong().toString()
+            entity.setId(RandomUtils.getLong().toString())
         }
         entity.stringField = RandomUtils.getLong().toString()
         items.add(entity)
@@ -132,7 +132,7 @@ class FirestoreController : AbstractController() {
     @ResponseBody
     fun update(): String {
         val entity = SampleEntity()
-        entity.id = lastId
+        entity.setId(lastId)
         entity.stringField = RandomUtils.getLong().toString()
         repository.update(entity)
         return autoMarshall(entity)

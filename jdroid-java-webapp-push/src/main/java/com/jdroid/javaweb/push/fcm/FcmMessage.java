@@ -50,7 +50,7 @@ public class FcmMessage implements PushMessage {
 	// The key should not be a reserved word ("from" or any word starting with "google" or "gcm").
 	// Values in string types are recommended. You have to convert values in objects or other non-string
 	// data types (e.g., integers or booleans) to string.
-	private Map<String, String> data = Maps.newHashMap();
+	private Map<String, String> data = Maps.INSTANCE.newHashMap();
 
 	public FcmMessage() {
 		// Do nothing
@@ -96,7 +96,7 @@ public class FcmMessage implements PushMessage {
 	public void addRegistrationId(String registrationId) {
 		if (registrationId != null) {
 			if (registrationIds == null) {
-				registrationIds = Lists.newArrayList();
+				registrationIds = Lists.INSTANCE.newArrayList();
 			}
 			registrationIds.add(registrationId);
 		}

@@ -41,9 +41,9 @@ public class EqCollectionMatcher<T> extends ArgumentMatcher<List<T>> {
 	public boolean matches(Object actual) {
 		
 		List<T> actualList = (List<T>)actual;
-		if (Iterables.size(expected) == Iterables.size(actualList)) {
+		if (Iterables.INSTANCE.size(expected) == Iterables.INSTANCE.size(actualList)) {
 			// Create a list based on the expected results.
-			List<?> expectedList = Lists.newArrayList(expected);
+			List<?> expectedList = Lists.INSTANCE.newArrayList(expected);
 			
 			// Iterate over the obtained results and check if the expected list
 			// contains the item. If the item is contained within the expected list

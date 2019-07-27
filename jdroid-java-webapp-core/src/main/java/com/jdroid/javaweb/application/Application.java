@@ -31,7 +31,7 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 	private ApplicationContext springApplicationContext;
 	private RemoteConfigLoader remoteConfigLoader;
 
-	private Map<String, AppModule> appModulesMap = Maps.newLinkedHashMap();
+	private Map<String, AppModule> appModulesMap = Maps.INSTANCE.newLinkedHashMap();
 
 	public Application() {
 		INSTANCE = this;
@@ -64,7 +64,7 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 	}
 
 	public List<AppModule> getAppModules() {
-		return Lists.newArrayList(appModulesMap.values());
+		return Lists.INSTANCE.newArrayList(appModulesMap.values());
 	}
 
 	public void onContextDestroyed() {

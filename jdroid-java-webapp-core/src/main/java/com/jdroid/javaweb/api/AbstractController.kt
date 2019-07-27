@@ -11,7 +11,7 @@ abstract class AbstractController {
 
     val userId: String?
         get() = if (Application.get().securityContext != null && Application.get().securityContext.isAuthenticated)
-            Application.get().securityContext.user.id
+            Application.get().securityContext.user.getId()
         else
             null
 

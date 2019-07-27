@@ -17,8 +17,8 @@ public class MessageSendingResponse {
 
 	public MessageSendingResponse(DeviceType deviceType) {
 		this.deviceType = deviceType;
-		registrationTokensToRemove = Lists.newArrayList();
-		registrationTokensToReplace = Maps.newHashMap();
+		registrationTokensToRemove = Lists.INSTANCE.newArrayList();
+		registrationTokensToReplace = Maps.INSTANCE.newHashMap();
 	}
 	
 	public void addRegistrationTokenToRemove(String registrationTokenToRemove) {

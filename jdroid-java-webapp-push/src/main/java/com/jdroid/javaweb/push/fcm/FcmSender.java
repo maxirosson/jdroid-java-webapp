@@ -134,7 +134,7 @@ public class FcmSender implements PushMessageSender {
 			StringBuilder builder = new StringBuilder();
 			builder.append("Fcm message sent successfully. ");
 			builder.append(fcmMessage.toString());
-			if (!Lists.isNullOrEmpty(fcmResponse.getResults())) {
+			if (!Lists.INSTANCE.isNullOrEmpty(fcmResponse.getResults())) {
 				builder.append(". Message id: ");
 				builder.append(fcmResponse.getResults().get(0).getMessageId());
 			}

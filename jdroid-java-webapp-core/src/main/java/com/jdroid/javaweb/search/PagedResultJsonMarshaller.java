@@ -16,7 +16,7 @@ public class PagedResultJsonMarshaller implements Marshaller<PagedResult<?>, Jso
 	@Override
 	public JsonMap marshall(PagedResult<?> pagedResult, MarshallerMode mode, Map<String, String> extras) {
 		JsonMap map = new JsonMap(mode, extras);
-		if (CollectionUtils.isNotEmpty(pagedResult.getResults())) {
+		if (CollectionUtils.INSTANCE.isNotEmpty(pagedResult.getResults())) {
 			map.put(LAST_PAGE, pagedResult.isLastPage());
 			map.put(LIST, pagedResult.getResults());
 		}

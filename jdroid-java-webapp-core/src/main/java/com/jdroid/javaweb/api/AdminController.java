@@ -28,7 +28,7 @@ import java.util.TimeZone;
 public abstract class AdminController extends AbstractController {
 	
 	private Map<String, Object> getServerInfoMap() {
-		Map<String, Object> infoMap = Maps.newLinkedHashMap();
+		Map<String, Object> infoMap = Maps.INSTANCE.newLinkedHashMap();
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 		
@@ -87,7 +87,7 @@ public abstract class AdminController extends AbstractController {
 	}
 
 	protected Map<String, Object> getCustomInfoMap() {
-		return Maps.newHashMap();
+		return Maps.INSTANCE.newHashMap();
 	}
 	
 	@RequestMapping(value = "/fakeNow/save", method = RequestMethod.GET)
@@ -102,7 +102,7 @@ public abstract class AdminController extends AbstractController {
 	@RequestMapping(value = "/fakeNow", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
 	@ResponseBody
 	public String getFakeNow() {
-		Map<String, Object> map = Maps.newHashMap();
+		Map<String, Object> map = Maps.INSTANCE.newHashMap();
 		map.put("timestamp", DateConfiguration.INSTANCE.isFakeNow() ? DateConfiguration.INSTANCE.getFakeNow().getTime() : null);
 		return marshall(map);
 	}
@@ -117,7 +117,7 @@ public abstract class AdminController extends AbstractController {
 	@RequestMapping(value = "/config", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
 	@ResponseBody
 	public String getRemoteConfigParametersValues() {
-		List<ConfigParameterInfo> configParameterInfos = Lists.newArrayList();
+		List<ConfigParameterInfo> configParameterInfos = Lists.INSTANCE.newArrayList();
 		for (RemoteConfigParameter configParameter : getRemoteConfigParameters()) {
 			configParameterInfos.add(new ConfigParameterInfo(configParameter.getKey(), Application.get().getRemoteConfigLoader().getObject(configParameter), configParameter.getDefaultValue()));
 		}
@@ -131,7 +131,7 @@ public abstract class AdminController extends AbstractController {
 	}
 	
 	protected List<RemoteConfigParameter> getRemoteConfigParameters() {
-		return Lists.newArrayList(CoreConfigParameter.values());
+		return Lists.INSTANCE.newArrayList(CoreConfigParameter.values());
 	}
 	
 	@RequestMapping(value = "/config/database", method = RequestMethod.GET, produces = MimeType.TEXT)

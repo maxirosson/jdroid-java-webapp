@@ -15,9 +15,9 @@ public class PushResponse {
 
 	public PushResponse(DeviceType deviceType) {
 		this.deviceType = deviceType;
-		registrationTokensToRemove = Lists.newArrayList();
-		registrationTokensToReplace = Maps.newHashMap();
-		registrationTokensToRetry = Lists.newArrayList();
+		registrationTokensToRemove = Lists.INSTANCE.newArrayList();
+		registrationTokensToReplace = Maps.INSTANCE.newHashMap();
+		registrationTokensToRetry = Lists.INSTANCE.newArrayList();
 	}
 	
 	public void addRegistrationTokenToRemove(String registrationTokenToRemove) {

@@ -14,7 +14,7 @@ public class PagerTest {
 	
 	@DataProvider(name = "wrongPageScenarios")
 	protected Iterator<Object[]> wrongPageScenarios() {
-		List<Object[]> scenarios = Lists.newArrayList();
+		List<Object[]> scenarios = Lists.INSTANCE.newArrayList();
 		scenarios.add(new Object[] { -100 });
 		scenarios.add(new Object[] { 0 });
 		return scenarios.iterator();
@@ -22,7 +22,7 @@ public class PagerTest {
 	
 	@DataProvider(name = "wrongPageSizeScenarios")
 	protected Iterator<Object[]> wrongPageSizeScenarios() {
-		List<Object[]> scenarios = Lists.newArrayList();
+		List<Object[]> scenarios = Lists.INSTANCE.newArrayList();
 		scenarios.add(new Object[] { -100 });
 		scenarios.add(new Object[] { 0 });
 		return scenarios.iterator();
@@ -30,7 +30,7 @@ public class PagerTest {
 	
 	@DataProvider(name = "totalPagesScenarios")
 	protected Iterator<Object[]> totalPagesScenarios() {
-		List<Object[]> scenarios = Lists.newArrayList();
+		List<Object[]> scenarios = Lists.INSTANCE.newArrayList();
 		scenarios.add(new Object[] { 20, 20L, 1 });
 		scenarios.add(new Object[] { 20, 21L, 2 });
 		scenarios.add(new Object[] { 20, 19L, 1 });
@@ -39,7 +39,7 @@ public class PagerTest {
 	
 	@DataProvider(name = "offsetScenarios")
 	protected Iterator<Object[]> offsetScenarios() {
-		List<Object[]> scenarios = Lists.newArrayList();
+		List<Object[]> scenarios = Lists.INSTANCE.newArrayList();
 		scenarios.add(new Object[] { 1, 20, 0 });
 		scenarios.add(new Object[] { 2, 20, 20 });
 		scenarios.add(new Object[] { 3, 20, 40 });

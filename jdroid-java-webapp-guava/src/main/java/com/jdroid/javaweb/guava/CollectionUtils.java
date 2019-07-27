@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 /**
  * A set of useful functions used against a Collection
  */
-public abstract class CollectionUtils extends com.jdroid.java.collections.CollectionUtils {
+public abstract class CollectionUtils {
 	
 	/**
 	 * Default string separator
@@ -87,7 +87,7 @@ public abstract class CollectionUtils extends com.jdroid.java.collections.Collec
 	 * @return {@link Object} The first present object, or <code>null</code> if not found.
 	 */
 	public static <T> T findFirstMatch(Predicate<T> predicate, Collection<T> candidates) {
-		if (isEmpty(candidates)) {
+		if (candidates == null || candidates.isEmpty()) {
 			return null;
 		}
 		for (T candidate : candidates) {

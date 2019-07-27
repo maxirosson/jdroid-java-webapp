@@ -35,6 +35,6 @@ public class FcmApiService extends ServerApiService {
 
 	@Override
 	protected List<HttpServiceProcessor> getHttpServiceProcessors() {
-		return Lists.newArrayList(new BasicHttpResponseValidator());
+		return Lists.INSTANCE.newArrayList(new BasicHttpResponseValidator());
 	}
 }

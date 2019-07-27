@@ -10,7 +10,7 @@ public class Filter {
 	
 	private Pager pager;
 	private Sorting sorting;
-	private Map<FilterKey, Object> values = Maps.newHashMap();
+	private Map<FilterKey, Object> values = Maps.INSTANCE.newHashMap();
 	
 	public Filter() {
 		this(null, null);
@@ -25,7 +25,7 @@ public class Filter {
 	}
 	
 	public void addValues(FilterKey key, Object... value) {
-		values.put(key, Lists.newArrayList(value));
+		values.put(key, Lists.INSTANCE.newArrayList(value));
 	}
 	
 	public Object getValue(FilterKey key) {

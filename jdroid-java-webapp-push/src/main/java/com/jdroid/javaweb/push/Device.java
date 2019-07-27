@@ -214,7 +214,7 @@ public class Device extends Entity {
 
 	public void addExtra(String key, Object value) {
 		if (extras == null) {
-			this.extras = Maps.newHashMap();
+			this.extras = Maps.INSTANCE.newHashMap();
 		}
 		extras.put(key, value);
 	}
