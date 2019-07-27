@@ -19,7 +19,7 @@ import java.util.Map;
  * 
  * @param <T>
  */
-public abstract class Application<T extends Entity> implements ApplicationContextAware {
+public abstract class Application<T extends Entity> extends KotlinApplication implements ApplicationContextAware {
 	
 	private static Application<?> INSTANCE;
 	
@@ -38,6 +38,7 @@ public abstract class Application<T extends Entity> implements ApplicationContex
 	}
 	
 	public void init() {
+		initKoin();
 		onCreateApplication();
 		remoteConfigLoader = createRemoteConfigLoader();
 
