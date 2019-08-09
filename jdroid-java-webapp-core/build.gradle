@@ -1,9 +1,8 @@
 apply plugin: 'com.jdroidtools.java.library'
+apply from: "$rootDir/dependencies.gradle"
 
 ext.PROJECT_NAME = 'Jdroid Java Web App'
 description = 'Jdroid library for Java Web apps'
-
-ext.SPRING_VERSION = '3.2.18.RELEASE'
 
 configurations.all {
 	// check for updates every build
@@ -11,8 +10,9 @@ configurations.all {
 }
 
 buildscript {
+	apply from: "$rootDir/build_dependencies.gradle"
 	dependencies {
-		classpath 'com.jdroidtools:jdroid-gradle-java-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath(libs.jdroid_gradle_java_plugin)
 	}
 }
 
@@ -24,48 +24,42 @@ dependencies {
 		api project(":jdroid-java-core")
 		api project(":jdroid-java-remote-config")
 	} else {
-		api 'com.jdroidtools:jdroid-java-core:' + JDROID_JAVA_VERSION
-		api 'com.jdroidtools:jdroid-java-remote-config:' + JDROID_JAVA_VERSION
+		api(libs.jdroid_java_core)
+		api(libs.jdroid_java_remote_config)
 	}
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		api project(":jdroid-java-http-core")
 	} else {
-		api ('com.jdroidtools:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
+		api (libs.jdroid_java_http) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	// Sentry
-	// https://github.com/getsentry/sentry-java
-	implementation 'com.getsentry.raven:raven:8.0.2'
+	implementation(libs.sentry)
 
 	// Logging
-	implementation "log4j:log4j:1.2.17"
-	api "org.slf4j:slf4j-log4j12:1.7.25"
+	implementation(libs.log4j)
+	api(libs.slf4j)
 
-	// Spring
-	api "org.springframework:spring-core:" + SPRING_VERSION
-	api "org.springframework:spring-web:" + SPRING_VERSION
-	api "org.springframework:spring-webmvc:" + SPRING_VERSION
-	api "org.springframework:spring-context-support:" + SPRING_VERSION
+	api(libs.spring_core)
+	api(libs.spring_web)
+	api(libs.spring_webmvc)
+	api(libs.spring_context_support)
 
-	// Jackson
 	// TODO Remove these dependencies, and replace MappingJackson2HttpMessageConverter by a GsonHttpMessageConverter on Spring 4.1
-	api "com.fasterxml.jackson.core:jackson-core:2.8.7"
-	api "com.fasterxml.jackson.core:jackson-databind:2.8.7"
-	api "com.fasterxml.jackson.core:jackson-annotations:2.8.7"
+	api(libs.jackson_core)
+	api(libs.jackson_databind)
+	api(libs.jackson_annotations)
 
-	// Servlet API
-	api "javax.servlet:servlet-api:2.5"
+	api(libs.servlet_api)
 
-	api "org.json:json:20131018"
+	api(libs.json)
 
 	// Testing
-	testImplementation "org.testng:testng:6.8.21"
-	testImplementation "org.mockito:mockito-all:1.10.19"
-	testImplementation "commons-beanutils:commons-beanutils:1.9.3"
-
+	testImplementation(libs.testng)
+	testImplementation(libs.mockito)
+	testImplementation(libs.commons_beanutils)
 }
 
 test {

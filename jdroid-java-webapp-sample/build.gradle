@@ -1,4 +1,5 @@
 apply plugin: 'com.jdroidtools.java.webapp'
+apply from: "$rootDir/dependencies.gradle"
 
 description = 'Jdroid Sample Server'
 
@@ -8,8 +9,9 @@ configurations.all {
 }
 
 buildscript {
+	apply from: "$rootDir/build_dependencies.gradle"
 	dependencies {
-		classpath 'com.jdroidtools:jdroid-gradle-java-webapp-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath(libs.jdroid_gradle_java_webapp_plugin)
 	}
 }
 
@@ -28,7 +30,7 @@ dependencies {
 			exclude module: 'jdroid-java-core'
 		}
 	} else {
-		compile('com.jdroidtools:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
+		compile(libs.jdroid_java_firebase_database) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
@@ -36,16 +38,15 @@ dependencies {
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-http-okhttp")
 	} else {
-		compile ('com.jdroidtools:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+		compile (libs.jdroid_java_http_okhttp) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	compile 'com.firebase:firebase-token-generator:2.0.0'
+	compile(libs.firebase_token_generator)
 
-	// Testing
-	testImplementation "org.testng:testng:6.8.21"
-	testImplementation "org.mockito:mockito-all:1.10.19"
+	testImplementation(libs.testng)
+	testImplementation(libs.mockito)
 }
 
 // Generate the settings.properties
