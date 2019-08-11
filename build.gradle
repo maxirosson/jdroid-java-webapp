@@ -1,6 +1,7 @@
 version = "1.1.0"
 
-ext.JDROID_GITHUB_REPOSITORY_NAME = "jdroid-java-webapp"
+ext.GITHUB_REPOSITORY_NAME = "jdroid-java-webapp"
+ext.RELEASES_HUB_GRADLE_PLUGIN_ENABLED = true
 
 apply plugin: "com.jdroidtools.component.builder"
 apply plugin: "com.jdroidtools.root"
