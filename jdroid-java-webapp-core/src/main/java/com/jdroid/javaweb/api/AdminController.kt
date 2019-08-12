@@ -44,7 +44,7 @@ abstract class AdminController : AbstractController() {
 
     @RequestMapping(value = ["/index"], method = [RequestMethod.GET], produces = [MimeType.HTML])
     @ResponseBody
-    fun getIndex(): String {
+    open fun getIndex(): String {
         val builder = StringBuilder()
         builder.append("<html>")
         builder.append("<body>")
@@ -75,7 +75,7 @@ abstract class AdminController : AbstractController() {
 
     @RequestMapping(value = ["/info"], method = [RequestMethod.GET], produces = [MimeType.JSON_UTF8])
     @ResponseBody
-    fun getServerInfo(): String {
+    open fun getServerInfo(): String {
         return marshall(getServerInfoMap())
     }
 
