@@ -10,10 +10,11 @@ import com.jdroid.javaweb.application.Application
 abstract class AbstractController {
 
     val userId: String?
-        get() = if (Application.get().securityContext != null && Application.get().securityContext.isAuthenticated)
-            Application.get().securityContext.user.getId()
-        else
+        get() = if (Application.get().securityContext?.isAuthenticated == true) {
+            Application.get().securityContext.user!!.getId()
+        } else {
             null
+        }
 
     fun marshallSimple(value: Any): String {
         return marshall(value, MarshallerMode.SIMPLE)

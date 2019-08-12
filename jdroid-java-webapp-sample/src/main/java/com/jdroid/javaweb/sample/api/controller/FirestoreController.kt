@@ -1,7 +1,6 @@
 package com.jdroid.javaweb.sample.api.controller
 
 import com.google.cloud.firestore.GeoPoint
-import com.jdroid.java.collections.Lists
 import com.jdroid.java.collections.Maps
 import com.jdroid.java.date.DateUtils
 import com.jdroid.java.http.MimeType
@@ -11,7 +10,6 @@ import com.jdroid.javaweb.api.AbstractController
 import com.jdroid.javaweb.sample.firebase.SampleEntity
 import com.jdroid.javaweb.sample.firebase.SampleFirestoreRepository
 import com.jdroid.javaweb.sample.firebase.SampleInnerEntity
-
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -64,7 +62,7 @@ class FirestoreController : AbstractController() {
     @RequestMapping(value = ["/getByIds"], method = [RequestMethod.GET], produces = [MimeType.JSON_UTF8])
     @ResponseBody
     fun getByIds(@RequestParam value1: String, @RequestParam value2: String): String {
-        return autoMarshall(repository.getByIds(Lists.newArrayList(value1, value2)))
+        return autoMarshall(repository.getByIds(listOf(value1, value2)))
     }
 
     @RequestMapping(value = ["/add"], method = [RequestMethod.GET], produces = [MimeType.JSON_UTF8])
@@ -88,9 +86,9 @@ class FirestoreController : AbstractController() {
         objectMap["key3"] = GeoPoint(-12.323434, 34.34534543)
         entity.objectMap = objectMap
         entity.geoPoint = GeoPoint(-12.323434, 34.34534543)
-        entity.stringArray = Lists.newArrayList("a", "b")
+        entity.stringArray = listOf("a", "b")
         if (withSubcollection) {
-            entity.subCollection = Lists.newArrayList(SampleEntity(), SampleEntity())
+            entity.subCollection = listOf(SampleEntity(), SampleEntity())
         }
 
         val sampleInnerEntity = SampleInnerEntity()
@@ -109,7 +107,7 @@ class FirestoreController : AbstractController() {
     @ResponseBody
     fun addAll(@RequestParam(required = false, defaultValue = "false") autoId: Boolean): String {
 
-        val items = Lists.newArrayList<SampleEntity>()
+        val items = mutableListOf<SampleEntity>()
         var entity = SampleEntity()
         if (!autoId) {
             entity.setId(RandomUtils.getLong().toString())
