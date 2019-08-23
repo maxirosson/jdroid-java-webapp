@@ -1,5 +1,4 @@
 apply plugin: 'com.jdroidtools.java.library'
-apply from: "$rootDir/dependencies.gradle"
 
 ext.PROJECT_NAME = 'Jdroid Java Web App - CSV'
 description = 'CSV support'
@@ -10,9 +9,8 @@ configurations.all {
 }
 
 buildscript {
-	apply from: "$rootDir/build_dependencies.gradle"
 	dependencies {
-		classpath(libs.jdroid_gradle_java_plugin)
+		classpath(BuildLibs.jdroid_gradle_java_plugin)
 	}
 }
 
@@ -22,10 +20,10 @@ dependencies {
 
 	implementation project(":jdroid-java-webapp-core")
 
-	compile(libs.opencsv)
+	compile(Libs.opencsv)
 
-	testImplementation(libs.testng)
-	testImplementation(libs.mockito)
+	testImplementation(Libs.testng)
+	testImplementation(Libs.mockito)
 }
 
 test {

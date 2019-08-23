@@ -1,5 +1,4 @@
 apply plugin: 'com.jdroidtools.java.webapp'
-apply from: "$rootDir/dependencies.gradle"
 
 description = 'Jdroid Sample Server'
 
@@ -9,9 +8,8 @@ configurations.all {
 }
 
 buildscript {
-	apply from: "$rootDir/build_dependencies.gradle"
 	dependencies {
-		classpath(libs.jdroid_gradle_java_webapp_plugin)
+		classpath(BuildLibs.jdroid_gradle_java_webapp_plugin)
 	}
 }
 
@@ -30,7 +28,7 @@ dependencies {
 			exclude module: 'jdroid-java-core'
 		}
 	} else {
-		compile(libs.jdroid_java_firebase_database) {
+		compile(Libs.jdroid_java_firebase_database) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
@@ -38,15 +36,15 @@ dependencies {
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-http-okhttp")
 	} else {
-		compile (libs.jdroid_java_http_okhttp) {
+		compile (Libs.jdroid_java_http_okhttp) {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	compile(libs.firebase_token_generator)
+	compile(Libs.firebase_token_generator)
 
-	testImplementation(libs.testng)
-	testImplementation(libs.mockito)
+	testImplementation(Libs.testng)
+	testImplementation(Libs.mockito)
 }
 
 // Generate the settings.properties
