@@ -25,12 +25,9 @@ public class EqualsPropertyPredicate<T> implements Predicate<T>, Serializable {
 		this.equalsValue = equalsValue;
 	}
 	
-	/**
-	 * @see com.google.common.base.Predicate#apply(Object)
-	 */
 	@Override
 	public boolean apply(T input) {
 		Object value = this.propertyFunction.apply(input);
-		return ObjectUtils.equals(this.equalsValue, value);
+		return ObjectUtils.INSTANCE.equals(this.equalsValue, value);
 	}
 }

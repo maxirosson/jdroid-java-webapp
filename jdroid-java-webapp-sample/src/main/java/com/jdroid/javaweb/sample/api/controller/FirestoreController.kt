@@ -38,7 +38,7 @@ class FirestoreController : AbstractController() {
             override fun getLimit(): Int? {
                 return TypeUtils.getInteger(limit)
             }
-        }.all)
+        }.getAll())
     }
 
     @RequestMapping(value = ["/get"], method = [RequestMethod.GET], produces = [MimeType.JSON_UTF8])
@@ -130,7 +130,7 @@ class FirestoreController : AbstractController() {
     @ResponseBody
     fun update(): String {
         val entity = SampleEntity()
-        entity.setId(lastId)
+        entity.setId(lastId!!)
         entity.stringField = RandomUtils.getLong().toString()
         repository.update(entity)
         return autoMarshall(entity)

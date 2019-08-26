@@ -27,29 +27,29 @@ class FirebaseController : AbstractController() {
     @RequestMapping(value = ["/getAll"], method = [RequestMethod.GET], produces = [MimeType.TEXT])
     @ResponseBody
     fun getAll(): String {
-        return marshall(repository.all.toString())
+        return marshall(repository.getAll().toString())
     }
 
     @RequestMapping(value = ["/add"], method = [RequestMethod.GET])
     fun add() {
         val entity = SampleEntity()
         lastId = RandomUtils.getLong().toString()
-        entity.setId(lastId)
-        entity.setStringField(RandomUtils.getLong().toString())
+        entity.setId(lastId!!)
+        entity.stringField = RandomUtils.getLong().toString()
         repository.add(entity)
     }
 
     @RequestMapping(value = ["/update"], method = [RequestMethod.GET])
     fun update() {
         val entity = SampleEntity()
-        entity.setId(lastId)
-        entity.setStringField(RandomUtils.getLong().toString())
+        entity.setId(lastId!!)
+        entity.stringField = RandomUtils.getLong().toString()
         repository.update(entity)
     }
 
     @RequestMapping(value = ["/remove"], method = [RequestMethod.GET])
     fun remove() {
-        repository.remove(lastId)
+        repository.remove(lastId!!)
         lastId = null
     }
 
