@@ -25,7 +25,7 @@ abstract class AbstractController {
         return if (value != null) MarshallerProvider.get().marshall(value, mode, extras).toString() else StringUtils.EMPTY
     }
 
-    fun autoMarshall(value: Any): String {
+    fun autoMarshall(value: Any?): String {
         return createGsonBuilder().create().toJson(value)
     }
 
