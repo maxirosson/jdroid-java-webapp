@@ -71,7 +71,7 @@ abstract class FirestoreRepository<T : Entity> : Repository<T> {
 
         getWriteResult(documentReference.set(item))
 
-        LOGGER.debug("[$${getPath()}] Stored object in database: $item")
+        LOGGER.debug("[${getPath()}] Stored object in database: $item")
     }
 
     override fun addAll(items: Collection<T>) {
@@ -86,7 +86,7 @@ abstract class FirestoreRepository<T : Entity> : Repository<T> {
             }
         }
 
-        LOGGER.debug("[$${getPath()}] Stored objects in database: $items")
+        LOGGER.debug("[${getPath()}] Stored objects in database: $items")
     }
 
     private fun processBatch(firestore: Firestore, items: Collection<T>) {
@@ -124,7 +124,7 @@ abstract class FirestoreRepository<T : Entity> : Repository<T> {
 
         getWriteResult(documentReference.set(item))
 
-        LOGGER.debug("[$${getPath()}] Updated object in database: $item")
+        LOGGER.debug("[${getPath()}] Updated object in database: $item")
     }
 
     override operator fun get(id: String): T? {
