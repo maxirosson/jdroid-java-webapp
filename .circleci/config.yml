@@ -145,6 +145,7 @@ workflows:
             - build
       - publish:
           requires:
+            - ktlint
             - test
 
   weekly:
