@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.http.exception.ConnectionException;
+import com.jdroid.java.http.exception.HttpResponseException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 import com.jdroid.javaweb.exception.InvalidArgumentException;
@@ -130,12 +132,16 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 				error = handleException((BadRequestException)exception);
 			} else if (exception instanceof UnexpectedException) {
 				error = handleException(exception);
+			} else if (exception instanceof HttpResponseException) {
+				error = handleException(exception);
+			} else if (exception instanceof ConnectionException) {
+				error = handleException(exception);
+			} else if (exception instanceof InvalidAuthenticationException) {
+				error = handleException((InvalidAuthenticationException)exception);
 			} else if (exception instanceof ErrorCodeException) {
 				error = handleException((ErrorCodeException)exception);
 			} else if (exception instanceof InvalidArgumentException) {
 				error = handleException((InvalidArgumentException)exception);
-			} else if (exception instanceof InvalidAuthenticationException) {
-				error = handleException((InvalidAuthenticationException)exception);
 			} else if (exception instanceof TypeMismatchException) {
 				error = handleException((TypeMismatchException)exception);
 			} else if (exception instanceof HttpMessageNotReadableException) {
