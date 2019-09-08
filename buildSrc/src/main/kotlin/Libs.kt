@@ -35,7 +35,7 @@ object Libs {
     const val restfb = "com.restfb:restfb:2.24.1"
 
     // https://firebase.google.com/support/release-notes/admin/java
-    const val firebase_admin = "com.google.firebase:firebase-admin:6.9.0"
+    const val firebase_admin = "com.google.firebase:firebase-admin:6.8.1"
 
     const val guava = "com.google.guava:guava:23.0"
     const val commons_beanutils = "commons-beanutils:commons-beanutils:1.9.4"
