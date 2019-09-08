@@ -1,12 +1,12 @@
 object Libs {
     // https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
-    const val jdroid_java_firebase_database = "com.jdroidtools:jdroid-java-firebase-database:3.0.0-SNAPSHOT"
-    const val jdroid_java_core = "com.jdroidtools:jdroid-java-core:3.0.0-SNAPSHOT"
-    const val jdroid_java_remote_config = "com.jdroidtools:jdroid-java-remote-config:3.0.0-SNAPSHOT"
+    const val jdroid_java_firebase_database = "com.jdroidtools:jdroid-java-firebase-database:3.0.0"
+    const val jdroid_java_core = "com.jdroidtools:jdroid-java-core:3.0.0"
+    const val jdroid_java_remote_config = "com.jdroidtools:jdroid-java-remote-config:3.0.0"
 
     // https://github.com/maxirosson/jdroid-java-http/blob/master/CHANGELOG.md
-    const val jdroid_java_http = "com.jdroidtools:jdroid-java-http-core:3.0.0-SNAPSHOT"
-    const val jdroid_java_http_okhttp = "com.jdroidtools:jdroid-java-http-okhttp:3.0.0-SNAPSHOT"
+    const val jdroid_java_http = "com.jdroidtools:jdroid-java-http-core:3.0.0"
+    const val jdroid_java_http_okhttp = "com.jdroidtools:jdroid-java-http-okhttp:3.0.0"
 
     // https://github.com/getsentry/sentry-java
     const val sentry = "com.getsentry.raven:raven:8.0.3"

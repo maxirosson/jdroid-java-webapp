@@ -132,7 +132,7 @@ jobs:
       - checkout
       - run:
           name: Upgrade Dependencies
-          command: ./gradlew upgradeDependencies --stacktrace
+          command: ./gradlew upgradeDependencies -PpullRequestEnabled=true --stacktrace
 
 workflows:
   version: 2
@@ -144,6 +144,10 @@ workflows:
           requires:
             - build
       - publish:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - ktlint
             - test
