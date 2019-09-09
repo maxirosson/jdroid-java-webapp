@@ -23,11 +23,6 @@ dependencies {
 	// Push for Android
 	implementation(Libs.json_simple)
 
-	testImplementation(Libs.testng)
+	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
-}
-
-test {
-	useTestNG {
-	}
 }

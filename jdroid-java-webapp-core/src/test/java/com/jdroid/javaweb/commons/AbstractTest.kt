@@ -1,14 +1,17 @@
 package com.jdroid.javaweb.commons
 
 import com.jdroid.javaweb.application.TestApplication
-
-import org.testng.annotations.BeforeClass
+import org.junit.BeforeClass
 
 open class AbstractTest {
 
-    @BeforeClass
-    fun onBeforeClass() {
-        val testApplication = TestApplication()
-        testApplication.init()
+    companion object {
+
+        @JvmStatic
+        @BeforeClass
+        fun onBeforeClass() {
+            val testApplication = TestApplication()
+            testApplication.init()
+        }
     }
 }

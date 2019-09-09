@@ -3,9 +3,8 @@ package com.jdroid.javaweb.config
 import com.jdroid.javaweb.application.Application
 import com.jdroid.javaweb.application.TestBuildConfig
 import com.jdroid.javaweb.commons.AbstractTest
-
-import org.testng.Assert
-import org.testng.annotations.Test
+import org.junit.Assert
+import org.junit.Test
 
 class ConfigHelperTest : AbstractTest() {
 

@@ -23,11 +23,6 @@ dependencies {
 	// https://firebase.google.com/support/release-notes/admin/java
 	api(Libs.firebase_admin)
 
-	testImplementation(Libs.testng)
+	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
-}
-
-test {
-	useTestNG {
-	}
 }

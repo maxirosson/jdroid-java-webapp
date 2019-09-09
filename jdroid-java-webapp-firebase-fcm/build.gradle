@@ -20,11 +20,6 @@ dependencies {
 	implementation project(":jdroid-java-webapp-core")
 	implementation project(":jdroid-java-webapp-firebase-admin")
 
-	testImplementation(Libs.testng)
+	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
-}
-
-test {
-	useTestNG {
-	}
 }

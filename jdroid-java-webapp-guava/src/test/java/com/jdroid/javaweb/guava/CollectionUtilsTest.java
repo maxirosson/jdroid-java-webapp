@@ -5,35 +5,31 @@ import com.google.common.base.Functions;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.javaweb.guava.predicate.EqualsPropertyPredicate;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the {@link CollectionUtils}
- * 
  */
 public class CollectionUtilsTest {
 	
 	/**
 	 * @return The different cases to test
 	 */
-	@DataProvider
-	public Object[][] getJoinDataProvider() {
-		Object[] case1 = { ",", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1,2,3,4,5" };
-		Object[] case2 = { ", ", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1, 2, 3, 4, 5" };
-		Object[] case3 = { ", ", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), new Function<Object, String>() {
+	@Test
+	public void join() {
+		join(",", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1,2,3,4,5");
+		join(", ", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), Functions.toStringFunction(), "1, 2, 3, 4, 5");
+		join(", ", Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5), new Function<Object, String>() {
 			
 			@Override
 			public String apply(Object from) {
 				return "?";
 			}
-		}, "?, ?, ?, ?, ?" };
-		return new Object[][] { case1, case2, case3 };
+		}, "?, ?, ?, ?, ?");
 	}
 	
 	/**
@@ -44,33 +40,25 @@ public class CollectionUtilsTest {
 	 * @param function The transformer function
 	 * @param expected The expected string
 	 */
-	@Test(dataProvider = "getJoinDataProvider")
-	public void join(String separator, Collection<?> objects, Function<? super Object, String> function, String expected) {
-		String actual = CollectionUtils.join(separator, objects, function);
-		Assert.assertEquals(actual, expected);
+	private void join(String separator, Collection<?> objects, Function<? super Object, String> function, String expected) {
+		assertEquals(expected, CollectionUtils.join(separator, objects, function));
 	}
 	
 	/**
 	 * Tests {@link CollectionUtils#join(Collection)} method
 	 */
 	@Test
-	public void join() {
-		String actual = CollectionUtils.join(Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5));
-		Assert.assertEquals(actual, "1, 2, 3, 4, 5");
+	public void join2() {
+		assertEquals("1, 2, 3, 4, 5", CollectionUtils.join(Lists.INSTANCE.newArrayList(1, 2, 3, 4, 5)));
 	}
 	
-	/**
-	 * @return The different scenarios
-	 */
-	@DataProvider
-	public Iterator<Object[]> findFirstMatchDataProvider() {
-		List<Object[]> cases = Lists.INSTANCE.newArrayList();
+	@Test
+	public void findFirstMatch() {
 		TestObject expected = new TestObject("other");
-		cases.add(new Object[] { Lists.INSTANCE.newArrayList(new TestObject("some"), expected), "other", expected });
-		cases.add(new Object[] { Lists.INSTANCE.newArrayList(new TestObject("some")), "other", null });
-		cases.add(new Object[] { Lists.INSTANCE.newArrayList(new TestObject("some")), null, null });
-		cases.add(new Object[] { Lists.INSTANCE.newArrayList(), "other", null });
-		return cases.iterator();
+		findFirstMatch(Lists.INSTANCE.newArrayList(new TestObject("some"), expected), "other", expected);
+		findFirstMatch(Lists.INSTANCE.newArrayList(new TestObject("some")), "other", null);
+		findFirstMatch(Lists.INSTANCE.newArrayList(new TestObject("some")), null, null);
+		findFirstMatch(Lists.INSTANCE.newArrayList(), "other", null);
 	}
 	
 	/**
@@ -80,10 +68,8 @@ public class CollectionUtilsTest {
 	 * @param value The value to filter
 	 * @param expected The expected value
 	 */
-	@Test(dataProvider = "findFirstMatchDataProvider")
-	public void findFirstMatch(Collection<TestObject> objects, Object value, Object expected) {
-		Assert.assertEquals(
-			CollectionUtils.findFirstMatch(new EqualsPropertyPredicate<TestObject>("value", value), objects), expected);
+	private void findFirstMatch(Collection<TestObject> objects, Object value, Object expected) {
+		assertEquals(expected, CollectionUtils.findFirstMatch(new EqualsPropertyPredicate<TestObject>("value", value), objects));
 	}
 	
 	public class TestObject {

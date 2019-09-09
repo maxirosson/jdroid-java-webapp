@@ -55,12 +55,7 @@ dependencies {
 	api(Libs.json)
 
 	// Testing
-	testImplementation(Libs.testng)
+	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
 	testImplementation(Libs.commons_beanutils)
-}
-
-test {
-	useTestNG {
-	}
 }

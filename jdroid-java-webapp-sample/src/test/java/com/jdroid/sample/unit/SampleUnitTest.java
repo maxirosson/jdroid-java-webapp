@@ -1,8 +1,9 @@
 package com.jdroid.sample.unit;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+
 
 public class SampleUnitTest {
 	

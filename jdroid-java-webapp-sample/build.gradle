@@ -43,7 +43,7 @@ dependencies {
 
 	compile(Libs.firebase_token_generator)
 
-	testImplementation(Libs.testng)
+	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
 }
 
@@ -92,11 +92,6 @@ project.afterEvaluate {
 	}
 
 	project.tasks.'compileKotlin'.dependsOn 'generateBuildConfigClass'
-}
-
-test {
-	useTestNG {
-	}
 }
 
 // https://blog.openshift.com/run-gradle-builds-on-openshift/

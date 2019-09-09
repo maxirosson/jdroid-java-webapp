@@ -1,14 +1,9 @@
 package com.jdroid.javaweb.guava.function;
 
-import com.google.common.collect.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
-import java.util.Iterator;
-import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Tests the {@link PropertyFunction} class
@@ -16,29 +11,23 @@ import java.util.List;
  */
 public class NestedPropertyFunctionTest {
 	
-	/**
-	 * @return The different cases
-	 */
-	@DataProvider
-	public Iterator<Object[]> getApply() {
-		List<Object[]> cases = Lists.newArrayList();
+	@Test
+	public void apply() {
 		TestObject object1 = new TestObject();
 		TestObject parentObject1 = new TestObject(object1);
-		cases.add(new Object[] { parentObject1, "nested", object1 });
-		cases.add(new Object[] { parentObject1, "value", null });
-		cases.add(new Object[] { parentObject1, "nested.value", null });
-		cases.add(new Object[] { parentObject1, "nested.nested", null });
-		cases.add(new Object[] { parentObject1, "nested.nested.value", null });
+		apply(parentObject1, "nested", object1);
+		apply(parentObject1, "value", null);
+		apply(parentObject1, "nested.value", null);
+		apply(parentObject1, "nested.nested", null);
+		apply(parentObject1, "nested.nested.value", null);
 		
 		TestObject object2 = new TestObject("SomeValue");
 		TestObject parentObject2 = new TestObject(object2);
-		cases.add(new Object[] { parentObject2, "nested", object2 });
-		cases.add(new Object[] { parentObject2, "value", null });
-		cases.add(new Object[] { parentObject2, "nested.value", "SomeValue" });
-		cases.add(new Object[] { parentObject2, "nested.nested", null });
-		cases.add(new Object[] { parentObject2, "nested.nested.value", null });
-		
-		return cases.iterator();
+		apply(parentObject2, "nested", object2);
+		apply(parentObject2, "value", null);
+		apply(parentObject2, "nested.value", "SomeValue");
+		apply(parentObject2, "nested.nested", null);
+		apply(parentObject2, "nested.nested.value", null);
 	}
 	
 	/**
@@ -48,23 +37,17 @@ public class NestedPropertyFunctionTest {
 	 * @param property The property to look for
 	 * @param expectedResponse The expected response
 	 */
-	@Test(dataProvider = "getApply")
-	public void apply(TestObject testObject, String property, Object expectedResponse) {
+	private void apply(TestObject testObject, String property, Object expectedResponse) {
 		NestedPropertyFunction<TestObject, Object> function = new NestedPropertyFunction<>(property);
-		Assert.assertEquals(function.apply(testObject), expectedResponse);
+		Assert.assertEquals(expectedResponse, function.apply(testObject));
 	}
 	
-	/**
-	 * @return The different cases
-	 */
-	@DataProvider
-	public Iterator<Object[]> getApplyNegative() {
-		List<Object[]> cases = Lists.newArrayList();
+	@Test(expected = UnexpectedException.class)
+	public void applyNegative() {
 		TestObject object = new TestObject();
 		TestObject parentObject = new TestObject(object);
-		cases.add(new Object[] { parentObject, "nested.anInexistentProperty" });
-		cases.add(new Object[] { parentObject, "anInexistentProperty" });
-		return cases.iterator();
+		applyNegative(parentObject, "nested.anInexistentProperty");
+		applyNegative(parentObject, "anInexistentProperty");
 	}
 	
 	/**
@@ -73,8 +56,7 @@ public class NestedPropertyFunctionTest {
 	 * @param testObject The object to test
 	 * @param property The property to look for
 	 */
-	@Test(dataProvider = "getApplyNegative", expectedExceptions = UnexpectedException.class)
-	public void applyNegative(TestObject testObject, String property) {
+	private void applyNegative(TestObject testObject, String property) {
 		NestedPropertyFunction<TestObject, Object> function = new NestedPropertyFunction<>(property);
 		function.apply(testObject);
 	}

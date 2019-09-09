@@ -2,13 +2,10 @@ package com.jdroid.javaweb.guava.predicate;
 
 import com.google.common.collect.Lists;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Test {@link ContainsPropertyPredicate}
@@ -16,32 +13,27 @@ import java.util.List;
  */
 public class ContainsPropertyPredicateTest {
 	
-	/**
-	 * @return The different scenarios
-	 */
-	@DataProvider
-	public Iterator<Object[]> getScenarios() {
-		List<Object[]> cases = Lists.newArrayList();
-		cases.add(new Object[] { new TestObject(), "enums", null, false });
-		cases.add(new Object[] { new TestObject(), "enums", TestEnum.TEST_1, false });
-		cases.add(new Object[] { new TestObject(Lists.newArrayList(TestEnum.TEST_1)), "enums", null, false });
-		cases.add(new Object[] { new TestObject(Lists.newArrayList(TestEnum.TEST_1)), "enums", TestEnum.TEST_2, false });
-		cases.add(new Object[] { new TestObject(Lists.newArrayList(TestEnum.TEST_1)), "enums", TestEnum.TEST_1, true });
-		cases.add(new Object[] { new TestObject(Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2)), "enums",
-				TestEnum.TEST_1, true });
-		cases.add(new Object[] { new TestObject(Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2, TestEnum.TEST_3)),
-				"enums", TestEnum.TEST_1, true });
-		cases.add(new Object[] { new TestObject(), "testEnum", null, true });
-		cases.add(new Object[] { new TestObject(), "testEnum", Lists.newArrayList(TestEnum.TEST_1), false });
-		cases.add(new Object[] { new TestObject(TestEnum.TEST_1), "testEnum", null, false });
-		cases.add(new Object[] { new TestObject(TestEnum.TEST_1), "testEnum", Lists.newArrayList(TestEnum.TEST_2),
-				false });
-		cases.add(new Object[] { new TestObject(TestEnum.TEST_1), "testEnum", Lists.newArrayList(TestEnum.TEST_1), true });
-		cases.add(new Object[] { new TestObject(TestEnum.TEST_1), "testEnum",
-				Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2), true });
-		cases.add(new Object[] { new TestObject(TestEnum.TEST_1), "testEnum",
-				Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2, TestEnum.TEST_3), true });
-		return cases.iterator();
+	@Test
+	public void apply() {
+		apply(new TestObject(), "enums", null, false);
+		apply(new TestObject(), "enums", TestEnum.TEST_1, false);
+		apply(new TestObject(Lists.newArrayList(TestEnum.TEST_1)), "enums", null, false);
+		apply(new TestObject(Lists.newArrayList(TestEnum.TEST_1)), "enums", TestEnum.TEST_2, false);
+		apply(new TestObject(Lists.newArrayList(TestEnum.TEST_1)), "enums", TestEnum.TEST_1, true);
+		apply(new TestObject(Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2)), "enums",
+				TestEnum.TEST_1, true);
+		apply(new TestObject(Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2, TestEnum.TEST_3)),
+				"enums", TestEnum.TEST_1, true);
+		apply(new TestObject(), "testEnum", null, true);
+		apply(new TestObject(), "testEnum", Lists.newArrayList(TestEnum.TEST_1), false);
+		apply(new TestObject(TestEnum.TEST_1), "testEnum", null, false);
+		apply(new TestObject(TestEnum.TEST_1), "testEnum", Lists.newArrayList(TestEnum.TEST_2),
+				false);
+		apply(new TestObject(TestEnum.TEST_1), "testEnum", Lists.newArrayList(TestEnum.TEST_1), true);
+		apply(new TestObject(TestEnum.TEST_1), "testEnum",
+				Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2), true);
+		apply(new TestObject(TestEnum.TEST_1), "testEnum",
+				Lists.newArrayList(TestEnum.TEST_1, TestEnum.TEST_2, TestEnum.TEST_3), true);
 	}
 	
 	/**
@@ -52,10 +44,9 @@ public class ContainsPropertyPredicateTest {
 	 * @param value The value
 	 * @param expected The expected value
 	 */
-	@Test(dataProvider = "getScenarios")
-	public void apply(TestObject input, String propertyName, Object value, boolean expected) {
+	private void apply(TestObject input, String propertyName, Object value, boolean expected) {
 		ContainsPropertyPredicate<TestObject> predicate = new ContainsPropertyPredicate<>(propertyName, value);
-		Assert.assertEquals(predicate.apply(input), expected);
+		Assert.assertEquals(expected, predicate.apply(input));
 	}
 	
 	private enum TestEnum {

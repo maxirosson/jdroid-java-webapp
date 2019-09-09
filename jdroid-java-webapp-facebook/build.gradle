@@ -24,11 +24,6 @@ dependencies {
 	// Facebook
 	api(Libs.restfb)
 
-	testImplementation(Libs.testng)
+	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
-}
-
-test {
-	useTestNG {
-	}
 }

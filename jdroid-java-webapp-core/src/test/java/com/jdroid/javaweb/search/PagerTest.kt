@@ -1,66 +1,53 @@
 package com.jdroid.javaweb.search
 
 import com.jdroid.java.exception.UnexpectedException
-import org.testng.Assert
-import org.testng.annotations.DataProvider
-import org.testng.annotations.Test
+import org.junit.Assert
+import org.junit.Test
 
 class PagerTest {
 
-    @DataProvider(name = "wrongPageScenarios")
-    protected fun wrongPageScenarios(): Iterator<Array<Any>> {
-        val scenarios = mutableListOf<Array<Any>>()
-        scenarios.add(arrayOf(-100))
-        scenarios.add(arrayOf(0))
-        return scenarios.iterator()
+    @Test(expected = UnexpectedException::class)
+    fun wrongPage() {
+        wrongPage(-100)
+        wrongPage(0)
     }
 
-    @DataProvider(name = "wrongPageSizeScenarios")
-    protected fun wrongPageSizeScenarios(): Iterator<Array<Any>> {
-        val scenarios = mutableListOf<Array<Any>>()
-        scenarios.add(arrayOf(-100))
-        scenarios.add(arrayOf(0))
-        return scenarios.iterator()
+    @Test(expected = UnexpectedException::class)
+    fun wrongPageSize() {
+        wrongPageSize(-100)
+        wrongPageSize(0)
     }
 
-    @DataProvider(name = "totalPagesScenarios")
-    protected fun totalPagesScenarios(): Iterator<Array<Any>> {
-        val scenarios = mutableListOf<Array<Any>>()
-        scenarios.add(arrayOf(20, 20L, 1))
-        scenarios.add(arrayOf(20, 21L, 2))
-        scenarios.add(arrayOf(20, 19L, 1))
-        return scenarios.iterator()
+    @Test
+    fun totalPages() {
+        totalPages(20, 20L, 1)
+        totalPages(20, 21L, 2)
+        totalPages(20, 19L, 1)
     }
 
-    @DataProvider(name = "offsetScenarios")
-    protected fun offsetScenarios(): Iterator<Array<Any>> {
-        val scenarios = mutableListOf<Array<Any>>()
-        scenarios.add(arrayOf(1, 20, 0))
-        scenarios.add(arrayOf(2, 20, 20))
-        scenarios.add(arrayOf(3, 20, 40))
-        return scenarios.iterator()
+    @Test
+    fun offset() {
+        offset(1, 20, 0)
+        offset(2, 20, 20)
+        offset(3, 20, 40)
     }
 
-    @Test(dataProvider = "wrongPageScenarios", expectedExceptions = [UnexpectedException::class])
-    fun wrongPage(page: Int?) {
+    private fun wrongPage(page: Int?) {
         Pager(page, 10)
     }
 
-    @Test(dataProvider = "wrongPageSizeScenarios", expectedExceptions = [UnexpectedException::class])
-    fun wrongPageSize(size: Int?) {
+    private fun wrongPageSize(size: Int?) {
         Pager(1, size)
     }
 
-    @Test(dataProvider = "totalPagesScenarios")
-    fun totalPages(size: Int?, total: Long?, pages: Int?) {
+    private fun totalPages(size: Int, total: Long, pages: Int) {
         val pager = Pager(1, size)
-        Assert.assertEquals(pager.getMaxPages(total), pages)
+        Assert.assertEquals(pages, pager.getMaxPages(total))
     }
 
-    @Test(dataProvider = "offsetScenarios")
-    fun offset(page: Int?, size: Int?, offset: Int?) {
+    private fun offset(page: Int, size: Int, offset: Int) {
         val pager = Pager(page, size)
-        Assert.assertEquals(pager.offset, offset)
+        Assert.assertEquals(offset, pager.offset)
         Assert.assertNotNull(pager)
     }
 }
