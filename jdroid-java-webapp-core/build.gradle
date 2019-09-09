@@ -57,5 +57,4 @@ dependencies {
 	// Testing
 	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
-	testImplementation(Libs.commons_beanutils)
 }

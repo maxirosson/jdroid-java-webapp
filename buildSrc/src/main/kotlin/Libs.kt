@@ -37,8 +37,6 @@ object Libs {
     // https://firebase.google.com/support/release-notes/admin/java
     const val firebase_admin = "com.google.firebase:firebase-admin:6.8.1"
 
-    const val commons_beanutils = "commons-beanutils:commons-beanutils:1.9.3"
-
     // Push for Android
     const val json_simple = "com.googlecode.json-simple:json-simple:1.1"
 
