@@ -17,9 +17,7 @@ buildscript {
 dependencies {
 
 	// Jdroid dependencies
-
 	implementation project(":jdroid-java-webapp-core")
-	implementation project(":jdroid-java-webapp-guava")
 
 	// Facebook
 	api(Libs.restfb)

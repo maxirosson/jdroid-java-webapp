@@ -124,3 +124,7 @@ allprojects {
 		}
 	}
 }
+
+releasesHub {
+	excludes = ["org.springframework", "org.slf4j"]
+}

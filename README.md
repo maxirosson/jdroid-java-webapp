@@ -29,8 +29,6 @@ Tools for Java Web Apps
 * [Twitter 4j integration](http://twitter4j.org/)
 ### jdroid-java-webapp-facebook
 * [Restfb Facebook integration](http://restfb.com/)
-### jdroid-java-webapp-guava
-  * Utilities [Guava](https://code.google.com/p/guava-libraries/)
 
 ## Setup
 

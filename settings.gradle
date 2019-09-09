@@ -1,7 +1,6 @@
 include ':jdroid-java-webapp-core'
 include ':jdroid-java-webapp-csv'
 include ':jdroid-java-webapp-facebook'
-include ':jdroid-java-webapp-guava'
 include ':jdroid-java-webapp-twitter'
 include ':jdroid-java-webapp-push'
 include ':jdroid-java-webapp-firebase-admin'

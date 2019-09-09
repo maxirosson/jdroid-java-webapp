@@ -9,7 +9,7 @@ object Libs {
     const val jdroid_java_http_okhttp = "com.jdroidtools:jdroid-java-http-okhttp:3.0.0"
 
     // https://github.com/getsentry/sentry-java
-    const val sentry = "com.getsentry.raven:raven:8.0.2"
+    const val sentry = "com.getsentry.raven:raven:8.0.3"
 
     // Logging
     const val log4j = "log4j:log4j:1.2.17"
@@ -37,7 +37,6 @@ object Libs {
     // https://firebase.google.com/support/release-notes/admin/java
     const val firebase_admin = "com.google.firebase:firebase-admin:6.8.1"
 
-    const val guava = "com.google.guava:guava:20.0"
     const val commons_beanutils = "commons-beanutils:commons-beanutils:1.9.3"
 
     // Push for Android
