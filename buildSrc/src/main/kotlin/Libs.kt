@@ -26,8 +26,6 @@ object Libs {
 
     const val servlet_api = "javax.servlet:servlet-api:2.5"
 
-    const val json = "org.json:json:20131018"
-
     // Open CSV
     const val opencsv = "net.sf.opencsv:opencsv:2.3"
 
@@ -36,9 +34,6 @@ object Libs {
 
     // https://firebase.google.com/support/release-notes/admin/java
     const val firebase_admin = "com.google.firebase:firebase-admin:6.8.1"
-
-    // Push for Android
-    const val json_simple = "com.googlecode.json-simple:json-simple:1.1"
 
     // http://twitter4j.org/en/index.html#download
     // https://github.com/Twitter4J/Twitter4J/releases

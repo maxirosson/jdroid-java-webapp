@@ -52,8 +52,6 @@ dependencies {
 
 	api(Libs.servlet_api)
 
-	api(Libs.json)
-
 	// Testing
 	testImplementation(Libs.junit)
 	testImplementation(Libs.mockito)
