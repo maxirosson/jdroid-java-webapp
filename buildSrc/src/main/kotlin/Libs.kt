@@ -29,7 +29,7 @@ object Libs {
     // Open CSV
     const val opencsv = "net.sf.opencsv:opencsv:2.3"
 
-    // Facebook
+    // https://github.com/restfb/restfb
     const val restfb = "com.restfb:restfb:1.6.12"
 
     // https://firebase.google.com/support/release-notes/admin/java

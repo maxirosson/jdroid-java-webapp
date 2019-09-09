@@ -126,5 +126,5 @@ allprojects {
 }
 
 releasesHub {
-	excludes = ["org.springframework", "org.slf4j"]
+	excludes = ["org.springframework", "org.slf4j", "net.sf.opencsv", "com.restfb"]
 }
