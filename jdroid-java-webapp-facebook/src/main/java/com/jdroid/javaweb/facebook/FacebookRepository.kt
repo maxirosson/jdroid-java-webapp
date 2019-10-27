@@ -56,7 +56,7 @@ class FacebookRepository {
     fun getAppFriendsIds(accessToken: String): List<String> {
         val fb = createFacebookClient(accessToken)
         val facebookUsers = fb.executeFqlQuery(APP_FRIENDS_IDS_FQL, FacebookUser::class.java)
-        return facebookUsers.map { it.facebookId }
+        return facebookUsers.map { it.facebookId!! }
     }
 
     fun publish(accessToken: String, message: String) {

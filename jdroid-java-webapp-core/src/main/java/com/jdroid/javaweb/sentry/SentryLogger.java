@@ -369,7 +369,7 @@ public class SentryLogger implements Logger {
 						} else {
 							eventBuilder.withSentryInterface(new MessageInterface(message));
 						}
-						SentryAppModule.get().getRaven().sendEvent(eventBuilder.build());
+						SentryAppModule.Companion.get().getRaven().sendEvent(eventBuilder.build());
 					} catch (Throwable e) {
 						wrappedLogger.error("There was an error notifying the error to Sentry.", e);
 					}
