@@ -1,7 +1,6 @@
 package com.jdroid.javaweb.config
 
 import com.jdroid.java.remoteconfig.RemoteConfigParameter
-
 import java.util.concurrent.TimeUnit
 
 enum class CoreConfigParameter(private val defaultValue: Any? = null) : RemoteConfigParameter {

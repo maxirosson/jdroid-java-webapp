@@ -2,7 +2,6 @@ package com.jdroid.javaweb
 
 import com.jdroid.java.collections.Iterables
 import com.jdroid.java.collections.Lists
-
 import org.hamcrest.Description
 import org.mockito.ArgumentMatcher
 

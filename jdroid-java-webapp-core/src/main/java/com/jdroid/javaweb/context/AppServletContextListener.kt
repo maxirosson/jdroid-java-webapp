@@ -3,17 +3,14 @@ package com.jdroid.javaweb.context
 import com.jdroid.java.utils.LoggerUtils
 import com.jdroid.javaweb.application.Application
 import com.jdroid.javaweb.exception.DefaultExceptionHandler
-
+import java.io.FileNotFoundException
+import javax.servlet.ServletContextEvent
+import javax.servlet.ServletContextListener
 import org.apache.log4j.helpers.LogLog
 import org.slf4j.ILoggerFactory
 import org.slf4j.Logger
 import org.springframework.util.ClassUtils
 import org.springframework.util.Log4jConfigurer
-
-import java.io.FileNotFoundException
-
-import javax.servlet.ServletContextEvent
-import javax.servlet.ServletContextListener
 
 /**
  * Listener to load from the classpath the log4j configuration file.

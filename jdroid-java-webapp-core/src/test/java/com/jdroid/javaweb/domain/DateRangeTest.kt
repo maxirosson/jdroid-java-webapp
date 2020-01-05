@@ -1,10 +1,10 @@
 package com.jdroid.javaweb.domain
 
 import com.jdroid.java.date.DateUtils
-import org.junit.Assert
-import org.junit.Test
 import java.util.Calendar
 import java.util.Date
+import org.junit.Assert
+import org.junit.Test
 
 /**
  * Test the different methods of [DateRange]
