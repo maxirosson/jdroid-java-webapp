@@ -7,3 +7,5 @@ include ':jdroid-java-webapp-firebase-admin'
 include ':jdroid-java-webapp-firebase-fcm'
 include ':jdroid-java-webapp-firebase-firestore'
 include ':jdroid-java-webapp-sample'
+
+apply from: new File(settingsDir, "buildCacheSettings.gradle")

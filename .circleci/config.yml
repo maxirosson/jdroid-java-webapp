@@ -1,145 +1,133 @@
-version: 2
+version: 2.1
 
 references:
 
-  ## Workspace
+  working_dir: &working_dir
+                 ~/project
 
-  workspace: &workspace
-               ~/workspace
-
-  ## Cache
-
-  cache_key: &cache_key
-    key: cache-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}
-  restore_cache: &restore_cache
-    restore_cache:
-      <<: *cache_key
-  save_cache: &save_cache
-    save_cache:
-      <<: *cache_key
-      paths:
-        - ~/.gradle
-        - ~/.m2
-
-  ## Docker image configurations
-
-  jdk_config: &jdk_config
-    working_directory: *workspace
+executors:
+  jdk_executor:
+    working_directory: *working_dir
     docker:
       - image: circleci/openjdk:8-jdk
     environment:
       JVM_OPTS: -Xmx3200m
-      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.caching=false
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.caching=true
+
+commands:
+
+  restore_gradle_cache:
+    steps:
+      - restore_cache:
+          keys:
+            - v2-gradle_cache-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "buildSrc/src/main/kotlin/Libs.kt" }}-{{ checksum "buildSrc/src/main/kotlin/BuildLibs.kt" }}
+            - v2-gradle_cache-{{ .Branch }}
+            - v2-gradle_cache-
+
+  save_gradle_cache:
+    steps:
+      - save_cache:
+          key: v2-gradle_cache-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "buildSrc/src/main/kotlin/Libs.kt" }}-{{ checksum "buildSrc/src/main/kotlin/BuildLibs.kt" }}
+          paths:
+            - ~/.gradle
+
+  attach_to_workspace:
+    steps:
+      - attach_workspace:
+          at: ~/
+
+  persist_gradle_build_cache:
+    steps:
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - gradle-build-cache
 
 jobs:
-  build:
-    <<: *jdk_config
+
+  gradleCache:
+    executor: jdk_executor
     steps:
       - checkout
-
-      - *restore_cache
+      - restore_gradle_cache
       - run:
           name: Download dependencies
-          command: ./gradlew dependencies --refresh-dependencies --stacktrace
-      - *save_cache
+          command: ./gradlew dependencies --stacktrace
+      - save_gradle_cache
+      - persist_gradle_build_cache
 
+  build:
+    executor: jdk_executor
+    steps:
+      - checkout
+      - restore_gradle_cache
+      - attach_to_workspace
       - run:
-          name: Assembling
-          command: ./gradlew assemble --refresh-dependencies --stacktrace --scan
-
-      - run:
-          name: Saving jars
-          command: |
-            mkdir -p ~/jars/
-            find . -type f -regex ".*/build/libs/.*jar" -exec cp {} ~/jars/ \;
-          when: always
-
+          name: Assemble
+          command: ./gradlew assemble --stacktrace
+      - persist_gradle_build_cache
       - store_artifacts:
-          path: ~/jars
-          destination: jars
-
+          path: ./build/libs
+          destination: wars
 
   ktlint:
-    <<: *jdk_config
+    executor: jdk_executor
     steps:
       - checkout
-      - run: ./gradlew ktlint --stacktrace
+      - restore_gradle_cache
+      - run:
+          name: Ktlint
+          command: ./gradlew ktlint --stacktrace
 
   test:
-    <<: *jdk_config
+    executor: jdk_executor
     steps:
       - checkout
-      - *restore_cache
-
+      - restore_gradle_cache
+      - attach_to_workspace
       - run:
-          name: Verifying
+          name: Run tests
           command: ./gradlew test --stacktrace
-
       - run:
-          name: Saving test results
+          name: Save test results
           command: |
             mkdir -p ~/junit/
             find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
           when: always
       - store_test_results:
           path: ~/junit
-
       - store_artifacts:
-          path: ./jdroid-java-webapp-core/build/reports/tests/test
-          destination: jdroid-java-webapp-core/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-facebook/build/reports/tests/test
-          destination: jdroid-java-webapp-facebook/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-firebase-firestore/build/reports/tests/test
-          destination: jdroid-java-webapp-firebase-firestore/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-firebase-admin/build/reports/tests/test
-          destination: jdroid-java-webapp-firebase-admin/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-firebase-fcm/build/reports/tests/test
-          destination: jdroid-java-webapp-firebase-fcm/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-push/build/reports/tests/test
-          destination: jdroid-java-webapp-push/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-sample/build/reports/tests/test
-          destination: jdroid-java-webapp-sample/tests
-
-      - store_artifacts:
-          path: ./jdroid-java-webapp-twitter/build/reports/tests/test
-          destination: jdroid-java-webapp-twitter/tests
+          path: ./build/reports/tests/test
+          destination: tests
 
   publish:
-    <<: *jdk_config
+    executor: jdk_executor
     steps:
       - checkout
-      - *restore_cache
-
+      - restore_gradle_cache
+      - attach_to_workspace
       - run:
           name: Uploading to Nexus Sonatype
           command: ./gradlew publish -PLOCAL_UPLOAD=false --stacktrace
 
   upgradeDependencies:
-    <<: *jdk_config
+    executor: jdk_executor
     steps:
       - checkout
+      - restore_gradle_cache
       - run:
           name: Upgrade Dependencies
           command: ./gradlew upgradeDependencies -PpullRequestEnabled=true --stacktrace
 
 workflows:
-  version: 2
   commit:
     jobs:
+      - gradleCache
       - ktlint
-      - build
+      - build:
+          requires:
+            - gradleCache
+            - ktlint
       - test:
           requires:
             - build
