@@ -1,9 +1,7 @@
 package com.jdroid.javaweb.filter.gzip
 
 import com.jdroid.java.http.HttpService
-
 import java.io.IOException
-
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.FilterConfig

@@ -5,12 +5,12 @@ import com.jdroid.javaweb.api.ApiExceptionHandler
 import com.jdroid.javaweb.application.Application
 import com.jdroid.javaweb.exception.CommonErrorCode
 import com.jdroid.javaweb.exception.InvalidAuthenticationException
-import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import org.springframework.web.filter.OncePerRequestFilter
 
 /**
  * Filter used to verify that requests come from an authenticated user when accessing to content that requires

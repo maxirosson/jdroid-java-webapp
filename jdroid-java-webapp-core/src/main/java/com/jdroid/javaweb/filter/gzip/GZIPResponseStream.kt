@@ -1,11 +1,9 @@
 package com.jdroid.javaweb.filter.gzip
 
 import com.jdroid.java.http.HttpService
-
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.zip.GZIPOutputStream
-
 import javax.servlet.ServletOutputStream
 import javax.servlet.http.HttpServletResponse
 

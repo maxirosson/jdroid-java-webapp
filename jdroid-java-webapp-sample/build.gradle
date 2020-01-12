@@ -82,7 +82,7 @@ project.afterEvaluate {
 
 				jdroid.setBuildConfigString(out, 'FIREBASE_URL')
 				jdroid.setBuildConfigString(out, 'FIREBASE_AUTH_TOKEN')
-				jdroid.setBuildConfigString(out, 'FIREBASE_SERVICE_ACCOUNT')
+				jdroid.setBuildConfigString(out, 'FIREBASE_SERVICE_ACCOUNT', "")
 
 				jdroid.setBuildConfigBoolean(out, 'SENTRY_ENABLED', false)
 				jdroid.setBuildConfigString(out, 'SENTRY_DSN')

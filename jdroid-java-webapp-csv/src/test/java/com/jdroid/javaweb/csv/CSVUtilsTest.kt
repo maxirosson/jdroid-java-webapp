@@ -2,11 +2,11 @@ package com.jdroid.javaweb.csv
 
 import com.jdroid.java.exception.UnexpectedException
 import com.jdroid.javaweb.Assert
-import junit.framework.Assert.assertEquals
-import org.junit.Test
 import java.io.File
 import java.io.IOException
 import java.io.StringReader
+import junit.framework.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Tests the [CSVUtils] class

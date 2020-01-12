@@ -2,7 +2,6 @@ package com.jdroid.javaweb.scheduler
 
 import com.jdroid.java.date.DateUtils
 import com.jdroid.java.utils.LoggerUtils
-
 import java.util.Date
 
 abstract class AbstractScheduler {
