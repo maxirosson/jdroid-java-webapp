@@ -3,7 +3,6 @@ package com.jdroid.javaweb.domain
 import com.jdroid.java.utils.Hasher
 import com.jdroid.javaweb.exception.CommonErrorCode
 import com.jdroid.javaweb.exception.InvalidAuthenticationException
-
 import java.io.Serializable
 
 class Password : Serializable {

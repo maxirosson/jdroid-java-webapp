@@ -1,9 +1,8 @@
 package com.jdroid.javaweb
 
+import java.util.Arrays
 import org.hamcrest.Description
 import org.mockito.ArgumentMatcher
-
-import java.util.Arrays
 
 /**
  * Matcher that verify that two arrays have the same elements in no particular order.

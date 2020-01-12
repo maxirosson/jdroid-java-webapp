@@ -1,8 +1,7 @@
 package com.jdroid.javaweb.cache
 
-import org.springframework.cache.interceptor.DefaultKeyGenerator
-
 import java.lang.reflect.Method
+import org.springframework.cache.interceptor.DefaultKeyGenerator
 
 class CacheKeyGenerator : DefaultKeyGenerator() {
 
