@@ -33,7 +33,7 @@ object Libs {
     const val RESTFB = "com.restfb:restfb:1.6.12"
 
     // https://firebase.google.com/support/release-notes/admin/java
-    const val FIREBASE_ADMIN = "com.google.firebase:firebase-admin:6.12.2"
+    const val FIREBASE_ADMIN = "com.google.firebase:firebase-admin:6.13.0"
 
     // http://twitter4j.org/en/index.html#download
     // https://github.com/Twitter4J/Twitter4J/releases
