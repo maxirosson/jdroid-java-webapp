@@ -82,7 +82,7 @@ public class FcmSender {
 		} catch(FirebaseMessagingException e) {
 
 			LOGGER.error("Error [" + e.getErrorCode() + "] when sending FCM message. ", e);
-			messageSendingResponse.setErrorCode(e.getErrorCode());
+			messageSendingResponse.setErrorCode(e.getErrorCode().name());
 
 			if (e.getErrorCode().equals("invalid-argument")) {
 				messageSendingResponse.setRetry(false);
