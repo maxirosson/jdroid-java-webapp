@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.1.0](https://github.com/maxirosson/jdroid-java-webapp/tree/v1.1.0) (2020-09-11)
+[Full Changelog](https://github.com/maxirosson/jdroid-java-webapp/compare/v1.0.0...v1.1.0)
+
+**Implemented enhancements:**
+
+- Migrate to new FCM API [\#23](https://github.com/maxirosson/jdroid-java-webapp/issues/23)
+- Firebase Firestore integration [\#22](https://github.com/maxirosson/jdroid-java-webapp/issues/22)
+
 ## [v1.0.0](https://github.com/maxirosson/jdroid-java-webapp/tree/v1.0.0) (2018-04-10)
 [Full Changelog](https://github.com/maxirosson/jdroid-java-webapp/compare/v0.10.0...v1.0.0)
 
