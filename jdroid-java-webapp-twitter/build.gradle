@@ -1,7 +1,7 @@
-apply plugin: 'com.jdroidtools.java.library'
-
 ext.PROJECT_NAME = 'Jdroid Java Web App - Twitter'
 description = 'Twitter integration'
+
+apply plugin: 'com.jdroidtools.java.library'
 
 configurations.all {
 	// check for updates every build
