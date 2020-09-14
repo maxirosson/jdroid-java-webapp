@@ -39,6 +39,7 @@ dependencies {
 		}
 	}
 
+	compile(Libs.JDROID_JAVA_FIREBASE_FIRESTORE)
 	compile(Libs.FIREBASE_TOKEN_GENERATOR)
 
 	testImplementation(Libs.JUNIT)
