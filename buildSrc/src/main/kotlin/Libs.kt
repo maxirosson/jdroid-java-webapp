@@ -1,12 +1,16 @@
 object Libs {
     // https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
     const val JDROID_JAVA_FIREBASE_DATABASE = "com.jdroidtools:jdroid-java-firebase-database:3.0.0"
-    const val JDROID_JAVA_CORE = "com.jdroidtools:jdroid-java-core:3.0.0"
+    const val JDROID_JAVA_CORE = "com.jdroidtools:jdroid-java-core:3.1.0"
+    const val JDROID_JAVA_FIREBASE_ADMIN = "com.jdroidtools:jdroid-java-firebase-admin:3.1.0"
     const val JDROID_JAVA_REMOTE_CONFIG = "com.jdroidtools:jdroid-java-remote-config:3.0.0"
 
     // https://github.com/maxirosson/jdroid-java-http/blob/master/CHANGELOG.md
     const val JDROID_JAVA_HTTP = "com.jdroidtools:jdroid-java-http-core:3.0.0"
     const val JDROID_JAVA_HTTP_OKHTTP = "com.jdroidtools:jdroid-java-http-okhttp:3.0.0"
+
+    // https://github.com/InsertKoinIO/koin/blob/master/CHANGELOG.md
+    const val KOIN = "org.koin:koin-core:2.0.1"
 
     // https://github.com/getsentry/sentry-java
     const val SENTRY = "com.getsentry.raven:raven:8.0.3"
@@ -31,9 +35,6 @@ object Libs {
 
     // https://github.com/restfb/restfb
     const val RESTFB = "com.restfb:restfb:1.6.12"
-
-    // https://firebase.google.com/support/release-notes/admin/java
-    const val FIREBASE_ADMIN = "com.google.firebase:firebase-admin:7.0.0"
 
     // http://twitter4j.org/en/index.html#download
     // https://github.com/Twitter4J/Twitter4J/releases
