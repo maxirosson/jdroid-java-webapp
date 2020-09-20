@@ -1,6 +1,6 @@
 object Libs {
     // https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
-    const val JDROID_JAVA_FIREBASE_DATABASE = "com.jdroidtools:jdroid-java-firebase-database:3.0.0"
+    const val JDROID_JAVA_FIREBASE_DATABASE = "com.jdroidtools:jdroid-java-firebase-database:3.1.0"
     const val JDROID_JAVA_CORE = "com.jdroidtools:jdroid-java-core:3.1.0"
     const val JDROID_JAVA_FIREBASE_ADMIN = "com.jdroidtools:jdroid-java-firebase-admin:3.1.0"
     const val JDROID_JAVA_FIREBASE_FIRESTORE = "com.jdroidtools:jdroid-java-firebase-firestore:3.1.0"
