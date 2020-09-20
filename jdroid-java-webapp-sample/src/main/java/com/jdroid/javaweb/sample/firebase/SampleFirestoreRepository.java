@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.sample.firebase;
 
-import com.jdroid.javaweb.firebase.firestore.FirestoreRepository;
+import com.jdroid.java.firebase.firestore.FirestoreRepository;
 
 public class SampleFirestoreRepository extends FirestoreRepository<SampleEntity> {
 	

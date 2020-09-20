@@ -5,7 +5,7 @@ import com.jdroid.java.marshaller.MarshallerProvider
 import com.jdroid.javaweb.application.AppModule
 import com.jdroid.javaweb.application.Application
 import com.jdroid.javaweb.context.BuildConfigUtils
-import com.jdroid.javaweb.firebase.admin.FirebaseAdminSdkHelper
+import com.jdroid.java.firebase.admin.FirebaseAdminSdkHelper
 import com.jdroid.javaweb.sample.api.controller.SampleResponse
 import com.jdroid.javaweb.sample.api.controller.SampleResponseMarshaller
 import com.jdroid.javaweb.sentry.SentryAppModule

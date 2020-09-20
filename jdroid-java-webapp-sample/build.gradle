@@ -19,9 +19,7 @@ dependencies {
 	compile project(':jdroid-java-webapp-csv')
 	compile project(':jdroid-java-webapp-facebook')
 	compile project(':jdroid-java-webapp-twitter')
-	compile project(':jdroid-java-webapp-firebase-admin')
 	compile project(':jdroid-java-webapp-firebase-fcm')
-	compile project(':jdroid-java-webapp-firebase-firestore')
 
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile(project(':jdroid-java-firebase-database')) {
@@ -41,6 +39,7 @@ dependencies {
 		}
 	}
 
+	compile(Libs.JDROID_JAVA_FIREBASE_FIRESTORE)
 	compile(Libs.FIREBASE_TOKEN_GENERATOR)
 
 	testImplementation(Libs.JUNIT)
