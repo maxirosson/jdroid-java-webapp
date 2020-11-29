@@ -45,6 +45,6 @@ object Libs {
     const val FIREBASE_TOKEN_GENERATOR = "com.firebase:firebase-token-generator:2.0.0"
 
     // Testing
-    const val JUNIT = "junit:junit:4.13"
+    const val JUNIT = "junit:junit:4.13.1"
     const val MOCKITO = "org.mockito:mockito-all:1.10.19"
 }
