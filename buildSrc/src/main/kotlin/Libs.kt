@@ -11,7 +11,7 @@ object Libs {
     const val JDROID_JAVA_HTTP_OKHTTP = "com.jdroidtools:jdroid-java-http-okhttp:3.0.0"
 
     // https://github.com/InsertKoinIO/koin/blob/master/CHANGELOG.md
-    const val KOIN = "org.koin:koin-core:2.0.1"
+    const val KOIN = "org.koin:koin-core:2.2.2"
 
     // https://github.com/getsentry/sentry-java
     const val SENTRY = "com.getsentry.raven:raven:8.0.3"
