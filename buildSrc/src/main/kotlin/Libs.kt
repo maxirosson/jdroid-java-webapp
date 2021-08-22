@@ -27,7 +27,7 @@ object Libs {
 
     const val JACKSON_CORE = "com.fasterxml.jackson.core:jackson-core:2.12.3"
     const val JACKSON_DATABIND = "com.fasterxml.jackson.core:jackson-databind:2.12.3"
-    const val JACKSON_ANNOTATIONS = "com.fasterxml.jackson.core:jackson-annotations:2.12.3"
+    const val JACKSON_ANNOTATIONS = "com.fasterxml.jackson.core:jackson-annotations:2.12.4"
 
     const val SERVLET_API = "javax.servlet:servlet-api:2.5"
 
