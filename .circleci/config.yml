@@ -141,13 +141,3 @@ workflows:
             - ktlint
             - test
 
-  weekly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * 0"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - upgradeDependencies
